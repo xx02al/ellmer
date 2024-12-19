@@ -10,3 +10,4 @@
 ^vignettes/articles$
 _cache/
 ^cran-comments\.md$
+^CRAN-SUBMISSION$
