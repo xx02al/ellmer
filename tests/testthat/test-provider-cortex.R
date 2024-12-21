@@ -122,7 +122,10 @@ test_that("Cortex API requests are generated correctly", {
     model_file = "@my_db.my_schema.my_stage/model.yaml"
   )
   req <- chat_request(p, FALSE, list(turn))
-  expect_snapshot(req)
+  expect_snapshot(
+    req,
+    transform = function(x) gsub(ellmer_user_agent(), "<ellmer_user_agent>", x, fixed = TRUE)
+  )
   expect_snapshot(req$body$data)
 })
 

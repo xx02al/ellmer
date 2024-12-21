@@ -140,9 +140,7 @@ method(chat_request, ProviderCortex) <- function(provider,
   # so identify requests as coming from "r_ellmer" (unless an explicit
   # partner application is set via the ambient SF_PARTNER environment
   # variable).
-  req <- req_user_agent(
-    req, paste0("r_ellmer/", utils::packageVersion("ellmer"))
-  )
+  req <- req_user_agent(req, ellmer_user_agent())
   if (nchar(Sys.getenv("SF_PARTNER")) != 0) {
     req <- req_user_agent(req, Sys.getenv("SF_PARTNER"))
   }
@@ -156,6 +154,10 @@ method(chat_request, ProviderCortex) <- function(provider,
   req <- req_body_json(req, data)
 
   req
+}
+
+ellmer_user_agent <- function() {
+  paste0("r_ellmer/", utils::packageVersion("ellmer"))
 }
 
 # Cortex -> ellmer --------------------------------------------------------------

@@ -199,7 +199,7 @@ method(value_turn, ProviderOpenAI) <- function(provider, result, has_type = FALS
     result$usage$prompt_tokens %||% NA_integer_,
     result$usage$completion_tokens %||% NA_integer_
   )
-  tokens_log(paste0("OpenAI-", provider@base_url), tokens)
+  tokens_log(paste0("OpenAI-", gsub("https?://", "", provider@base_url)), tokens)
 
   Turn(message$role, content, json = result, tokens = tokens)
 }

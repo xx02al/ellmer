@@ -87,7 +87,7 @@ In general, we recommend avoiding LLMs where accuracy is critical. That said, th
 
 A great place to start with ellmer and LLMs is to build a chatbot with a custom prompt. Chatbots are a familiar interface to LLMs and are easy to create in R with [shinychat](https://github.com/jcheng5/shinychat). And there's a surprising amount of value to creating a custom chatbot that has a prompt stuffed with useful knowledge. For example:
 
-* Help people use your new package. To do so, you need a custom prompt because LLMs were trained on data prior to your package's existence. You can create a surprisingly useful tool just by preloading the prompt with your README and vignettes. This is how the [ellmer assistant](https://github.com/jcheng5/ellmer-assistant) works.
+* Help people use your new package. To do so, you need a custom prompt because LLMs were trained on data prior to your package's existence. You can create a surprisingly useful tool just by preloading the prompt with your README and vignettes. This is how the [ellmer assistant](https://github.com/jcheng5/elmer-assistant) works.
 
 * Build language specific prompts for R and/or python. [Shiny assistant](https://shiny.posit.co/blog/posts/shiny-assistant/) helps you build shiny apps (either in R or python) by combining a [prompt](https://github.com/posit-dev/shiny-assistant/blob/main/shinyapp/app_prompt.md) that gives general advice on building apps with a prompt for [R](https://github.com/posit-dev/shiny-assistant/blob/main/shinyapp/app_prompt_r.md) or [python](https://github.com/posit-dev/shiny-assistant/blob/main/shinyapp/app_prompt_python.md). The python prompt is very detailed because there's much less information about Shiny for Python in the existing LLM knowledgebases.
 
