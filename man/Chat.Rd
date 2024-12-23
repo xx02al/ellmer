@@ -18,7 +18,7 @@ You should generally not create this object yourself,
 but instead call \code{\link[=chat_openai]{chat_openai()}} or friends instead.
 }
 \examples{
-\dontshow{if (ellmer:::openai_key_exists()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (has_credentials("openai")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 chat <- chat_openai(echo = TRUE)
 chat$chat("Tell me a funny joke")
 \dontshow{\}) # examplesIf}

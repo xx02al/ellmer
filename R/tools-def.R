@@ -20,7 +20,7 @@ NULL
 #'   function.
 #' @export
 #' @return An S7 `ToolDef` object.
-#' @examplesIf ellmer:::openai_key_exists()
+#' @examplesIf has_credentials("openai")
 #'
 #' # First define the metadata that the model uses to figure out when to
 #' # call the tool

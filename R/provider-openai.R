@@ -43,7 +43,7 @@ NULL
 #' @family chatbots
 #' @export
 #' @returns A [Chat] object.
-#' @examplesIf ellmer:::openai_key_exists()
+#' @examplesIf has_credentials("openai")
 #' chat <- chat_openai()
 #' chat$chat("
 #'   What is the difference between a tibble and a data frame?

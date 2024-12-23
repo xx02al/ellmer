@@ -15,7 +15,7 @@ NULL
 #' but instead call [chat_openai()] or friends instead.
 #'
 #' @return A Chat object
-#' @examplesIf ellmer:::openai_key_exists()
+#' @examplesIf has_credentials("openai")
 #' chat <- chat_openai(echo = TRUE)
 #' chat$chat("Tell me a funny joke")
 Chat <- R6::R6Class("Chat",

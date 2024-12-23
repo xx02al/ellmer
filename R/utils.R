@@ -81,3 +81,20 @@ dots_named <- function(...) {
   x[[length(x) + 1]] <- value
   x
 }
+
+#' Are credentials avaiable?
+#'
+#' Used for examples/testing.
+#'
+#' @keywords internal
+#' @param provider Provider name.
+#' @export
+has_credentials <- function(provider) {
+  switch(provider,
+    cortex = cortex_credentials_exist(),
+    openai = openai_key_exists(),
+    claude = anthropic_key_exists(),
+    cli::cli_abort("Unknown model {model}.")
+  )
+
+}

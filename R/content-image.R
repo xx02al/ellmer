@@ -15,7 +15,7 @@
 #'   the `chat()`, `stream()`, `chat_async()`, or `stream_async()` methods.
 #'
 #' @export
-#' @examplesIf ellmer:::openai_key_exists()
+#' @examplesIf has_credentials("openai")
 #' chat <- chat_openai(echo = TRUE)
 #' chat$chat(
 #'   "What do you see in these images?",

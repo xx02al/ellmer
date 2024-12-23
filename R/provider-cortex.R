@@ -44,7 +44,7 @@ NULL
 #' @inheritParams chat_openai
 #' @inherit chat_openai return
 #' @family chatbots
-#' @examplesIf ellmer:::cortex_credentials_exist()
+#' @examplesIf has_credentials("cortex")
 #' chat <- chat_cortex(
 #'   model_file = "@my_db.my_schema.my_stage/model.yaml"
 #' )

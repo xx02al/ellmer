@@ -7,9 +7,9 @@ Authors@R: c(
     person("Posit Software, PBC", role = c("cph", "fnd"))
   )
 Description: Chat with large language models from a range of providers
-  including 'Claude', 'OpenAI', 'Azure', 'Bedrock', and 'Google' 'Gemini'.
-  Supports streaming, asynchronous calls, tool calling, and structured data
-  extraction.
+  including 'Claude' <https://claude.ai>, 'OpenAI' <https://chatgpt.com>,
+  and more. Supports streaming, asynchronous calls, tool calling, and
+  structured data extraction.
 License: MIT + file LICENSE
 URL: https://ellmer.tidyverse.org, https://github.com/tidyverse/ellmer
 BugReports: https://github.com/tidyverse/ellmer/issues

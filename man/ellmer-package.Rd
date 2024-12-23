@@ -4,11 +4,11 @@
 \name{ellmer-package}
 \alias{ellmer}
 \alias{ellmer-package}
-\title{ellmer: Call Large Language Model 'API's}
+\title{ellmer: Chat with Large Language Models}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-A consistent interface for calling 'LLM' (large language model) APIs that works across different providers including 'Claude', 'OpenAI' 'Azure' 'Bedrock' and 'Google' 'Gemini'. Supports streaming, 'async', tool calling, and structured data extraction.
+Chat with large language models from a range of providers including 'Claude' \url{https://claude.ai}, 'OpenAI' \url{https://chatgpt.com}, and more. Supports streaming, asynchronous calls, tool calling, and structured data extraction.
 }
 \seealso{
 Useful links:
