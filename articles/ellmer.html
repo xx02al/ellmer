@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ellmer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -159,17 +159,19 @@ printing it, and you can see total usage for a session with
 <code class="sourceCode R"><span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_openai.html">chat_openai</a></span><span class="op">(</span>model <span class="op">=</span> <span class="st">"gpt-4o"</span><span class="op">)</span></span>
 <span><span class="va">.</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"Who created R?"</span>, echo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">chat</span></span>
-<span><span class="co">#&gt; &lt;Chat turns=2 tokens=11/44&gt;</span></span>
+<span><span class="co">#&gt; &lt;Chat turns=2 tokens=11/59&gt;</span></span>
 <span><span class="co">#&gt; ── <span style="color: #0000BB;">user</span> ──────────────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Who created R?</span></span>
 <span><span class="co">#&gt; ── <span style="color: #00BB00;">assistant</span> ─────────────────────────────────────────────────────────────</span></span>
-<span><span class="co">#&gt; R was created by statisticians Ross Ihaka and Robert Gentleman at the</span></span>
-<span><span class="co">#&gt; University of Auckland, New Zealand, in the mid-1990s. It was developed</span></span>
-<span><span class="co">#&gt; as a free software environment for statistical computing and graphics.</span></span>
+<span><span class="co">#&gt; R was created by Ross Ihaka and Robert Gentleman, both of whom were</span></span>
+<span><span class="co">#&gt; statisticians at the University of Auckland in New Zealand. They began</span></span>
+<span><span class="co">#&gt; the development of R in the early 1990s, and it has since evolved into a</span></span>
+<span><span class="co">#&gt; widely used programming language and environment for statistical</span></span>
+<span><span class="co">#&gt; computing and graphics.</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/token_usage.html">token_usage</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                               name input output</span></span>
-<span><span class="co">#&gt; 1 OpenAI-https://api.openai.com/v1    11     44</span></span></code></pre></div>
+<span><span class="co">#&gt;                       name input output</span></span>
+<span><span class="co">#&gt; 1 OpenAI-api.openai.com/v1    11     59</span></span></code></pre></div>
 <p>If you want to learn more about tokens and tokenizers, I’d recommend
 watching the first 20-30 minutes of <a href="https://www.youtube.com/watch?v=zduSFxRajkE" class="external-link">Let’s build the GPT
 Tokenizer</a> by Andrej Karpathy. You certainly don’t need to learn how
@@ -260,7 +262,7 @@ prompt stuffed with useful knowledge. For example:</p>
 <li><p>Help people use your new package. To do so, you need a custom
 prompt because LLMs were trained on data prior to your package’s
 existence. You can create a surprisingly useful tool just by preloading
-the prompt with your README and vignettes. This is how the <a href="https://github.com/jcheng5/ellmer-assistant" class="external-link">ellmer assistant</a>
+the prompt with your README and vignettes. This is how the <a href="https://github.com/jcheng5/elmer-assistant" class="external-link">ellmer assistant</a>
 works.</p></li>
 <li><p>Build language specific prompts for R and/or python. <a href="https://shiny.posit.co/blog/posts/shiny-assistant/" class="external-link">Shiny
 assistant</a> helps you build shiny apps (either in R or python) by
