@@ -1,3 +1,5 @@
+# ellmer (development version)
+
 # ellmer 0.1.0
 
 * New `chat_vllm()` to chat with models served by vLLM (#140).
