@@ -124,10 +124,10 @@ extracts two specific values from a string:</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; $primary_shape</span></span>
-<span><span class="co">#&gt; [1] "round"</span></span>
+<span><span class="co">#&gt; [1] "oval"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $primary_colour</span></span>
-<span><span class="co">#&gt; [1] "blue and gray"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "grey"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="data-types-basics">Data types basics<a class="anchor" aria-label="anchor" href="#data-types-basics"></a>
@@ -232,22 +232,18 @@ you can use structured data extraction.</p>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_summary</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">summary</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The article discusses the necessity of third-party testing in AI policy to ensure the safety and trustworthiness of advanced AI systems. As AI technologies become more powerful and versatile, like models such as Claude, a new regulatory framework is required to mitigate potential societal risks from their use or misuse. The text highlights that an effective oversight structure should involve stakeholders from industry, government, and academia, aiming to build a testing regime that offers public assurance without stifling innovation or disproportionately burdening smaller companies. </span></span>
+<span><span class="co">#&gt; In this insightful article, the AI Policy Team at Anthropic argues for the necessity of third-party testing as a central component of AI policy to mitigate societal harm. The deployment of powerful generative AI systems requires a robust testing framework to validate their safety and responsible use. This notion is underscored by the potential risks these AI systems pose, such as election integrity threats, harmful discrimination, and national security issues. </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Additionally, the article outlines the structure of a robust third-party testing regime that would involve:</span></span>
+<span><span class="co">#&gt; The article promotes the idea of a third-party oversight regime focused on understanding AI model behaviors through effective tests and the participation of trusted third-party administrators. The piece outlines how such a system could facilitate collaboration between industry, government, and academia while avoiding the pitfalls of a regulatory environment that overly burdens small AI innovators. </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; - Developing tests to measure behavior and gauge potential misuse, especially pertaining to critical areas like national security.</span></span>
-<span><span class="co">#&gt; - Incorporating insights from cross-sector collaboration to establish a mutually recognized standard.</span></span>
-<span><span class="co">#&gt; - Balancing between efficiency and thoroughness in testing, with varying degrees of scrutiny depending on AI capabilities and usage scenarios.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; The commentary further links these ideas with overarching policy aims of enhancing AI accountability and prevention of regulatory capture, while emphasizing the need for collaboration and resource allocation to build an effective testing infrastructure.</span></span>
+<span><span class="co">#&gt; It emphasizes the importance of prototype testing regimes and incremental developments in creating the infrastructure needed for effective oversight. National security is cited as a critical domain for initial third-party testing efforts, with opportunities for further collaborations between private companies, universities, and governments in ensuring AI safety and promoting responsible system deployment.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 5</span></span>
-<span><span class="co">#&gt;  $ author    : chr "Unknown Author"</span></span>
-<span><span class="co">#&gt;  $ topics    : chr [1:5] "AI policy" "third-party testing" "technology regulation" "national security" ...</span></span>
-<span><span class="co">#&gt;  $ summary   : chr "The article discusses the necessity of third-party testing in AI policy to ensure the safety and trustworthines"| __truncated__</span></span>
-<span><span class="co">#&gt;  $ coherence : int 95</span></span>
+<span><span class="co">#&gt;  $ author    : chr "AI Policy Team at Anthropic"</span></span>
+<span><span class="co">#&gt;  $ topics    : chr [1:4] "AI Policy" "AI Safety" "Technology" "Regulation"</span></span>
+<span><span class="co">#&gt;  $ summary   : chr "In this insightful article, the AI Policy Team at Anthropic argues for the necessity of third-party testing as "| __truncated__</span></span>
+<span><span class="co">#&gt;  $ coherence : int 90</span></span>
 <span><span class="co">#&gt;  $ persuasion: num 0.85</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -269,13 +265,20 @@ you can use structured data extraction.</p>
 <span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_openai.html">chat_openai</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
 <span><span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_named_entities</span><span class="op">)</span></span>
-<span><span class="co">#&gt;            name         type                                  context</span></span>
-<span><span class="co">#&gt; 1          John       person             Works at Google in New York.</span></span>
-<span><span class="co">#&gt; 2        Google organization                        Where John works.</span></span>
-<span><span class="co">#&gt; 3      New York     location                        Where John works.</span></span>
-<span><span class="co">#&gt; 4         Sarah       person The CEO of Acme Inc. whom John met with.</span></span>
-<span><span class="co">#&gt; 5     Acme Inc. organization      The company where Sarah is the CEO.</span></span>
-<span><span class="co">#&gt; 6 San Francisco     location     Where John met with Sarah last week.</span></span></code></pre></div>
+<span><span class="co">#&gt;            name         type</span></span>
+<span><span class="co">#&gt; 1          John       person</span></span>
+<span><span class="co">#&gt; 2        Google organization</span></span>
+<span><span class="co">#&gt; 3      New York     location</span></span>
+<span><span class="co">#&gt; 4         Sarah       person</span></span>
+<span><span class="co">#&gt; 5     Acme Inc. organization</span></span>
+<span><span class="co">#&gt; 6 San Francisco     location</span></span>
+<span><span class="co">#&gt;                                                            context</span></span>
+<span><span class="co">#&gt; 1 Works at Google in New York and met with Sarah in San Francisco.</span></span>
+<span><span class="co">#&gt; 2                                An organization where John works.</span></span>
+<span><span class="co">#&gt; 3                             The city where John works at Google.</span></span>
+<span><span class="co">#&gt; 4       Met with John in San Francisco and is the CEO of Acme Inc.</span></span>
+<span><span class="co">#&gt; 5                          An organization where Sarah is the CEO.</span></span>
+<span><span class="co">#&gt; 6                         The city where John met Sarah last week.</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-3-sentiment-analysis">Example 3: Sentiment analysis<a class="anchor" aria-label="anchor" href="#example-3-sentiment-analysis"></a>
@@ -335,8 +338,8 @@ guaranteed.</p>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_classification</span><span class="op">)</span></span>
 <span><span class="va">data</span></span>
 <span><span class="co">#&gt;         name score</span></span>
-<span><span class="co">#&gt; 1 Technology  0.90</span></span>
-<span><span class="co">#&gt; 2   Business  0.05</span></span>
+<span><span class="co">#&gt; 1 Technology  0.85</span></span>
+<span><span class="co">#&gt; 2   Business  0.10</span></span>
 <span><span class="co">#&gt; 3      Other  0.05</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -400,7 +403,7 @@ assets and “unearned” income</div>
 <span><span class="co">#&gt; 2 San Francisco/San Francisco, CA, US         5000001         25000000</span></span>
 <span><span class="co">#&gt;   income_type income_low income_high tx_gt_1000</span></span>
 <span><span class="co">#&gt; 1 Grape Sales     100001     1000000       TRUE</span></span>
-<span><span class="co">#&gt; 2        Rent     100001     1000000      FALSE</span></span></code></pre></div>
+<span><span class="co">#&gt; 2        Rent     100001     1000000       TRUE</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -446,7 +449,7 @@ one in the text:</p>
 <span><span class="co">#&gt; [1] "Hadley Wickham"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $date</span></span>
-<span><span class="co">#&gt; [1] "2023-10-16"</span></span>
+<span><span class="co">#&gt; [1] "2023-10-02"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    2 obs. of  9 variables:</span></span>
 <span><span class="co">#&gt;  $ assert_name     : chr  "11 Zinfandel Lane - Home &amp; Vineyard [RP]" "25 Point Lobos - Commercial Property [RP]"</span></span>
@@ -457,7 +460,7 @@ one in the text:</p>
 <span><span class="co">#&gt;  $ income_type     : chr  "Grape Sales" "Rent"</span></span>
 <span><span class="co">#&gt;  $ income_low      : int  100001 100001</span></span>
 <span><span class="co">#&gt;  $ income_high     : int  1000000 1000000</span></span>
-<span><span class="co">#&gt;  $ tx_gt_1000      : logi  TRUE FALSE</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ tx_gt_1000      : logi  TRUE TRUE</span></span></code></pre></div>
 <p>Note that I’ve used more of an explict prompt here. For this example,
 I found that this generated better results, and it’s a useful place to
 put additional instructions.</p>
@@ -525,7 +528,7 @@ much more common in the wild.</p>
 <tr class="odd">
 <td align="left">OpenAI-api.openai.com/v1</td>
 <td align="right">6379</td>
-<td align="right">672</td>
+<td align="right">671</td>
 </tr>
 <tr class="even">
 <td align="left">Claude</td>
