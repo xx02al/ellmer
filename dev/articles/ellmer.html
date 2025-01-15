@@ -160,17 +160,18 @@ printing it, and you can see total usage for a session with
 <code class="sourceCode R"><span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_openai.html">chat_openai</a></span><span class="op">(</span>model <span class="op">=</span> <span class="st">"gpt-4o"</span><span class="op">)</span></span>
 <span><span class="va">.</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"Who created R?"</span>, echo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">chat</span></span>
-<span><span class="co">#&gt; &lt;Chat turns=2 tokens=11/42&gt;</span></span>
+<span><span class="co">#&gt; &lt;Chat turns=2 tokens=11/58&gt;</span></span>
 <span><span class="co">#&gt; ── <span style="color: #0000BB;">user</span> ──────────────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Who created R?</span></span>
 <span><span class="co">#&gt; ── <span style="color: #00BB00;">assistant</span> ─────────────────────────────────────────────────────────────</span></span>
-<span><span class="co">#&gt; R was created by Ross Ihaka and Robert Gentleman at the University of </span></span>
-<span><span class="co">#&gt; Auckland, New Zealand, in the early 1990s. It is a language and </span></span>
-<span><span class="co">#&gt; environment specifically designed for statistical computing and graphics.</span></span>
+<span><span class="co">#&gt; R was created by statisticians Ross Ihaka and Robert Gentleman. They </span></span>
+<span><span class="co">#&gt; began developing R in the early 1990s at the University of Auckland, New </span></span>
+<span><span class="co">#&gt; Zealand. The R language was inspired by the S programming language and </span></span>
+<span><span class="co">#&gt; was formally released as a free software project in 1995.</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/token_usage.html">token_usage</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                       name input output</span></span>
-<span><span class="co">#&gt; 1 OpenAI-api.openai.com/v1    11     42</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 OpenAI-api.openai.com/v1    11     58</span></span></code></pre></div>
 <p>If you want to learn more about tokens and tokenizers, I’d recommend
 watching the first 20-30 minutes of <a href="https://www.youtube.com/watch?v=zduSFxRajkE" class="external-link">Let’s build the GPT
 Tokenizer</a> by Andrej Karpathy. You certainly don’t need to learn how
@@ -244,8 +245,8 @@ extremely valuable even if you end up using those more specialised tools
 in your final product.</p>
 <p>In general, we recommend avoiding LLMs where accuracy is critical.
 That said, there are still many cases for their use. For example, even
-though they always requires some manual fiddling, you might save a bunch
-of time evern with an 80% correct solution. In fact, even a not-so-good
+though they always require some manual fiddling, you might save a bunch
+of time ever with an 80% correct solution. In fact, even a not-so-good
 solution can still be useful because it makes it easier to get started:
 it’s easier to react to something rather than to have to start from
 scratch with a blank page.</p>
