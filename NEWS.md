@@ -1,5 +1,7 @@
 # ellmer (development version)
 
+* `option(ellmer_verbosity)` is no longer supported; instead use the standard httr2 verbosity functions which now support streaming data.
+
 * `print(Chat)` no longer wraps long lines, making it easier to read code and bulleted lists (#246).
 
 * `chat_openai()` should be less likely to timeout when not streaming chat results (#213).
