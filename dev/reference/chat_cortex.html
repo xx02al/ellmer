@@ -8,6 +8,8 @@ reference to an existing file in a Snowflake Stage.
 Note that Cortex does not support multi-turn, so it will not remember
 previous messages. Nor does it support registering tools, and attempting to
 do so will result in an error.
+See chat_snowflake() to chat with more general-purpose models hosted on
+Snowflake.
 Authentication
 
 
@@ -31,6 +33,8 @@ reference to an existing file in a Snowflake Stage.
 Note that Cortex does not support multi-turn, so it will not remember
 previous messages. Nor does it support registering tools, and attempting to
 do so will result in an error.
+See chat_snowflake() to chat with more general-purpose models hosted on
+Snowflake.
 Authentication
 
 
@@ -95,7 +99,9 @@ starting point. The semantic model can be passed as a YAML string or via
 reference to an existing file in a Snowflake Stage.</p>
 <p>Note that Cortex does not support multi-turn, so it will not remember
 previous messages. Nor does it support registering tools, and attempting to
-do so will result in an error.</p><div class="section">
+do so will result in an error.</p>
+<p>See <code><a href="chat_snowflake.html">chat_snowflake()</a></code> to chat with more general-purpose models hosted on
+Snowflake.</p><div class="section">
 <h3 id="authentication">Authentication<a class="anchor" aria-label="anchor" href="#authentication"></a></h3>
 
 
@@ -113,7 +119,7 @@ to one) environment variables.</p></li>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">chat_cortex</span><span class="op">(</span></span>
-<span>  account <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"SNOWFLAKE_ACCOUNT"</span><span class="op">)</span>,</span>
+<span>  account <span class="op">=</span> <span class="fu">snowflake_account</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  credentials <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  model_spec <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  model_file <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -128,7 +134,8 @@ to one) environment variables.</p></li>
 
 <dl><dt id="arg-account">account<a class="anchor" aria-label="anchor" href="#arg-account"></a></dt>
 <dd><p>A Snowflake <a href="https://docs.snowflake.com/en/user-guide/admin-account-identifier" class="external-link">account identifier</a>,
-e.g. <code>"testorg-test_account"</code>.</p></dd>
+e.g. <code>"testorg-test_account"</code>. Defaults to the value of the
+<code>SNOWFLAKE_ACCOUNT</code> environment variable.</p></dd>
 
 
 <dt id="arg-credentials">credentials<a class="anchor" aria-label="anchor" href="#arg-credentials"></a></dt>
