@@ -158,63 +158,76 @@ the console).</p></li>
 <span class="r-in"><span><span class="st">  What is the difference between a tibble and a data frame?</span></span></span>
 <span class="r-in"><span><span class="st">  Answer with a bulleted list</span></span></span>
 <span class="r-in"><span><span class="st">"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Printing Behavior**:  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - *Tibble*: Prints a concise summary that shows only the first 10 rows </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> and as many columns as can fit in the screen width, providing a cleaner </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> and potentially more readable output.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - *Data Frame*: Attempts to print the entire data set, which can be </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> overwhelming for large data frames.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Origin**:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: A fundamental data structure in R, part of base R.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: A modern reimagining of data frames, part of the `tibble`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> package in the `tidyverse`.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Column Data Types**:  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - *Tibble*: Maintains data types and does not automatically convert </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> character vectors to factors. This preserves the original data type.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - *Data Frame*: By default, may convert character vectors to factors, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> though this behavior can be controlled with the `stringsAsFactors` </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> argument.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Printing**:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: Prints all the rows and columns by default, which can</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> be overwhelming for large datasets.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Prints only the first 10 rows and as many columns as fit </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> on screen, providing a more readable output. Offers a more controlled and</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> concise print method.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Column Access by Partial Matching**:  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - *Tibble*: Does not support partial matching of column names. Trying </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> to access a column with a partially matched name will result in an error.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - *Data Frame*: Allows partial matching when accessing columns, which </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> can lead to unexpected results if column names are similar.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Subsetting**:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: Subsetting operations can yield vectors for a single </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> column.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Subsetting by a single column always returns a tibble, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> retaining the original structure of the data.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Subsetting and Extraction**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - *Tibble*: Returns data in a consistent way, maintaining tibble </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> structure for one-column data and not simplifying it automatically to a </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> vector.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - *Data Frame*: May simplify the structure when subsetting, such as </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> converting one-column data frames into vectors.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Data Types and Coercion**:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: May sometimes change data types if a column contains </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mixed types.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Maintains strict type consistency, avoiding unexpected </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> conversions.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Advanced Features**:  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - *Tibble*: Supports advanced features like validation of column names </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> and types upon creation, and is often used in conjunction with tidyverse </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> functions for enhanced data manipulation capabilities.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - *Data Frame*: Offers more basic functionality, adhering to base R </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> standards and lacking some of the advanced features provided by tibbles.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Row Names**:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: Supports row names which can sometimes introduce </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> complexity.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Does not support row names, promoting simpler </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> manipulations and consistency.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Package Integration**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - *Tibble*: Comes from the tidyverse package, making it more compatible</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> and integrated with tidyverse tools and workflows.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - *Data Frame*: Part of base R, therefore not dependent on additional </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> packages for basic usage.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Column Access**:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: Can have some inconsistencies and surprises when </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> using functions due to partial matching.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Prioritizes non-ambiguous access with strict, regular </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> column naming and access rules.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Overall, tibbles are designed to be more user-friendly and compatible </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> with modern data analysis paradigms, especially within the tidyverse </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ecosystem, while data frames provide a more traditional approach with </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> standard R behavior.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Package Dependency**:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: Does not require any additional packages; it’s </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> built-in with base R.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Requires the `tibble` package, usually accessed via the </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> `tidyverse`.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Enhanced Features**:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: Provides basic functionalities with limited modern </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> conveniences.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Offers additional functionalities and compatibility with </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> `tidyverse` tools, enhancing usability.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Performance and Efficiency**:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: Generally efficient, but older infrastructure might </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lack some optimizations.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Designed with efficiency in mind for modern data tasks, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> often streamlined for better performance in data analysis tasks.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"Tell me three funny jokes about statistcians"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Sure, here are three light-hearted jokes about statisticians:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Sure, here are three jokes about statisticians:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1. Why don't statisticians play hide and seek?</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    - They're too good at finding significance!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1. **Law of Averages**:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    - Why don't statisticians play hide and seek?</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    - Because good luck hiding, the entire population is their sample </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> size!</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2. How many statisticians does it take to change a light bulb?</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    - Just one, but it takes a dozen to determine the confidence interval.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2. **Marriage Advice**:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    - Why did the statistician marry his librarian?</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    - Because he found her significant at the 0.05 level!</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3. Did you hear about the statistician who drowned in a lake with an </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> average depth of three feet?</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    - He should've realized that averages can be misleading!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3. **Cautious Forecast**:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    - How do you know a statistician is making predictions?</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    - Because they'll always say "on average" and still hedge their bets </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> with "but your results may vary"!</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
