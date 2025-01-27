@@ -158,55 +158,64 @@ the console).</p></li>
 <span class="r-in"><span><span class="st">  What is the difference between a tibble and a data frame?</span></span></span>
 <span class="r-in"><span><span class="st">  Answer with a bulleted list</span></span></span>
 <span class="r-in"><span><span class="st">"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Printing**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - Tibbles have a more concise and readable display by default, showing </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> only the first 10 rows and the columns that fit the screen width, whereas</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> data frames display all columns and the complete set of data rows which </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> can be unwieldy for large datasets.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Class**: A tibble is a modern reimagining of the data frame, provided</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> by the `tibble` package in R. It is a specific type of data frame that </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> comes with additional features. Data frames are the traditional R objects</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> used to store tabular data.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Column Data Types**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - Tibbles retain data types of columns more consistently and do not </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> change column types automatically, unlike data frames which might convert</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> strings to factors by default in some older versions of R.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Printing**: Tibbles have a neat printing method that displays only </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> the first 10 rows and as many columns as can fit on screen. This is </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> designed to avoid overwhelming the console, unlike data frames, which </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> print all rows and can potentially fill up the console with large data </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sets.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Subsetting**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - Tibbles are stricter about subsetting; they do not perform partial </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> matching when accessing elements by name, reducing unintended errors. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Meanwhile, data frames allow partial matching which can sometimes lead to</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> unexpected results.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Subset Operations**: Tibbles are more strict with subsetting. For </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> example, when you attempt to access a column that does not exist, a </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> tibble will return an error, while a data frame might return `NULL`.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Addition of Columns**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - You can add a new column to a tibble directly through an assignment </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> using a list, and it automatically adjusts for recycled values. Data </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> frames usually require a more explicit matching of column lengths when </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> adding columns.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Column Names**: Tibbles can have column names that are not valid R </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> identifiers (e.g., column names with spaces or non-alphanumeric </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> characters), whereas traditional data frames do not allow this without </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> additional handling.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Classes**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - Tibbles inherit from the `tbl_df` class in addition to being a </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> `data.frame`, whereas traditional data frames only have the `data.frame` </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> class.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Data Types**: Tibbles won't automatically convert character vectors </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> to factors, which is the default behavior in data frames, unless </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> specified.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Handling Non-Standard Column Names**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - Tibbles can hold columns with non-standard names (such as those with </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> spaces or symbols), while data frames may not handle them well without </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> extra handling.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Partial Matching**: Tibbles do not perform partial matching of column</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> names, while data frames do, which can lead to unintended results if </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> column names are partially matched.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Tibbles are part of the Tidyverse, providing a modern, user-friendly </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alternative to traditional data frames, especially for handling larger </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> and more complex data structures.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Features**: Tibbles come equipped with modern features for data </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> manipulation due to their integration with the `tidyverse` suite of </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> packages, promoting more efficient and readable data manipulation </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> operations.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Performance**: For the most part, performance is similar, but tibbles</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> are better integrated with `dplyr` and other `tidyverse` packages, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> facilitating optimized operations in data analysis workflows.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Overall, tibbles provide a more user-friendly and safer alternative for </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> working with data in R, especially in the context of the `tidyverse`.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"Tell me three funny jokes about statistcians"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sure, here are three light-hearted jokes about statisticians:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1. How can you tell someone is a statistician?</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    - They always have a significant other... and some data on the side.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1. **The Blind Man and the Statisticians**:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    - Why don’t statisticians play hide and seek?</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    - Because good luck hiding, statistically, they're always going to </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> find a mean in your location!</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2. Why did the statistician bring a ladder to her presentation?</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    - Because she heard the data had a few outliers and wanted to reach </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> new "heights"!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2. **The Statistician and the Perfect Partner**:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    - Why did the statistician break up with the physicist?</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    - They had a great moment, but there was just no significant </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> correlation!</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3. A statistician can have his head in an oven and his feet in ice, and </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> he says that on average he feels fine!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3. **The Statistician’s Dream**:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    - A statistician's spouse asked, "How do you always know where you are</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> when you're dreaming?"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    - The statistician replied, "Simple. I just plot myself on a </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> scatterdream."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> I hope these bring a smile to your face!</span>
 </code></pre></div>
