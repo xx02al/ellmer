@@ -71,14 +71,15 @@ chat_azure <- function(endpoint = azure_endpoint(),
   }
   check_string(endpoint)
   check_string(deployment_id)
-  api_version <- set_default(api_version, "2024-06-01")
+  api_version <- set_default(api_version, "2024-10-21")
   turns <- normalize_turns(turns, system_prompt)
   check_exclusive(token, credentials, .require = FALSE)
   check_string(api_key, allow_null = TRUE)
   api_key <- api_key %||% Sys.getenv("AZURE_OPENAI_API_KEY")
   check_string(token, allow_null = TRUE)
   echo <- check_echo(echo)
- if (is_list(credentials)) {
+
+  if (is_list(credentials)) {
     static_credentials <- force(credentials)
     credentials <- function() static_credentials
   }
@@ -94,6 +95,18 @@ chat_azure <- function(endpoint = azure_endpoint(),
     extra_args = api_args
   )
   Chat$new(provider = provider, turns = turns, echo = echo)
+}
+
+chat_azure_test <- function(system_prompt = NULL, ...) {
+  api_key <- key_get("AZURE_OPENAI_API_KEY")
+
+  chat_azure(
+    ...,
+    system_prompt = system_prompt,
+    api_key = api_key,
+    endpoint = "https://ai-hwickhamai260967855527.openai.azure.com",
+    deployment_id = "gpt-4o-mini"
+  )
 }
 
 ProviderAzure <- new_class(
