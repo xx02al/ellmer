@@ -158,66 +158,66 @@ the console).</p></li>
 <span class="r-in"><span><span class="st">  What is the difference between a tibble and a data frame?</span></span></span>
 <span class="r-in"><span><span class="st">  Answer with a bulleted list</span></span></span>
 <span class="r-in"><span><span class="st">"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Class**: A tibble is a modern reimagining of the data frame, provided</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> by the `tibble` package in R. It is a specific type of data frame that </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> comes with additional features. Data frames are the traditional R objects</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> used to store tabular data.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Printing:**  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame:** Prints all rows and columns by default, which can be </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> overwhelming for large datasets.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble:** Only prints the first 10 rows and summarizes columns that</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> do not fit on the screen, making it easier to work with larger datasets.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Printing**: Tibbles have a neat printing method that displays only </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> the first 10 rows and as many columns as can fit on screen. This is </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> designed to avoid overwhelming the console, unlike data frames, which </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> print all rows and can potentially fill up the console with large data </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sets.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Column Data Types:**  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame:** Sometimes converts characters to factors by default </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> when importing data.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble:** Does not convert character vectors to factors unless </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> explicitly told to do so, preserving the original data type.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Subset Operations**: Tibbles are more strict with subsetting. For </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> example, when you attempt to access a column that does not exist, a </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> tibble will return an error, while a data frame might return `NULL`.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Subclassing:**  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame:** Is a base R data structure without additional </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> subclass support.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble:** Is a modernized S3 class that extends the data frame, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> allowing for additional functionality and consistency.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Column Names**: Tibbles can have column names that are not valid R </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> identifiers (e.g., column names with spaces or non-alphanumeric </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> characters), whereas traditional data frames do not allow this without </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> additional handling.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Subsetting and Slicing:**  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame:** Uses different indexing methods (`$`, `[`, `[[]]`) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> which can sometimes be inconsistent or unintuitive.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble:** Keeps subsetting consistent and simplifies slicing, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> especially when dealing with row names and non-standard evaluation.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Data Types**: Tibbles won't automatically convert character vectors </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> to factors, which is the default behavior in data frames, unless </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> specified.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Adding Columns:**  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame:** Adding a new column with a name that already exists </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> will overwrite the existing column without warning.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble:** Typically gives a more informative warning to prevent </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> accidental overwrites.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Partial Matching**: Tibbles do not perform partial matching of column</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> names, while data frames do, which can lead to unintended results if </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> column names are partially matched.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Attributes:**  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame:** Attributes, like row names, are often carried </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> silently in operations.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble:** Generally does not carry row names, as attributes are </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> kept minimal, focusing on data integrity and simplicity.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Features**: Tibbles come equipped with modern features for data </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> manipulation due to their integration with the `tidyverse` suite of </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> packages, promoting more efficient and readable data manipulation </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> operations.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Performance**: For the most part, performance is similar, but tibbles</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> are better integrated with `dplyr` and other `tidyverse` packages, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> facilitating optimized operations in data analysis workflows.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Overall, tibbles provide a more user-friendly and safer alternative for </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> working with data in R, especially in the context of the `tidyverse`.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Development and Support:**  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame:** Core R data structure that is stable but more static </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> in terms of updates and new features.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble:** Part of the tidyverse, it benefits from ongoing </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> development and enhancements oriented towards modern data analysis </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> practices.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"Tell me three funny jokes about statistcians"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sure, here are three light-hearted jokes about statisticians:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1. **The Blind Man and the Statisticians**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    - Why don’t statisticians play hide and seek?</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    - Because good luck hiding, statistically, they're always going to </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> find a mean in your location!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1. **Confidence Issues:**</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    - Why don’t statisticians trust stairs?</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    - Because they’re always up to something and leading you in </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> potentially misleading directions!</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2. **The Statistician and the Perfect Partner**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    - Why did the statistician break up with the physicist?</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    - They had a great moment, but there was just no significant </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> correlation!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2. **Data Party:**</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    - Why shouldn't you invite a statistician to a party?</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    - Because they’ll analyze the spread and variance of the dance floor!</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3. **The Statistician’s Dream**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    - A statistician's spouse asked, "How do you always know where you are</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> when you're dreaming?"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    - The statistician replied, "Simple. I just plot myself on a </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> scatterdream."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3. **Probabilistic Pondering:**</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    - What’s a statistician’s favorite tea?</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    - Chai-squared, because it’s all about testing the fit!</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> I hope these bring a smile to your face!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> I hope these brought a smile to your face!</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -227,7 +227,7 @@ the console).</p></li>
    </div>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, Joe Cheng, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" width="62" style="margin-bottom: 3px;"></a>.</p>
+  <p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, Joe Cheng, Aaron Jacobs, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" width="62" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
