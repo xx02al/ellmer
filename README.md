@@ -63,7 +63,10 @@ recommendations to help you get started:
 
 - `chat_gemini()` is great for large prompts because it has a much
   larger context window than other models. It allows up to 1 million
-  tokens, compared to Claude 3.5 Sonnet’s 200k and GPT-4o’s 128k.
+  tokens, compared to Claude 3.5 Sonnet’s 200k and GPT-4o’s 128k. It
+  also comes with a generous free tier (with the downside that [your
+  data is used](https://ai.google.dev/gemini-api/terms#unpaid-services)
+  to improve the model).
 
 - `chat_ollama()`, which uses [Ollama](https://ollama.com), allows you
   to run models on your own computer. While the biggest models you can
