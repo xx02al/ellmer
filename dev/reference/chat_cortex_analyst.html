@@ -11,6 +11,8 @@ SNOWFLAKE_PRIVATE_KEY (which can be a PEM-encoded private key or a path
 to one) environment variables.
 Posit Workbench-managed Snowflake credentials for the corresponding
 account.
+Viewer-based credentials on Posit Connect. Requires the connectcreds
+package.
 
 
 
@@ -42,6 +44,8 @@ SNOWFLAKE_PRIVATE_KEY (which can be a PEM-encoded private key or a path
 to one) environment variables.
 Posit Workbench-managed Snowflake credentials for the corresponding
 account.
+Viewer-based credentials on Posit Connect. Requires the connectcreds
+package.
 
 
 
@@ -114,6 +118,8 @@ variable.</p></li>
 to one) environment variables.</p></li>
 <li><p>Posit Workbench-managed Snowflake credentials for the corresponding
 <code>account</code>.</p></li>
+<li><p>Viewer-based credentials on Posit Connect. Requires the <span class="pkg">connectcreds</span>
+package.</p></li>
 </ul></div>
 
 <div class="section">
@@ -159,7 +165,7 @@ e.g. <code>"testorg-test_account"</code>. Defaults to the value of the
 <dt id="arg-credentials">credentials<a class="anchor" aria-label="anchor" href="#arg-credentials"></a></dt>
 <dd><p>A list of authentication headers to pass into
 <code><a href="https://httr2.r-lib.org/reference/req_headers.html" class="external-link">httr2::req_headers()</a></code>, a function that returns them when called, or
-<code>NULL</code> to use ambient credentials.</p></dd>
+<code>NULL</code>, the default, to use ambient credentials.</p></dd>
 
 
 <dt id="arg-model-spec">model_spec<a class="anchor" aria-label="anchor" href="#arg-model-spec"></a></dt>

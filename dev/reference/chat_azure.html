@@ -6,12 +6,14 @@ Authentication
 
 
 chat_azure() supports API keys and the credentials parameter, but it also
-picks up on Azure service principals automatically when the
-AZURE_TENANT_ID, AZURE_CLIENT_ID, and AZURE_CLIENT_SECRET environment
-variables are set.
-Finally, in interactive sessions it will also attempt to use Microsoft Entra
-ID authentication – much like the Azure CLI – if no API key has been
-provided.
+makes use of:
+Azure service principals (when the AZURE_TENANT_ID, AZURE_CLIENT_ID,
+and AZURE_CLIENT_SECRET environment variables are set).
+Interactive Entra ID authentication, like the Azure CLI.
+Viewer-based credentials on Posit Connect. Requires the connectcreds
+package.
+
+
 
 "><meta property="og:description" content="The Azure OpenAI server
 hosts a number of open source models as well as proprietary models
@@ -20,12 +22,14 @@ Authentication
 
 
 chat_azure() supports API keys and the credentials parameter, but it also
-picks up on Azure service principals automatically when the
-AZURE_TENANT_ID, AZURE_CLIENT_ID, and AZURE_CLIENT_SECRET environment
-variables are set.
-Finally, in interactive sessions it will also attempt to use Microsoft Entra
-ID authentication – much like the Azure CLI – if no API key has been
-provided.
+makes use of:
+Azure service principals (when the AZURE_TENANT_ID, AZURE_CLIENT_ID,
+and AZURE_CLIENT_SECRET environment variables are set).
+Interactive Entra ID authentication, like the Azure CLI.
+Viewer-based credentials on Posit Connect. Requires the connectcreds
+package.
+
+
 
 "><meta property="og:image" content="https://ellmer.tidyverse.org/logo.png"><meta name="robots" content="noindex"><script defer data-domain="ellmer.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
@@ -76,13 +80,12 @@ from OpenAI.</p><div class="section">
 
 
 <p><code>chat_azure()</code> supports API keys and the <code>credentials</code> parameter, but it also
-picks up on Azure service principals automatically when the
-<code>AZURE_TENANT_ID</code>, <code>AZURE_CLIENT_ID</code>, and <code>AZURE_CLIENT_SECRET</code> environment
-variables are set.</p>
-<p>Finally, in interactive sessions it will also attempt to use Microsoft Entra
-ID authentication – much like the Azure CLI – if no API key has been
-provided.</p>
-</div>
+makes use of:</p><ul><li><p>Azure service principals (when the <code>AZURE_TENANT_ID</code>, <code>AZURE_CLIENT_ID</code>,
+and <code>AZURE_CLIENT_SECRET</code> environment variables are set).</p></li>
+<li><p>Interactive Entra ID authentication, like the Azure CLI.</p></li>
+<li><p>Viewer-based credentials on Posit Connect. Requires the <span class="pkg">connectcreds</span>
+package.</p></li>
+</ul></div>
 
     </div>
 
