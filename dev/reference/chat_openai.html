@@ -158,81 +158,61 @@ the console).</p></li>
 <span class="r-in"><span><span class="st">  What is the difference between a tibble and a data frame?</span></span></span>
 <span class="r-in"><span><span class="st">  Answer with a bulleted list</span></span></span>
 <span class="r-in"><span><span class="st">"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Introduction**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: A data frame is a widely-used fundamental data </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> structure in R for storing tabular data. It is similar to a matrix but </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> can contain heterogeneous data types across columns.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: A tibble is a modern reimagining of the data frame </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> provided by the "tibble" package in R, part of the tidyverse ecosystem, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> designed to address some limitations of data frames.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Printing**:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Provides a more user-friendly print output. It shows only</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> the first 10 rows and the columns that fit on your screen, preventing the</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> console from being overwhelmed.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: Prints all columns and rows (or a large number of </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> them), which can clutter the console when dealing with large datasets.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Data Representation**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: Displays the entire dataset when printed, which can </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> be unwieldy for large datasets.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Displays only a subset of the data (first few rows and </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> columns) when printed, automatically adjusting output based on the </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> console width.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Column Retrieval by Name**:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Allows column retrieval with the `$` operator without </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> partial matching. If there's no exact match, it will result in an error.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: Allows partial matching of column names when using </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> the `$` operator, which can sometimes lead to unexpected results.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Handling Data Types**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: Can have issues with automatic type conversion. For </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> example, strings may be converted to factors by default.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Does not perform automatic conversion to factors. It </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> keeps characters as characters unless explicitly told otherwise.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Support for List Columns**:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Supports columns that contain complex objects, such as </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> lists or custom objects, more naturally.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: While possible, handling list columns can be less </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> straightforward and may require additional manipulation.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Column Access**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: Allows partial name matching when accessing columns, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> which can lead to ambiguity.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Requires exact column names, providing clearer and more </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> explicit code.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Variable Names**:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Can have non-syntactic names (e.g., names with spaces or </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> symbols) without issues.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: Non-syntactic names can be managed but might require </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> backticks or additional handling in certain functions.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - **Subsetting**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: Subsetting a single column returns it as a vector.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Subsetting a single column returns it as a tibble, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ensuring consistency in data types.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Subsetting a single column returns a tibble, not a </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> vector, which promotes consistency in handling columns.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: Subsetting a single column returns a vector, which </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> can sometimes lead to unexpected behavior if further operations assume a </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> data frame structure.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Error Messages**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: Often provides less informative error messages, which</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> can be challenging for debugging.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Provides more informative, user-friendly error messages </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> to facilitate debugging and development.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Default Data Type**:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Preserves data types better when importing (e.g., </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> characters stay as characters instead of being converted to factors).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: By default, character vectors are converted to </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> factors (though this can be changed with options).</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Feature Set**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: Limited feature set, as it represents the base R data</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> structure.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Comes with additional features and benefits from </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> integration within the tidyverse, making it more versatile and easier to </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> use with other tidyverse functions.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Column Manipulation Functions**:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Commonly used alongside the `dplyr` package, which offers</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> efficient and easy-to-read functions for data manipulation.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: While data manipulation is possible, it often </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> requires using base R functions or more verbose code.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - **Row Names**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: Uses row names, which can lead to less efficient </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> handling of large datasets.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Does not use row names by default, aligning with the </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> tidyverse design principles for handling data in a consistent manner.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Tibbles are designed to provide a more consistent and user-friendly </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> experience when working with tabular data, especially within the </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> tidyverse framework, while still maintaining compatibility with base R </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> data frames.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Tibble**: Does not use row names. Instead, row names are converted </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> to an explicit column if necessary.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - **Data Frame**: Supports row names, which are often used </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> traditionally but can complicate certain operations.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"Tell me three funny jokes about statistcians"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Sure, here are three light-hearted jokes about statisticians:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Sure! Here are three lighthearted jokes about statisticians:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1. **Mean Statistician**: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    - Why don't statisticians like to play hide and seek?</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    - Because good luck hiding from someone who's always looking for </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> patterns!</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2. **Significant Others**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    - Why don't statisticians have significant others?</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    - Because they insist on testing each relationship for significance </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> first!</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3. **Probability Party**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    - How does a statistician organize a party?</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    - They make sure to invite an adequate sample size, cover all the </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> confounding variables, and leave room for margin of error!</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> I hope these brought a smile to your face!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1. </span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in readBin(resp$body, raw(), n = min(chunk_size, max_size - length(buffer) +     1)):</span> Stream error in the HTTP/2 framing layer [api.openai.com]: HTTP/2 stream 1 was not closed cleanly: INTERNAL_ERROR (err 2)</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
