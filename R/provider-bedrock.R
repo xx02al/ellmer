@@ -7,24 +7,45 @@ NULL
 #' Chat with an AWS bedrock model
 #'
 #' @description
-#' [AWS Bedrock](https://aws.amazon.com/bedrock/) provides a number of chat
-#' based models, including those Anthropic's
-#' [Claude](https://aws.amazon.com/bedrock/claude/).
+#' [AWS Bedrock](https://aws.amazon.com/bedrock/) provides a number of
+#' language models, including those from Anthropic's
+#' [Claude](https://aws.amazon.com/bedrock/claude/), using the Bedrock
+#' [Converse API](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_Converse.html).
 #'
 #' ## Authentication
 #'
-#' Authenthication is handled through \{paws.common\}, so if authenthication
+#' Authentication is handled through \{paws.common\}, so if authentication
 #' does not work for you automatically, you'll need to follow the advice
 #' at <https://www.paws-r-sdk.com/#credentials>. In particular, if your
 #' org uses AWS SSO, you'll need to run `aws sso login` at the terminal.
 #'
 #' @param profile AWS profile to use.
+#' @param model ellmer provides a default model, but you'll typically need to
+#'   you'll specify a model that you actually have access to.
+#'
+#'   If you're using [cross-region inference](https://aws.amazon.com/blogs/machine-learning/getting-started-with-cross-region-inference-in-amazon-bedrock/),
+#'   you'll need to use the inference profile ID, e.g.
+#'   `model="us.anthropic.claude-3-5-sonnet-20240620-v1:0"`.
+#' @param api_args Named list of arbitrary extra arguments appended to the body
+#'   of every chat API call. Some useful arguments include:
+#'
+#'   ```R
+#'   api_args = list(
+#'     inferenceConfig = list(
+#'       maxTokens = 100,
+#'       temperature = 0.7,
+#'       topP = 0.9,
+#'       topK = 20
+#'     )
+#'   )
+#'   ```
 #' @inheritParams chat_openai
 #' @inherit chat_openai return
 #' @family chatbots
 #' @export
 #' @examples
 #' \dontrun{
+#' # Basic usage
 #' chat <- chat_bedrock()
 #' chat$chat("Tell me three jokes about statisticians")
 #' }
@@ -32,6 +53,7 @@ chat_bedrock <- function(system_prompt = NULL,
                          turns = NULL,
                          model = NULL,
                          profile = NULL,
+                         api_args = list(),
                          echo = NULL) {
 
   check_installed("paws.common", "AWS authentication")
@@ -47,7 +69,8 @@ chat_bedrock <- function(system_prompt = NULL,
     model = model,
     profile = profile,
     region = credentials$region,
-    cache = cache
+    cache = cache,
+    extra_args = api_args
   )
 
   Chat$new(provider = provider, turns = turns, echo = echo)
@@ -123,11 +146,14 @@ method(chat_request, ProviderBedrock) <- function(provider,
   }
 
   # https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_Converse.html
-  req <- req_body_json(req, list(
+  body <- list(
     messages = messages,
     system = system,
     toolConfig = toolConfig
-  ))
+  )
+  extra_args <- utils::modifyList(provider@extra_args, extra_args)
+  body <- modify_list(body, extra_args)
+  req <- req_body_json(req, body)
 
   req
 }
@@ -145,15 +171,17 @@ method(stream_parse, ProviderBedrock) <- function(provider, event) {
 
   body <- event$body
   body$event_type <- event$headers$`:event-type`
-  body$p <- NULL # padding?
+  body$p <- NULL # padding? Looks like: "p": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJ",
 
   body
 }
+
 method(stream_text, ProviderBedrock) <- function(provider, event) {
   if (event$event_type == "contentBlockDelta") {
     event$delta$text
   }
 }
+
 method(stream_merge_chunks, ProviderBedrock) <- function(provider, result, chunk) {
   i <- chunk$contentBlockIndex + 1
 
@@ -324,7 +352,7 @@ paws_credentials <- function(profile, cache = aws_creds_cache(profile),
       creds <- locate_aws_credentials(profile),
       error = function(cnd) {
         if (is_testing()) {
-          testthat::skip("Failed to locate AWS credentails")
+          testthat::skip("Failed to locate AWS credentials")
         }
         cli::cli_abort("No IAM credentials found.", parent = cnd)
       }
