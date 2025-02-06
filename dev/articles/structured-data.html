@@ -79,16 +79,15 @@
     
     
 <p>When using an LLM to extract data from text or images, you can ask
-the chatbot to nicely format it, in JSON or any other format that you
-like. This will generally work well most of the time, but there’s no
-guarantee that you’ll get the exact format that you want. In particular,
-if you’re trying to get JSON, find that it’s typically surrounded in
-<code>```json</code>, and you’ll occassionally get text that isn’t
-actually valid JSON. To avoid these challenges you can use a recent LLM
-feature: <strong>structured data</strong> (aka structured output). With
-structured data, you supply a type specification that exactly defines
-the object structure that you want and the LLM will guarantee that’s
-what you get back.</p>
+the chatbot to format it in JSON or any other format that you like. This
+works well most of the time, but there’s no guarantee that you’ll get
+the exact format you want. In particular, if you’re trying to get JSON,
+you’ll find that it’s typically surrounded in <code>```json</code>, and
+you’ll occasionally get text that isn’t valid JSON. To avoid these
+problems, you can use a recent LLM feature: <strong>structured
+data</strong> (aka structured output). With structured data, you supply
+the type specification that defines the object structure you want and
+the LLM ensures that’s what you’ll get back.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ellmer.tidyverse.org">ellmer</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
@@ -124,10 +123,10 @@ extracts two specific values from a string:</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; $primary_shape</span></span>
-<span><span class="co">#&gt; [1] "oval and letter"</span></span>
+<span><span class="co">#&gt; [1] "oval and letter 'R'"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $primary_colour</span></span>
-<span><span class="co">#&gt; [1] "grey and blue"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "gray and blue"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="data-types-basics">Data types basics<a class="anchor" aria-label="anchor" href="#data-types-basics"></a>
@@ -232,15 +231,15 @@ you can use structured data extraction.</p>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_summary</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">summary</span><span class="op">)</span></span>
-<span><span class="co">#&gt; This article emphasizes the need for third-party testing and oversight in managing AI systems, especially frontier generative AI models like Claude. As AI systems are capable yet inherently risky, a robust testing regime is crucial to ensure societal safety and trust. The article outlines the necessity and framework for third-party testing regimes. It highlights the importance of collaboration with industry, government, and academia to create effective policy interventions. It underscores the necessity of iterating on testing standards to manage today's AI challenges and provide infrastructure for future innovations. The piece emphasizes a balanced approach that prevents regulatory capture and enables open dissemination while ensuring sufficient oversight for national security and preventing misuse.</span></span>
+<span><span class="co">#&gt; In this article, Anthropic discusses the pressing need for implementing effective third-party testing regimes for frontier AI systems. As AI continues to become more powerful, ensuring such systems are deployed safely becomes critical to prevent societal harm. Anthropic argues that involving industry, government, and academia in the development of a standard testing framework is essential. The piece outlines the challenges and strategies associated with setting up such a regime, emphasizing its necessity for managing AI's potential misuse, ensuring national security, and building public trust. They propose a structured approach involving automated and human-led evaluations and advocate for regulatory initiatives to support third-party testing, which is poised to become a crucial aspect of AI safety protocols. The article also highlights potential pitfalls, such as regulatory capture, and stresses the importance of crafting balanced policies to foster an open, competitive AI ecosystem.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 5</span></span>
-<span><span class="co">#&gt;  $ author    : chr "Anonymous"</span></span>
-<span><span class="co">#&gt;  $ topics    : chr [1:6] "AI" "Policy" "Regulation" "Third-party testing" ...</span></span>
-<span><span class="co">#&gt;  $ summary   : chr "This article emphasizes the need for third-party testing and oversight in managing AI systems, especially front"| __truncated__</span></span>
+<span><span class="co">#&gt;  $ author    : chr "Anthropic"</span></span>
+<span><span class="co">#&gt;  $ topics    : chr [1:5] "AI policy" "third-party testing" "AI safety" "regulatory compliance" ...</span></span>
+<span><span class="co">#&gt;  $ summary   : chr "In this article, Anthropic discusses the pressing need for implementing effective third-party testing regimes f"| __truncated__</span></span>
 <span><span class="co">#&gt;  $ coherence : int 90</span></span>
-<span><span class="co">#&gt;  $ persuasion: num 0.7</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ persuasion: num 0.85</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-2-named-entity-recognition">Example 2: Named entity recognition<a class="anchor" aria-label="anchor" href="#example-2-named-entity-recognition"></a>
@@ -268,13 +267,13 @@ you can use structured data extraction.</p>
 <span><span class="co">#&gt; 4         Sarah       person</span></span>
 <span><span class="co">#&gt; 5     Acme Inc. organization</span></span>
 <span><span class="co">#&gt; 6 San Francisco     location</span></span>
-<span><span class="co">#&gt;                                                         context</span></span>
-<span><span class="co">#&gt; 1 Works at Google in New York; met with Sarah in San Francisco.</span></span>
-<span><span class="co">#&gt; 2                         Employer of John located in New York.</span></span>
-<span><span class="co">#&gt; 3                                    Location where John works.</span></span>
-<span><span class="co">#&gt; 4        CEO of Acme Inc.; met John last week in San Francisco.</span></span>
-<span><span class="co">#&gt; 5                            Company of which Sarah is the CEO.</span></span>
-<span><span class="co">#&gt; 6                          City where John met Sarah last week.</span></span></code></pre></div>
+<span><span class="co">#&gt;                                                                context</span></span>
+<span><span class="co">#&gt; 1                                    John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 2                                    John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 3                                    John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 4 He met with Sarah, the CEO of Acme Inc., last week in San Francisco.</span></span>
+<span><span class="co">#&gt; 5                                        Sarah is the CEO of Acme Inc.</span></span>
+<span><span class="co">#&gt; 6                        He met with Sarah last week in San Francisco.</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-3-sentiment-analysis">Example 3: Sentiment analysis<a class="anchor" aria-label="anchor" href="#example-3-sentiment-analysis"></a>
@@ -334,9 +333,9 @@ guaranteed.</p>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_classification</span><span class="op">)</span></span>
 <span><span class="va">data</span></span>
 <span><span class="co">#&gt;         name score</span></span>
-<span><span class="co">#&gt; 1 Technology   0.7</span></span>
-<span><span class="co">#&gt; 2   Business   0.2</span></span>
-<span><span class="co">#&gt; 3      Other   0.1</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 Technology  0.80</span></span>
+<span><span class="co">#&gt; 2   Business  0.15</span></span>
+<span><span class="co">#&gt; 3      Other  0.05</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-5-working-with-unknown-keys">Example 5: Working with unknown keys<a class="anchor" aria-label="anchor" href="#example-5-working-with-unknown-keys"></a>
@@ -391,9 +390,9 @@ assets and “unearned” income</div>
 <span><span class="va">image</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/content_image_url.html">content_image_file</a></span><span class="op">(</span><span class="st">"congressional-assets.png"</span><span class="op">)</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">image</span>, type <span class="op">=</span> <span class="va">type_assets</span><span class="op">)</span></span>
 <span><span class="va">data</span></span>
-<span><span class="co">#&gt;                            assert_name owner</span></span>
-<span><span class="co">#&gt; 1  11 Zinfandel Lane - Home &amp; Vineyard    JT</span></span>
-<span><span class="co">#&gt; 2 25 Point Lobos - Commercial Property    SP</span></span>
+<span><span class="co">#&gt;                                 assert_name owner</span></span>
+<span><span class="co">#&gt; 1  11 Zinfandel Lane - Home &amp; Vineyard [RP]    JT</span></span>
+<span><span class="co">#&gt; 2 25 Point Lobos - Commercial Property [RP]    SP</span></span>
 <span><span class="co">#&gt;                              location asset_value_low asset_value_high</span></span>
 <span><span class="co">#&gt; 1             St. Helena/Napa, CA, US         5000001         25000000</span></span>
 <span><span class="co">#&gt; 2 San Francisco/San Francisco, CA, US         5000001         25000000</span></span>
@@ -445,10 +444,10 @@ one in the text:</p>
 <span><span class="co">#&gt; [1] "Hadley Wickham"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $date</span></span>
-<span><span class="co">#&gt; [1] ""</span></span>
+<span><span class="co">#&gt; [1] "2023-10-05"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    2 obs. of  9 variables:</span></span>
-<span><span class="co">#&gt;  $ assert_name     : chr  "11 Zinfandel Lane - Home &amp; Vineyard" "25 Point Lobos - Commercial Property"</span></span>
+<span><span class="co">#&gt;  $ assert_name     : chr  "11 Zinfandel Lane - Home &amp; Vineyard [RP]" "25 Point Lobos - Commercial Property [RP]"</span></span>
 <span><span class="co">#&gt;  $ owner           : chr  "JT" "SP"</span></span>
 <span><span class="co">#&gt;  $ location        : chr  "St. Helena/Napa, CA, US" "San Francisco/San Francisco, CA, US"</span></span>
 <span><span class="co">#&gt;  $ asset_value_low : int  5000001 5000001</span></span>
@@ -524,12 +523,12 @@ much more common in the wild.</p>
 <tr class="odd">
 <td align="left">OpenAI-api.openai.com/v1</td>
 <td align="right">6379</td>
-<td align="right">581</td>
+<td align="right">637</td>
 </tr>
 <tr class="even">
 <td align="left">Claude</td>
 <td align="right">480</td>
-<td align="right">139</td>
+<td align="right">136</td>
 </tr>
 </tbody>
 </table>
