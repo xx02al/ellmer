@@ -41,7 +41,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ellmer-development-version">ellmer (development version)<a class="anchor" aria-label="anchor" href="#ellmer-development-version"></a></h2>
-<ul><li><p><code>Chat$get_model()</code> returns the model name (<a href="https://github.com/tidyverse/ellmer/issues/299" class="external-link">#299</a>).</p></li>
+<ul><li><p>New <code><a href="../reference/content_pdf_file.html">content_pdf_file()</a></code> and <code><a href="../reference/content_pdf_file.html">content_pdf_url()</a></code> allow you to upload PDFs to supported models. Models that currently support PDFs are Google Gemini and Claude Anthropic. With help from <a href="https://github.com/walkerke" class="external-link">@walkerke</a> and <a href="https://github.com/andrie" class="external-link">@andrie</a> (<a href="https://github.com/tidyverse/ellmer/issues/265" class="external-link">#265</a>).</p></li>
+<li><p><code>Chat$get_model()</code> returns the model name (<a href="https://github.com/tidyverse/ellmer/issues/299" class="external-link">#299</a>).</p></li>
 <li><p><code><a href="../reference/chat_gemini.html">chat_gemini()</a></code> now defaults to using the gemini-2.0-flash model.</p></li>
 <li><p><code><a href="../reference/chat_azure.html">chat_azure()</a></code> now defaults <code>api_version = "2024-10-21"</code> which includes data for structured data extraction (<a href="https://github.com/tidyverse/ellmer/issues/271" class="external-link">#271</a>).</p></li>
 <li><p><code><a href="../reference/chat_openrouter.html">chat_openrouter()</a></code> provides support for OpenRouter models (<a href="https://github.com/tidyverse/ellmer/issues/212" class="external-link">#212</a>)</p></li>
