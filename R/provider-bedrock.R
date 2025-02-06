@@ -12,7 +12,7 @@ NULL
 #' [Claude](https://aws.amazon.com/bedrock/claude/).
 #'
 #' ## Authentication
-#' 
+#'
 #' Authenthication is handled through \{paws.common\}, so if authenthication
 #' does not work for you automatically, you'll need to follow the advice
 #' at <https://www.paws-r-sdk.com/#credentials>. In particular, if your
@@ -267,6 +267,20 @@ method(as_json, list(ProviderBedrock, ContentImageInline)) <- function(provider,
   )
 }
 
+# https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_DocumentBlock.html
+method(as_json, list(ProviderBedrock, ContentPDF)) <- function(provider, x) {
+  list(
+    document = list(
+      #> This field is vulnerable to prompt injections, because the model
+      #> might inadvertently interpret it as instructions. Therefore, we
+      #> that you specify a neutral name.
+      name = bedrock_document_name(),
+      format = "pdf",
+      source = list(bytes = x@data)
+    )
+  )
+}
+
 # https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_ToolUseBlock.html
 method(as_json, list(ProviderBedrock, ContentToolRequest)) <- function(provider, x) {
   list(
@@ -328,3 +342,11 @@ locate_aws_credentials <- function(profile) {
 aws_creds_cache <- function(profile) {
   credentials_cache(key = hash(c("aws", profile)))
 }
+
+bedrock_document_name <- local({
+  i <- 1
+  function() {
+    i <<- i + 1
+    paste0("document-", i)
+  }
+})
