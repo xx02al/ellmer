@@ -1,4 +1,4 @@
-# ellmer (development version)
+# ellmer 0.1.1
 
 ## Lifecycle changes
 
