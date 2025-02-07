@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ellmer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -159,19 +159,18 @@ printing it, and you can see total usage for a session with
 <code class="sourceCode R"><span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_openai.html">chat_openai</a></span><span class="op">(</span>model <span class="op">=</span> <span class="st">"gpt-4o"</span><span class="op">)</span></span>
 <span><span class="va">.</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"Who created R?"</span>, echo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">chat</span></span>
-<span><span class="co">#&gt; &lt;Chat turns=2 tokens=11/59&gt;</span></span>
+<span><span class="co">#&gt; &lt;Chat turns=2 tokens=11/48&gt;</span></span>
 <span><span class="co">#&gt; ── <span style="color: #0000BB;">user</span> ──────────────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Who created R?</span></span>
 <span><span class="co">#&gt; ── <span style="color: #00BB00;">assistant</span> ─────────────────────────────────────────────────────────────</span></span>
-<span><span class="co">#&gt; R was created by Ross Ihaka and Robert Gentleman, both of whom were</span></span>
-<span><span class="co">#&gt; statisticians at the University of Auckland in New Zealand. They began</span></span>
-<span><span class="co">#&gt; the development of R in the early 1990s, and it has since evolved into a</span></span>
-<span><span class="co">#&gt; widely used programming language and environment for statistical</span></span>
-<span><span class="co">#&gt; computing and graphics.</span></span>
+<span><span class="co">#&gt; R was created by Ross Ihaka and Robert Gentleman in the mid-1990s. They </span></span>
+<span><span class="co">#&gt; developed it at the University of Auckland, New Zealand. R is an </span></span>
+<span><span class="co">#&gt; open-source programming language and software environment used for </span></span>
+<span><span class="co">#&gt; statistical computing and graphics.</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/token_usage.html">token_usage</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                       name input output</span></span>
-<span><span class="co">#&gt; 1 OpenAI-api.openai.com/v1    11     59</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 OpenAI-api.openai.com/v1    11     48</span></span></code></pre></div>
 <p>If you want to learn more about tokens and tokenizers, I’d recommend
 watching the first 20-30 minutes of <a href="https://www.youtube.com/watch?v=zduSFxRajkE" class="external-link">Let’s build the GPT
 Tokenizer</a> by Andrej Karpathy. You certainly don’t need to learn how
@@ -210,19 +209,24 @@ finish it with another.</p></li>
 <p>The user prompt is the question that you send to the model. There are
 two other important prompts that underlie the user prompt:</p>
 <ul>
-<li><p>The <strong>core system prompt</strong>, which is unchangeable,
-set by the model provider, and affects every conversation. You can see
-what these look like from Anthropic, who <a href="https://docs.anthropic.com/en/release-notes/system-prompts" class="external-link">publishes
+<li><p>The <strong>platform prompt</strong>, which is unchangeable, set
+by the model provider, and affects every conversation. You can see what
+these look like from Anthropic, who <a href="https://docs.anthropic.com/en/release-notes/system-prompts" class="external-link">publishes
 their core system prompts</a>.</p></li>
-<li><p>The <strong>system prompt</strong>, which is set when you create
-a new conversation, and affects every response. It’s used to provide
-additional instructions to the model, shaping its responses to your
-needs. For example, you might use the system prompt to ask the model to
-always respond in Spanish or to write dependency-free base R code. You
-can also use the system prompt to provide the model with information it
-wouldn’t otherwise know, like the details of your database schema, or
-your preferred ggplot2 theme and color palette.</p></li>
+<li><p>The <strong>system prompt</strong> (aka developer prompt), which
+is set when you create a new conversation, and affects every response.
+It’s used to provide additional instructions to the model, shaping its
+responses to your needs. For example, you might use the system prompt to
+ask the model to always respond in Spanish or to write dependency-free
+base R code. You can also use the system prompt to provide the model
+with information it wouldn’t otherwise know, like the details of your
+database schema, or your preferred ggplot2 theme and color
+palette.</p></li>
 </ul>
+<p>OpenAI calls this the <a href="https://cdn.openai.com/spec/model-spec-2024-05-08.html#follow-the-chain-of-command" class="external-link">chain
+of command</a>: if there are conflicts or inconsistencies the prompts,
+the platform prompt overrides the system prompt, which in turn overrides
+the user prompt.</p>
 <p>When you use a chat app like ChatGPT or claude.ai you can only
 iterate on the user prompt. But when you’re programming with LLMs,
 you’ll primarily iterate on the system prompt. For example, if you’re
@@ -245,8 +249,8 @@ extremely valuable even if you end up using those more specialised tools
 in your final product.</p>
 <p>In general, we recommend avoiding LLMs where accuracy is critical.
 That said, there are still many cases for their use. For example, even
-though they always requires some manual fiddling, you might save a bunch
-of time evern with an 80% correct solution. In fact, even a not-so-good
+though they always require some manual fiddling, you might save a bunch
+of time ever with an 80% correct solution. In fact, even a not-so-good
 solution can still be useful because it makes it easier to get started:
 it’s easier to react to something rather than to have to start from
 scratch with a blank page.</p>
@@ -382,7 +386,7 @@ plots to match your corporate style guide.</p></li>
    </div>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, Joe Cheng, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" width="62" style="margin-bottom: 3px;"></a>.</p>
+  <p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, Joe Cheng, Aaron Jacobs, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" width="62" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

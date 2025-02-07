@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ellmer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +69,7 @@
         <dd>Chat with an Anthropic Claude model</dd>
       </dl><dl><dt>
 
-          <code><a href="chat_cortex.html">chat_cortex()</a></code>
+          <code><a href="chat_cortex_analyst.html">chat_cortex_analyst()</a></code>
 
         </dt>
         <dd>Create a chatbot that speaks to the Snowflake Cortex Analyst</dd>
@@ -79,6 +79,12 @@
 
         </dt>
         <dd>Chat with a model hosted on Databricks</dd>
+      </dl><dl><dt>
+
+          <code><a href="chat_deepseek.html">chat_deepseek()</a></code>
+
+        </dt>
+        <dd>Chat with a model hosted on DeepSeek</dd>
       </dl><dl><dt>
 
           <code><a href="chat_gemini.html">chat_gemini()</a></code>
@@ -111,10 +117,22 @@
         <dd>Chat with an OpenAI model</dd>
       </dl><dl><dt>
 
+          <code><a href="chat_openrouter.html">chat_openrouter()</a></code>
+
+        </dt>
+        <dd>Chat with one of the many models hosted on OpenRouter</dd>
+      </dl><dl><dt>
+
           <code><a href="chat_perplexity.html">chat_perplexity()</a></code>
 
         </dt>
         <dd>Chat with a model hosted on perplexity.ai</dd>
+      </dl><dl><dt>
+
+          <code><a href="chat_snowflake.html">chat_snowflake()</a></code>
+
+        </dt>
+        <dd>Chat with a model hosted on Snowflake</dd>
       </dl><dl><dt>
 
           <code><a href="chat_vllm.html">chat_vllm()</a></code>
@@ -149,7 +167,13 @@
           <code><a href="content_image_url.html">content_image_url()</a></code> <code><a href="content_image_url.html">content_image_file()</a></code> <code><a href="content_image_url.html">content_image_plot()</a></code>
 
         </dt>
-        <dd>Encode image content for chat input</dd>
+        <dd>Encode images for chat input</dd>
+      </dl><dl><dt>
+
+          <code><a href="content_pdf_file.html">content_pdf_file()</a></code> <code><a href="content_pdf_file.html">content_pdf_url()</a></code>
+
+        </dt>
+        <dd>Encode PDFs content for chat input</dd>
       </dl><dl><dt>
 
           <code><a href="live_console.html">live_console()</a></code> <code><a href="live_console.html">live_browser()</a></code>
@@ -210,7 +234,7 @@
         <dd>A chatbot provider</dd>
       </dl><dl><dt>
 
-          <code><a href="Content.html">Content()</a></code> <code><a href="Content.html">ContentText()</a></code> <code><a href="Content.html">ContentImage()</a></code> <code><a href="Content.html">ContentImageRemote()</a></code> <code><a href="Content.html">ContentImageInline()</a></code> <code><a href="Content.html">ContentToolRequest()</a></code> <code><a href="Content.html">ContentToolResult()</a></code>
+          <code><a href="Content.html">Content()</a></code> <code><a href="Content.html">ContentText()</a></code> <code><a href="Content.html">ContentImage()</a></code> <code><a href="Content.html">ContentImageRemote()</a></code> <code><a href="Content.html">ContentImageInline()</a></code> <code><a href="Content.html">ContentToolRequest()</a></code> <code><a href="Content.html">ContentToolResult()</a></code> <code><a href="Content.html">ContentPDF()</a></code>
 
         </dt>
         <dd>Content types received from and sent to a chatbot</dd>
@@ -251,7 +275,7 @@
    </div>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, Joe Cheng, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" width="62" style="margin-bottom: 3px;"></a>.</p>
+  <p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, Joe Cheng, Aaron Jacobs, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" width="62" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
