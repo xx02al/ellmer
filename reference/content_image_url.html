@@ -40,7 +40,7 @@ image, while content_image_file() is used to provide the image data itself."><me
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Encode images for chat input</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ellmer/blob/main/R/content-image.R" class="external-link"><code>R/content-image.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ellmer/blob/v0.1.1/R/content-image.R" class="external-link"><code>R/content-image.R</code></a></small>
       <div class="d-none name"><code>content_image_url.Rd</code></div>
     </div>
 
@@ -115,15 +115,12 @@ the <code>chat()</code>, <code>stream()</code>, <code>chat_async()</code>, or <c
 <span class="r-in"><span>  <span class="fu">content_image_url</span><span class="op">(</span><span class="st">"https://www.r-project.org/Rlogo.png"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="fu">content_image_file</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"httr2.png"</span>, package <span class="op">=</span> <span class="st">"ellmer"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The first image is the logo for R, a programming language used primarily </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> for statistical computing and graphics, featuring a large blue letter "R"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> in front of a gray oval.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> The first image is the logo for the R programming language, featuring a </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> blue letter "R" overlaid on a gray stylized letter "C".</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The second image is a hexagonal design featuring a red silhouette of a </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> baseball player swinging a bat. Above the player, the text "httr2" is </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> written in a stylized script. The background is dark blue, and a small </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> icon with "WWW" is visible. This likely represents a package or library </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> related to R programming, possibly involving HTTP requests.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> The second image is a hexagonal icon for the "httr2" package, which </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> depicts a baseball player swinging a bat, with "httr2" written in </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> stylized text above.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">waiting</span> <span class="op">~</span> <span class="va">eruptions</span>, data <span class="op">=</span> <span class="va">faithful</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="content_image_url-1.png" alt="" width="700" height="433"></span>
@@ -135,13 +132,15 @@ the <code>chat()</code>, <code>stream()</code>, <code>chat_async()</code>, or <c
 <span class="r-in"><span><span class="st">   2-5 major visual patterns."</span>,</span></span>
 <span class="r-in"><span>   <span class="fu">content_image_plot</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> This plot is a line graph depicting a mathematical function. The x-axis </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ranges from -10 to 10, while the y-axis spans from -1 to 1. The graph </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> shows the function $y = \sin(x)$ with a characteristic wave-like pattern.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The sine wave oscillates smoothly between 1 and -1, crossing the x-axis </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> at intervals that correspond to multiples of π (approximately 3.14). The </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> crests of the wave align at y = 1, and the troughs align at y = -1, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> demonstrating the periodic nature of the sine function.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> This plot is a scatter plot with "Sepal Length (cm)" on the x-axis and </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "Sepal Width (cm)" on the y-axis, representing data for three different </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> types of flowers, each depicted with distinct colors and markers. The </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> blue dots, representing setosa, cluster tightly with relatively </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> consistent sepal length and width. The orange triangles, representing </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> versicolor, show a moderate spread along the x-axis with slight variation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> on the y-axis. Meanwhile, the green squares, representing virginica, are </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> more dispersed, indicating a wider range of sepal sizes, and tend to </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> occupy higher values on both axes compared to the other two species.</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

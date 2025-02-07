@@ -40,7 +40,7 @@ Learn more in vignette("tool-calling").'><meta property="og:image" content="http
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Define a tool</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ellmer/blob/main/R/tools-def.R" class="external-link"><code>R/tools-def.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ellmer/blob/v0.1.1/R/tools-def.R" class="external-link"><code>R/tools-def.R</code></a></small>
       <div class="d-none name"><code>tool.Rd</code></div>
     </div>
 
@@ -105,8 +105,14 @@ function.</p></dd>
 <span class="r-in"><span><span class="st">  Give me five numbers from a random normal distribution.</span></span></span>
 <span class="r-in"><span><span class="st">"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> To provide you with five numbers from a random normal distribution, I'll </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> need to know the mean and standard deviation you'd like to use for this </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> distribution. Could you please provide those?</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> need some details:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1. The mean (average) of the distribution.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2. The standard deviation, which indicates how much variation or </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> dispersion there is from the average.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Could you please specify these parameters? If not, I can also assume a </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> standard normal distribution with a mean of 0 and a standard deviation of</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Look at the chat history to see how tool calling works:</span></span></span>
 <span class="r-in"><span><span class="co"># Assistant sends a tool request which is evaluated locally and</span></span></span>
