@@ -8,6 +8,10 @@ To authenticate, we recommend saving your
 API key to
 the GOOGLE_API_KEY env var in your .Renviron
 (which you can easily edit by calling usethis::edit_r_environ()).
+By default, chat_gemini() will use Google's default application credentials
+if there is no API key provided. This requires the gargle package.
+It can also pick up on viewer-based credentials on Posit Connect. This in
+turn requires the connectcreds package.
 
 "><meta property="og:description" content="
 
@@ -18,6 +22,10 @@ To authenticate, we recommend saving your
 API key to
 the GOOGLE_API_KEY env var in your .Renviron
 (which you can easily edit by calling usethis::edit_r_environ()).
+By default, chat_gemini() will use Google's default application credentials
+if there is no API key provided. This requires the gargle package.
+It can also pick up on viewer-based credentials on Posit Connect. This in
+turn requires the connectcreds package.
 
 "><meta property="og:image" content="https://ellmer.tidyverse.org/logo.png"><script defer data-domain="ellmer.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
@@ -56,7 +64,7 @@ the GOOGLE_API_KEY env var in your .Renviron
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Chat with a Google Gemini model</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ellmer/blob/v0.1.1/R/provider-gemini.R" class="external-link"><code>R/provider-gemini.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ellmer/blob/main/R/provider-gemini.R" class="external-link"><code>R/provider-gemini.R</code></a></small>
       <div class="d-none name"><code>chat_gemini.Rd</code></div>
     </div>
 
@@ -70,6 +78,10 @@ the GOOGLE_API_KEY env var in your .Renviron
 <a href="https://aistudio.google.com/app/apikey" class="external-link">API key</a> to
 the <code>GOOGLE_API_KEY</code> env var in your <code>.Renviron</code>
 (which you can easily edit by calling <code>usethis::edit_r_environ()</code>).</p>
+<p>By default, <code>chat_gemini()</code> will use Google's default application credentials
+if there is no API key provided. This requires the <span class="pkg">gargle</span> package.</p>
+<p>It can also pick up on viewer-based credentials on Posit Connect. This in
+turn requires the <span class="pkg">connectcreds</span> package.</p>
 </div>
 
     </div>
@@ -80,7 +92,7 @@ the <code>GOOGLE_API_KEY</code> env var in your <code>.Renviron</code>
 <span>  system_prompt <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  turns <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  base_url <span class="op">=</span> <span class="st">"https://generativelanguage.googleapis.com/v1beta/"</span>,</span>
-<span>  api_key <span class="op">=</span> <span class="fu">gemini_key</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  api_key <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  model <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  api_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  echo <span class="op">=</span> <span class="cn">NULL</span></span>
@@ -108,7 +120,7 @@ scratch.</p></dd>
 <dt id="arg-api-key">api_key<a class="anchor" aria-label="anchor" href="#arg-api-key"></a></dt>
 <dd><p>The API key to use for authentication. You generally should
 not supply this directly, but instead set the <code>GOOGLE_API_KEY</code> environment
-variable.</p></dd>
+variable. Or leave it as <code>NULL</code> to use ambient credentials.</p></dd>
 
 
 <dt id="arg-model">model<a class="anchor" aria-label="anchor" href="#arg-model"></a></dt>
