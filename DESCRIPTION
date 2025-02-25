@@ -79,6 +79,7 @@ Collate:
     'provider-cortex.R'
     'provider-databricks.R'
     'provider-deepseek.R'
+    'provider-gemini-upload.R'
     'provider-gemini.R'
     'provider-github.R'
     'provider-groq.R'
