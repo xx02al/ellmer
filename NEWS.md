@@ -1,5 +1,7 @@
 # ellmer (development version)
 
+* `create_tool_def()` can now use any Chat instance (#118, @pedrobtz).
+
 * New `$chat_parallel()` and `$extract_data_parallel()` make it easier to
   perform multiple actions in parallel (#143). For Claude, note that the number
   of active connections is limited primarily by the output tokens per limit
