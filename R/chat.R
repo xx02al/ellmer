@@ -102,7 +102,8 @@ Chat <- R6::R6Class("Chat",
       }
       # Add prompt, if new
       if (is.character(value)) {
-        private$.turns <- c(list(Turn("system", value)), private$.turns)
+        system_turn <- Turn("system", value, completed = NULL)
+        private$.turns <- c(list(system_turn), private$.turns)
       }
       invisible(self)
     },
