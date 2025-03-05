@@ -233,8 +233,10 @@ will be used.}
 \if{html}{\out{<a id="method-Chat-chat_parallel"></a>}}
 \if{latex}{\out{\hypertarget{method-Chat-chat_parallel}{}}}
 \subsection{Method \code{chat_parallel()}}{
-Submit multiple prompts in parallel. Returns a list of
-\link{Chat} objects, one for each prompt.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+Submit multiple prompts in parallel. Returns a list of \link{Chat} objects,
+one for each prompt.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Chat$chat_parallel(prompts, max_active = 10, rpm = 500)}\if{html}{\out{</div>}}
 }
@@ -284,6 +286,8 @@ data frames and arrays of strings into a character vector.}
 \if{html}{\out{<a id="method-Chat-extract_data_parallel"></a>}}
 \if{latex}{\out{\hypertarget{method-Chat-extract_data_parallel}{}}}
 \subsection{Method \code{extract_data_parallel()}}{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 Submit multiple prompts in parallel. Returns a list of
 extracted data, one for each prompt.
 \subsection{Usage}{

@@ -153,8 +153,10 @@ Chat <- R6::R6Class("Chat",
       if (echo == "none") text else invisible(text)
     },
 
-    #' @description Submit multiple prompts in parallel. Returns a list of
-    #'   [Chat] objects, one for each prompt.
+    #' @description `r lifecycle::badge("experimental")`
+    #'
+    #'   Submit multiple prompts in parallel. Returns a list of [Chat] objects,
+    #'   one for each prompt.
     #' @param prompts A list of user prompts.
     #' @param max_active The maximum number of simultaenous requests to send.
     #' @param rpm Maximum number of requests per minute.
@@ -212,7 +214,9 @@ Chat <- R6::R6Class("Chat",
       extract_data(turn, type, convert = convert, needs_wrapper = needs_wrapper)
     },
 
-    #' @description Submit multiple prompts in parallel. Returns a list of
+    #' @description `r lifecycle::badge("experimental")`
+    #'
+    #'   Submit multiple prompts in parallel. Returns a list of
     #'   extracted data, one for each prompt.
     #' @param prompts A list of user prompts.
     #' @param type A type specification for the extracted data. Should be
