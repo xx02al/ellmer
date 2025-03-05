@@ -1,5 +1,7 @@
 # ellmer (development version)
 
+* `provider_claude()` now supports `content_image_url()` (#347).
+
 * `provider_claude()` now defaults to Sonnet 3.7 and displays the default
   model (336).
 
