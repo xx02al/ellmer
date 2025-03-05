@@ -95,7 +95,7 @@ method(chat_request, ProviderDatabricks) <- function(provider,
   # `/serving-endpoints/<model>/invocations`.
   req <- req_url_path_append(req, "/serving-endpoints/chat/completions")
   req <- ellmer_req_credentials(req, provider@credentials)
-  req <- req_user_agent(req, databricks_user_agent())
+  req <- ellmer_req_user_agent(req, databricks_user_agent())
   req <- req_retry(req, max_tries = 2)
   req <- ellmer_req_timeout(req, stream)
   req <- req_error(req, body = function(resp) {

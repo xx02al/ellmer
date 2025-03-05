@@ -1,5 +1,10 @@
 # ellmer (development version)
 
+* All requests now set a custom User-Agent that identifies that the requests
+  comes from ellmer (#341).
+
+* `provider_claude()` now supports `content_image_url()` (#347).
+
 * `chat_claude()` gains `beta_header` argument to opt-in to beta features (#339).
 
 * `chat_claude()` now supports `content_image_url()` (#347).
