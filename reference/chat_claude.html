@@ -92,6 +92,7 @@ the <code>ANTHROPIC_API_KEY</code> env var in your <code>.Renviron</code>
 <span>  model <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  api_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  base_url <span class="op">=</span> <span class="st">"https://api.anthropic.com/v1"</span>,</span>
+<span>  beta_headers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  api_key <span class="op">=</span> <span class="fu">anthropic_key</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  echo <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -128,6 +129,11 @@ of every chat API call.</p></dd>
 
 <dt id="arg-base-url">base_url<a class="anchor" aria-label="anchor" href="#arg-base-url"></a></dt>
 <dd><p>The base URL to the endpoint; the default uses OpenAI.</p></dd>
+
+
+<dt id="arg-beta-headers">beta_headers<a class="anchor" aria-label="anchor" href="#arg-beta-headers"></a></dt>
+<dd><p>Optionally, a character vector of beta headers to opt-in
+claude features that are still in beta.</p></dd>
 
 
 <dt id="arg-api-key">api_key<a class="anchor" aria-label="anchor" href="#arg-api-key"></a></dt>
@@ -174,12 +180,14 @@ the console).</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1. A statistician is someone who can put their head in an oven, their </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> feet in a freezer, and say "On average, I feel fine."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2. What's the difference between a statistician and an accountant? The</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> accountant knows they're boring.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2. How many statisticians does it take to change a light bulb?</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    "Well... just one, but they need to do it 30 times to achieve </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> statistical significance."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3. How many statisticians does it take to change a light bulb? </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "Well...define 'change'. Also, we need a larger sample size of light </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> bulbs to determine if this one is actually broken or just an outlier."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3. Two statisticians go hunting. They spot a deer and the first one </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> fires, missing 5 feet to the left. The second one shoots and misses 5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feet to the right. They both jump up shouting, "We got it! We got it! </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> On average, that deer is dead!"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
