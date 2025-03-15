@@ -230,15 +230,19 @@ you can use structured data extraction.</p>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_summary</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">summary</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The blog post emphasizes the need for an effective third-party testing regime for AI systems to prevent societal harms and ensure safety. Anthropic advocates for collaboration among industry, government, and academia to develop such a framework, arguing that current self-regulatory measures are inadequate. The article outlines the components of a robust testing regime, including trusted third parties, national security safeguards, and specific legal mandates. Anthropic pledges to support this initiative by sharing their insights and working towards establishing effective, fair testing standards for AI.</span></span>
+<span><span class="co">#&gt; The article discusses the imperative for implementing third-party testing in the AI sector to validate the safety of frontier AI systems. As AI models grow increasingly complex and powerful, effective oversight becomes crucial to prevent deliberate or accidental societal harm.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Developing a rigorous third-party testing regime involves cooperation among industry, government, and academia to establish an ecosystem that can address issues such as election integrity, harmful discrimination, and national security risks. Establishing a universally trusted and applied testing process ensures that the benefits of AI technology are realized without succumbing to its potential misuses.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; While Anthropic implements self-governance policies like the Responsible Scaling Policy (RSP), it advocates for broader oversight. This includes collaborating with entities like governments and universities, supplementing industry self-governance with legal requirements to further ensure AI system safety and mitigate misuse risks.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 5</span></span>
-<span><span class="co">#&gt;  $ author    : chr "Anthropic"</span></span>
-<span><span class="co">#&gt;  $ topics    : chr [1:5] "AI policy" "Third-party testing" "AI safety" "Regulation" ...</span></span>
-<span><span class="co">#&gt;  $ summary   : chr "The blog post emphasizes the need for an effective third-party testing regime for AI systems to prevent societa"| __truncated__</span></span>
-<span><span class="co">#&gt;  $ coherence : int 90</span></span>
-<span><span class="co">#&gt;  $ persuasion: num 0.8</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ author    : chr "Anthropic Team"</span></span>
+<span><span class="co">#&gt;  $ topics    : chr [1:5] "AI Policy" "AI Safety" "Third-Party Testing" "Regulatory Compliance" ...</span></span>
+<span><span class="co">#&gt;  $ summary   : chr "The article discusses the imperative for implementing third-party testing in the AI sector to validate the safe"| __truncated__</span></span>
+<span><span class="co">#&gt;  $ coherence : int 95</span></span>
+<span><span class="co">#&gt;  $ persuasion: num 0.85</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-2-named-entity-recognition">Example 2: Named entity recognition<a class="anchor" aria-label="anchor" href="#example-2-named-entity-recognition"></a>
@@ -266,13 +270,13 @@ you can use structured data extraction.</p>
 <span><span class="co">#&gt; 4         Sarah       person</span></span>
 <span><span class="co">#&gt; 5     Acme Inc. organization</span></span>
 <span><span class="co">#&gt; 6 San Francisco     location</span></span>
-<span><span class="co">#&gt;                                               context</span></span>
-<span><span class="co">#&gt; 1 John is mentioned as working at Google in New York.</span></span>
-<span><span class="co">#&gt; 2                         John works at this company.</span></span>
-<span><span class="co">#&gt; 3                           This is where John works.</span></span>
-<span><span class="co">#&gt; 4         Sarah is identified as the CEO of Acme Inc.</span></span>
-<span><span class="co">#&gt; 5                   Sarah is the CEO of this company.</span></span>
-<span><span class="co">#&gt; 6              John met Sarah in this city last week.</span></span></code></pre></div>
+<span><span class="co">#&gt;                                                                    context</span></span>
+<span><span class="co">#&gt; 1         works at Google in New York and met with Sarah in San Francisco.</span></span>
+<span><span class="co">#&gt; 2                                   where John works, located in New York.</span></span>
+<span><span class="co">#&gt; 3                   the city where Google is located and where John works.</span></span>
+<span><span class="co">#&gt; 4       the CEO of Acme Inc. who met with John last week in San Francisco.</span></span>
+<span><span class="co">#&gt; 5 led by CEO Sarah, was part of the discussion with John in San Francisco.</span></span>
+<span><span class="co">#&gt; 6                                 the city where John met Sarah last week.</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-3-sentiment-analysis">Example 3: Sentiment analysis<a class="anchor" aria-label="anchor" href="#example-3-sentiment-analysis"></a>
@@ -295,8 +299,8 @@ you can use structured data extraction.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_sentiment</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 3</span></span>
 <span><span class="co">#&gt;  $ positive_score: num 0.1</span></span>
-<span><span class="co">#&gt;  $ negative_score: num 0.7</span></span>
-<span><span class="co">#&gt;  $ neutral_score : num 0.2</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ negative_score: num 0.6</span></span>
+<span><span class="co">#&gt;  $ neutral_score : num 0.3</span></span></code></pre></div>
 <p>Note that we’ve asked nicely for the scores to sum 1, and they do in
 this example (at least when I ran the code), but it’s not
 guaranteed.</p>
@@ -444,7 +448,7 @@ one in the text:</p>
 <span><span class="co">#&gt; [1] "Hadley Wickham"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $date</span></span>
-<span><span class="co">#&gt; [1] "2023-??-??"</span></span>
+<span><span class="co">#&gt; [1] "2023-10-01"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    2 obs. of  9 variables:</span></span>
 <span><span class="co">#&gt;  $ assert_name     : chr  "11 Zinfandel Lane - Home &amp; Vineyard [RP]" "25 Point Lobos - Commercial Property [RP]"</span></span>
@@ -523,12 +527,12 @@ much more common in the wild.</p>
 <tr class="odd">
 <td align="left">OpenAI-api.openai.com/v1</td>
 <td align="right">6009</td>
-<td align="right">561</td>
+<td align="right">656</td>
 </tr>
 <tr class="even">
 <td align="left">Claude</td>
 <td align="right">480</td>
-<td align="right">81</td>
+<td align="right">89</td>
 </tr>
 </tbody>
 </table>
