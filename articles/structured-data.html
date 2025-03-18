@@ -136,17 +136,16 @@ extracts two specific values from a string:</p>
 calling, as discussed in <code>vignette("function-calling")</code>). The
 type functions can be divided into three main groups:</p>
 <ul>
-<li><p><strong>Scalars</strong> represent single values, of which there
-are five types: <code><a href="../reference/type_boolean.html">type_boolean()</a></code>,
-<code><a href="../reference/type_boolean.html">type_integer()</a></code>, <code><a href="../reference/type_boolean.html">type_number()</a></code>,
-<code><a href="../reference/type_boolean.html">type_string()</a></code>, and <code><a href="../reference/type_boolean.html">type_enum()</a></code>, representing a
-single logical, integer, double, string, and factor value
-respectively.</p></li>
+<li><p><strong>Scalars</strong> represent five types of single values,
+<code><a href="../reference/type_boolean.html">type_boolean()</a></code>, <code><a href="../reference/type_boolean.html">type_integer()</a></code>,
+<code><a href="../reference/type_boolean.html">type_number()</a></code>, <code><a href="../reference/type_boolean.html">type_string()</a></code>, and
+<code><a href="../reference/type_boolean.html">type_enum()</a></code>, which represent a single logical, integer,
+double, string, and factor value respectively.</p></li>
 <li>
 <p><strong>Arrays</strong> represent any number of values of the
-same type and are created with <code><a href="../reference/type_boolean.html">type_array()</a></code>. You must
-always supply the <code>item</code> argument which specifies the type of
-each individual element. Arrays of scalars are very similar to R’s
+same type. They are created with <code><a href="../reference/type_boolean.html">type_array()</a></code>. You must
+always supply the <code>item</code> argument which specifies the type
+for each individual element. Arrays of scalars are very similar to R’s
 atomic vectors:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_logical_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_boolean</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -159,10 +158,10 @@ closely resemble lists with well defined structures:</p>
 <code class="sourceCode R"><span><span class="va">list_of_integers</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="va">type_integer_vector</span><span class="op">)</span></span></code></pre></div>
 </li>
 <li>
-<p><strong>Objects</strong> represent a collection of named values
-and are created with <code><a href="../reference/type_boolean.html">type_object()</a></code>. Objects can contain any
-number of scalars, arrays, and other objects. They are similar to named
-lists in R.</p>
+<p><strong>Objects</strong> represent a collection of named values.
+They are created with <code><a href="../reference/type_boolean.html">type_object()</a></code>. Objects can contain
+any number of scalars, arrays, and other objects. They are similar to
+named lists in R.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_person</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -172,20 +171,19 @@ lists in R.</p>
 </li>
 </ul>
 <p>Using these type specifications ensures that the LLM will return
-JSON. But ellmer goes one step further to convert the results to their
-most natural R representation. This currently converts arrays of
-boolean, integers, numbers, and strings into logical, integer, numeric,
-and character vectors, and arrays of objects into data frames. You can
-opt-out of this and get plain lists instead by setting
+JSON. But ellmer goes one step further to convert the results to the
+closest R analog. Currently, this converts arrays of boolean, integers,
+numbers, and strings into logical, integer, numeric, and character
+vectors. Arrays of objects are converted into data frames. You can
+opt-out of this and get plain lists by setting
 <code>convert = FALSE</code> in <code>$extract_data()</code>.</p>
-<p>As well as the definition of the types, you need to provide the LLM
-with some information about what you actually want. This is the purpose
-of the first argument, <code>description</code>, which is a string that
+<p>In addition to defining types, you need to provide the LLM with some
+information about what you actually want. This is the purpose of the
+first argument, <code>description</code>, which is a string that
 describes the data that you want. This is a good place to ask nicely for
-other attributes you’ll like the value to possess (e.g. minimum or
-maximum values, date formats, …). You aren’t guaranteed that these
-requests will be honoured, but the LLM will usually make a best effort
-to do so.</p>
+other attributes you’ll like the value to have (e.g. minimum or maximum
+values, date formats, …). There’s no guarantee that these requests will
+be honoured, but the LLM will usually make a best effort to do so.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_type_person</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
 <span>  <span class="st">"A person"</span>,</span>
@@ -197,7 +195,7 @@ to do so.</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Now we’ll dive into some examples before coming back to talk more
-data types details.</p>
+about the details of data types.</p>
 </div>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
@@ -230,19 +228,15 @@ you can use structured data extraction.</p>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_summary</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">summary</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The article discusses the imperative for implementing third-party testing in the AI sector to validate the safety of frontier AI systems. As AI models grow increasingly complex and powerful, effective oversight becomes crucial to prevent deliberate or accidental societal harm.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Developing a rigorous third-party testing regime involves cooperation among industry, government, and academia to establish an ecosystem that can address issues such as election integrity, harmful discrimination, and national security risks. Establishing a universally trusted and applied testing process ensures that the benefits of AI technology are realized without succumbing to its potential misuses.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; While Anthropic implements self-governance policies like the Responsible Scaling Policy (RSP), it advocates for broader oversight. This includes collaborating with entities like governments and universities, supplementing industry self-governance with legal requirements to further ensure AI system safety and mitigate misuse risks.</span></span>
+<span><span class="co">#&gt; The article discusses the importance of third-party testing in the development of effective AI policy, particularly for powerful frontier AI systems. Anthropic, an AI research company, advocates for a robust testing regime to ensure safety and trustworthiness of AI technologies, like generative AI systems such as Claude. The regime should include broad-based reliable tests, legitimate third-party oversight, and a coordinated approach across industry, government, and academia. The necessity arises from the potential misuse and unexpected behaviors of AI systems that could impact areas such as election integrity, national security, and discrimination. Anthropic emphasizes that this testing regime should be proactively developed to avoid drastic regulatory reaction and to maintain control over AI advancements.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 5</span></span>
-<span><span class="co">#&gt;  $ author    : chr "Anthropic Team"</span></span>
-<span><span class="co">#&gt;  $ topics    : chr [1:5] "AI Policy" "AI Safety" "Third-Party Testing" "Regulatory Compliance" ...</span></span>
-<span><span class="co">#&gt;  $ summary   : chr "The article discusses the imperative for implementing third-party testing in the AI sector to validate the safe"| __truncated__</span></span>
-<span><span class="co">#&gt;  $ coherence : int 95</span></span>
-<span><span class="co">#&gt;  $ persuasion: num 0.85</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ author    : chr "Anthropic"</span></span>
+<span><span class="co">#&gt;  $ topics    : chr [1:5] "AI Testing" "Policy" "Technology" "AI Safety" ...</span></span>
+<span><span class="co">#&gt;  $ summary   : chr "The article discusses the importance of third-party testing in the development of effective AI policy, particul"| __truncated__</span></span>
+<span><span class="co">#&gt;  $ coherence : int 85</span></span>
+<span><span class="co">#&gt;  $ persuasion: num 0.9</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-2-named-entity-recognition">Example 2: Named entity recognition<a class="anchor" aria-label="anchor" href="#example-2-named-entity-recognition"></a>
@@ -270,13 +264,13 @@ you can use structured data extraction.</p>
 <span><span class="co">#&gt; 4         Sarah       person</span></span>
 <span><span class="co">#&gt; 5     Acme Inc. organization</span></span>
 <span><span class="co">#&gt; 6 San Francisco     location</span></span>
-<span><span class="co">#&gt;                                                                    context</span></span>
-<span><span class="co">#&gt; 1         works at Google in New York and met with Sarah in San Francisco.</span></span>
-<span><span class="co">#&gt; 2                                   where John works, located in New York.</span></span>
-<span><span class="co">#&gt; 3                   the city where Google is located and where John works.</span></span>
-<span><span class="co">#&gt; 4       the CEO of Acme Inc. who met with John last week in San Francisco.</span></span>
-<span><span class="co">#&gt; 5 led by CEO Sarah, was part of the discussion with John in San Francisco.</span></span>
-<span><span class="co">#&gt; 6                                 the city where John met Sarah last week.</span></span></code></pre></div>
+<span><span class="co">#&gt;                                                                context</span></span>
+<span><span class="co">#&gt; 1                                    John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 2                                    John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 3                                    John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 4 He met with Sarah, the CEO of Acme Inc., last week in San Francisco.</span></span>
+<span><span class="co">#&gt; 5                                          Sarah, the CEO of Acme Inc.</span></span>
+<span><span class="co">#&gt; 6                        He met with Sarah last week in San Francisco.</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-3-sentiment-analysis">Example 3: Sentiment analysis<a class="anchor" aria-label="anchor" href="#example-3-sentiment-analysis"></a>
@@ -299,8 +293,8 @@ you can use structured data extraction.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_sentiment</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 3</span></span>
 <span><span class="co">#&gt;  $ positive_score: num 0.1</span></span>
-<span><span class="co">#&gt;  $ negative_score: num 0.6</span></span>
-<span><span class="co">#&gt;  $ neutral_score : num 0.3</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ negative_score: num 0.7</span></span>
+<span><span class="co">#&gt;  $ neutral_score : num 0.2</span></span></code></pre></div>
 <p>Note that we’ve asked nicely for the scores to sum 1, and they do in
 this example (at least when I ran the code), but it’s not
 guaranteed.</p>
@@ -336,9 +330,9 @@ guaranteed.</p>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_classification</span><span class="op">)</span></span>
 <span><span class="va">data</span></span>
 <span><span class="co">#&gt;         name score</span></span>
-<span><span class="co">#&gt; 1 Technology  0.80</span></span>
-<span><span class="co">#&gt; 2   Business  0.15</span></span>
-<span><span class="co">#&gt; 3      Other  0.05</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 Technology  0.90</span></span>
+<span><span class="co">#&gt; 2   Business  0.07</span></span>
+<span><span class="co">#&gt; 3      Other  0.03</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-5-working-with-unknown-keys">Example 5: Working with unknown keys<a class="anchor" aria-label="anchor" href="#example-5-working-with-unknown-keys"></a>
@@ -402,7 +396,7 @@ assets and “unearned” income</div>
 <span><span class="co">#&gt; 2 San Francisco/San Francisco, CA, US         5000001         25000000</span></span>
 <span><span class="co">#&gt;   income_type income_low income_high tx_gt_1000</span></span>
 <span><span class="co">#&gt; 1 Grape Sales     100001     1000000      FALSE</span></span>
-<span><span class="co">#&gt; 2        Rent     100001     1000000      FALSE</span></span></code></pre></div>
+<span><span class="co">#&gt; 2        Rent     100001     1000000       TRUE</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -448,7 +442,7 @@ one in the text:</p>
 <span><span class="co">#&gt; [1] "Hadley Wickham"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $date</span></span>
-<span><span class="co">#&gt; [1] "2023-10-01"</span></span>
+<span><span class="co">#&gt; [1] "unknown"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    2 obs. of  9 variables:</span></span>
 <span><span class="co">#&gt;  $ assert_name     : chr  "11 Zinfandel Lane - Home &amp; Vineyard [RP]" "25 Point Lobos - Commercial Property [RP]"</span></span>
@@ -459,7 +453,7 @@ one in the text:</p>
 <span><span class="co">#&gt;  $ income_type     : chr  "Grape Sales" "Rent"</span></span>
 <span><span class="co">#&gt;  $ income_low      : int  100001 100001</span></span>
 <span><span class="co">#&gt;  $ income_high     : int  1000000 1000000</span></span>
-<span><span class="co">#&gt;  $ tx_gt_1000      : logi  FALSE FALSE</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ tx_gt_1000      : logi  FALSE TRUE</span></span></code></pre></div>
 <p>Note that I’ve used more of an explict prompt here. For this example,
 I found that this generated better results, and it’s a useful place to
 put additional instructions.</p>
@@ -527,12 +521,12 @@ much more common in the wild.</p>
 <tr class="odd">
 <td align="left">OpenAI-api.openai.com/v1</td>
 <td align="right">6009</td>
-<td align="right">656</td>
+<td align="right">597</td>
 </tr>
 <tr class="even">
 <td align="left">Claude</td>
 <td align="right">480</td>
-<td align="right">89</td>
+<td align="right">97</td>
 </tr>
 </tbody>
 </table>
