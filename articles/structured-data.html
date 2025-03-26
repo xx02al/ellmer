@@ -122,10 +122,10 @@ extracts two specific values from a string:</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; $primary_shape</span></span>
-<span><span class="co">#&gt; [1] "oval and letter"</span></span>
+<span><span class="co">#&gt; [1] "letter 'R' with an oval"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $primary_colour</span></span>
-<span><span class="co">#&gt; [1] "grey and blue"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "blue and gray"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="data-types-basics">Data types basics<a class="anchor" aria-label="anchor" href="#data-types-basics"></a>
@@ -200,9 +200,9 @@ about the details of data types.</p>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
-<p>The following examples are <a href="https://github.com/anthropics/anthropic-cookbook/blob/main/tool_use/extracting_structured_json.ipynb" class="external-link">closely
-inspired by the Claude documentation</a> and hint at some of the ways
-you can use structured data extraction.</p>
+<p>The following examples, which are <a href="https://github.com/anthropics/anthropic-cookbook/blob/main/tool_use/extracting_structured_json.ipynb" class="external-link">closely
+inspired by the Claude documentation</a>, hint at some of the ways you
+can use structured data extraction.</p>
 <div class="section level3">
 <h3 id="example-1-article-summarisation">Example 1: Article summarisation<a class="anchor" aria-label="anchor" href="#example-1-article-summarisation"></a>
 </h3>
@@ -228,15 +228,15 @@ you can use structured data extraction.</p>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_summary</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">summary</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The article discusses the importance of third-party testing in the development of effective AI policy, particularly for powerful frontier AI systems. Anthropic, an AI research company, advocates for a robust testing regime to ensure safety and trustworthiness of AI technologies, like generative AI systems such as Claude. The regime should include broad-based reliable tests, legitimate third-party oversight, and a coordinated approach across industry, government, and academia. The necessity arises from the potential misuse and unexpected behaviors of AI systems that could impact areas such as election integrity, national security, and discrimination. Anthropic emphasizes that this testing regime should be proactively developed to avoid drastic regulatory reaction and to maintain control over AI advancements.</span></span>
+<span><span class="co">#&gt; The article argues for the necessity of establishing a third-party testing regime for evaluating frontier AI systems. Such a regime would involve collaboration among industry, academia, and government to ensure AI safety across various use cases, including election integrity and national security. It emphasizes the need for precise, effective, and scalable testing procedures that can adapt as AI systems grow more powerful. The author highlights current industry efforts, such as Anthropic's Responsible Scaling Policy, but stresses that self-governance is insufficient. Instead, a broadly trusted, third-party evaluation ecosystem is advocated to prevent potential AI misuse and accidents while allowing beneficial deployment.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 5</span></span>
-<span><span class="co">#&gt;  $ author    : chr "Anthropic"</span></span>
-<span><span class="co">#&gt;  $ topics    : chr [1:5] "AI Testing" "Policy" "Technology" "AI Safety" ...</span></span>
-<span><span class="co">#&gt;  $ summary   : chr "The article discusses the importance of third-party testing in the development of effective AI policy, particul"| __truncated__</span></span>
-<span><span class="co">#&gt;  $ coherence : int 85</span></span>
-<span><span class="co">#&gt;  $ persuasion: num 0.9</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ author    : chr "John Doe"</span></span>
+<span><span class="co">#&gt;  $ topics    : chr [1:5] "AI policy" "Third-party testing" "AI safety" "Regulation" ...</span></span>
+<span><span class="co">#&gt;  $ summary   : chr "The article argues for the necessity of establishing a third-party testing regime for evaluating frontier AI sy"| __truncated__</span></span>
+<span><span class="co">#&gt;  $ coherence : int 90</span></span>
+<span><span class="co">#&gt;  $ persuasion: num 0.85</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-2-named-entity-recognition">Example 2: Named entity recognition<a class="anchor" aria-label="anchor" href="#example-2-named-entity-recognition"></a>
@@ -264,13 +264,13 @@ you can use structured data extraction.</p>
 <span><span class="co">#&gt; 4         Sarah       person</span></span>
 <span><span class="co">#&gt; 5     Acme Inc. organization</span></span>
 <span><span class="co">#&gt; 6 San Francisco     location</span></span>
-<span><span class="co">#&gt;                                                                context</span></span>
-<span><span class="co">#&gt; 1                                    John works at Google in New York.</span></span>
-<span><span class="co">#&gt; 2                                    John works at Google in New York.</span></span>
-<span><span class="co">#&gt; 3                                    John works at Google in New York.</span></span>
-<span><span class="co">#&gt; 4 He met with Sarah, the CEO of Acme Inc., last week in San Francisco.</span></span>
-<span><span class="co">#&gt; 5                                          Sarah, the CEO of Acme Inc.</span></span>
-<span><span class="co">#&gt; 6                        He met with Sarah last week in San Francisco.</span></span></code></pre></div>
+<span><span class="co">#&gt;                                                                                                  context</span></span>
+<span><span class="co">#&gt; 1 John works at Google in New York. He met with Sarah, the CEO of Acme Inc., last week in San Francisco.</span></span>
+<span><span class="co">#&gt; 2                                                                      John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 3                                                                      John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 4                                 John met with Sarah, the CEO of Acme Inc., last week in San Francisco.</span></span>
+<span><span class="co">#&gt; 5                                                                          Sarah is the CEO of Acme Inc.</span></span>
+<span><span class="co">#&gt; 6                                                        John met with Sarah last week in San Francisco.</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-3-sentiment-analysis">Example 3: Sentiment analysis<a class="anchor" aria-label="anchor" href="#example-3-sentiment-analysis"></a>
@@ -295,8 +295,8 @@ you can use structured data extraction.</p>
 <span><span class="co">#&gt;  $ positive_score: num 0.1</span></span>
 <span><span class="co">#&gt;  $ negative_score: num 0.7</span></span>
 <span><span class="co">#&gt;  $ neutral_score : num 0.2</span></span></code></pre></div>
-<p>Note that we’ve asked nicely for the scores to sum 1, and they do in
-this example (at least when I ran the code), but it’s not
+<p>Note that while we’ve asked nicely for the scores to sum 1, which
+they do in this example (at least when I ran the code), this is not
 guaranteed.</p>
 </div>
 <div class="section level3">
@@ -330,9 +330,9 @@ guaranteed.</p>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_classification</span><span class="op">)</span></span>
 <span><span class="va">data</span></span>
 <span><span class="co">#&gt;         name score</span></span>
-<span><span class="co">#&gt; 1 Technology  0.90</span></span>
-<span><span class="co">#&gt; 2   Business  0.07</span></span>
-<span><span class="co">#&gt; 3      Other  0.03</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 Technology  0.80</span></span>
+<span><span class="co">#&gt; 2   Business  0.15</span></span>
+<span><span class="co">#&gt; 3      Other  0.05</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-5-working-with-unknown-keys">Example 5: Working with unknown keys<a class="anchor" aria-label="anchor" href="#example-5-working-with-unknown-keys"></a>
@@ -355,18 +355,18 @@ guaranteed.</p>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"claude-3-7-sonnet-latest"</span>.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">prompt</span>, type <span class="op">=</span> <span class="va">type_characteristics</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  list()</span></span></code></pre></div>
-<p>This examples only works with Claude, not GPT or Gemini, because only
-Claude supports adding arbitrary additional properties.</p>
+<p>This example only works with Claude, not GPT or Gemini, because only
+Claude supports adding additional, arbitrary properties.</p>
 </div>
 <div class="section level3">
 <h3 id="example-6-extracting-data-from-an-image">Example 6: Extracting data from an image<a class="anchor" aria-label="anchor" href="#example-6-extracting-data-from-an-image"></a>
 </h3>
-<p>This example comes from <a href="https://gist.github.com/dannguyen/faaa56cebf30ad51108a9fe4f8db36d8" class="external-link">Dan
-Nguyen</a> and you can see other interesting applications at that link.
+<p>The final example comes from <a href="https://gist.github.com/dannguyen/faaa56cebf30ad51108a9fe4f8db36d8" class="external-link">Dan
+Nguyen</a> (you can see other interesting applications at that link).
 The goal is to extract structured data from this screenshot:</p>
 <div class="float">
-<img src="congressional-assets.png" alt="A screenshot of schedule A: a table showing assets and “unearned” income"><div class="figcaption">A screenshot of schedule A: a table showing
-assets and “unearned” income</div>
+<img src="congressional-assets.png" alt="Screenshot of schedule A: a table showing assets and “unearned” income"><div class="figcaption">Screenshot of schedule A: a table showing assets
+and “unearned” income</div>
 </div>
 <p>Even without any descriptions, ChatGPT does pretty well:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
@@ -395,7 +395,7 @@ assets and “unearned” income</div>
 <span><span class="co">#&gt; 1             St. Helena/Napa, CA, US         5000001         25000000</span></span>
 <span><span class="co">#&gt; 2 San Francisco/San Francisco, CA, US         5000001         25000000</span></span>
 <span><span class="co">#&gt;   income_type income_low income_high tx_gt_1000</span></span>
-<span><span class="co">#&gt; 1 Grape Sales     100001     1000000      FALSE</span></span>
+<span><span class="co">#&gt; 1 Grape Sales     100001     1000000       TRUE</span></span>
 <span><span class="co">#&gt; 2        Rent     100001     1000000       TRUE</span></span></code></pre></div>
 </div>
 </div>
@@ -442,7 +442,7 @@ one in the text:</p>
 <span><span class="co">#&gt; [1] "Hadley Wickham"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $date</span></span>
-<span><span class="co">#&gt; [1] "unknown"</span></span>
+<span><span class="co">#&gt; [1] "2023-10-07"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    2 obs. of  9 variables:</span></span>
 <span><span class="co">#&gt;  $ assert_name     : chr  "11 Zinfandel Lane - Home &amp; Vineyard [RP]" "25 Point Lobos - Commercial Property [RP]"</span></span>
@@ -453,12 +453,12 @@ one in the text:</p>
 <span><span class="co">#&gt;  $ income_type     : chr  "Grape Sales" "Rent"</span></span>
 <span><span class="co">#&gt;  $ income_low      : int  100001 100001</span></span>
 <span><span class="co">#&gt;  $ income_high     : int  1000000 1000000</span></span>
-<span><span class="co">#&gt;  $ tx_gt_1000      : logi  FALSE TRUE</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ tx_gt_1000      : logi  TRUE TRUE</span></span></code></pre></div>
 <p>Note that I’ve used more of an explict prompt here. For this example,
-I found that this generated better results, and it’s a useful place to
-put additional instructions.</p>
-<p>If let the LLM know that the fields are all optional, it’ll instead
-return <code>NULL</code> for the missing fields:</p>
+I found that this generated better results and that it’s a useful place
+to put additional instructions.</p>
+<p>If I let the LLM know that the fields are all optional, it’ll return
+<code>NULL</code> for the missing fields:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_article</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
 <span>  <span class="st">"Information about an article written in markdown"</span>,</span>
@@ -480,8 +480,8 @@ return <code>NULL</code> for the missing fields:</p>
 <h3 id="data-frames">Data frames<a class="anchor" aria-label="anchor" href="#data-frames"></a>
 </h3>
 <p>If you want to define a data frame like object, you might be tempted
-to create a definition similar to what R uses: an object (i.e. a named
-list) containing multiple vectors (i.e. arrays):</p>
+to create a definition similar to what R uses: an object (i.e., a named
+list) containing multiple vectors (i.e., an array):</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_my_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -489,10 +489,9 @@ list) containing multiple vectors (i.e. arrays):</p>
 <span>  height <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  weight <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>This however, is not quite right becuase there’s no way to specify
-that each array should have the same length. Instead you need to turn
-the data structure “inside out”, and instead create an array of
-objects:</p>
+<p>This, however, is not quite right becuase there’s no way to specify
+that each array should have the same length. Instead, you’ll need to
+turn the data structure “inside out” and create an array of objects:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_my_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span></span>
 <span>  items <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
@@ -502,10 +501,10 @@ objects:</p>
 <span>    weight <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_number</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>If you’re familiar with the terms between row-oriented and
-column-oriented data frames, this is the same idea. Since most language
-don’t possess vectorisation like R, row-oriented structures tend to be
-much more common in the wild.</p>
+<p>If you’re familiar with the terms row-oriented and column-oriented
+data frames, this is the same idea. Since most languages don’t possess
+vectorisation like R, row-oriented structures tend to be much more
+common in the wild.</p>
 </div>
 </div>
 <div class="section level2">
@@ -521,7 +520,7 @@ much more common in the wild.</p>
 <tr class="odd">
 <td align="left">OpenAI-api.openai.com/v1</td>
 <td align="right">6009</td>
-<td align="right">597</td>
+<td align="right">613</td>
 </tr>
 <tr class="even">
 <td align="left">Claude</td>
