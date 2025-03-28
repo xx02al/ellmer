@@ -404,7 +404,7 @@ Chat <- R6::R6Class(
       }
 
       private$tools <- list()
-      
+
       for (tool_def in tools) {
         self$register_tool(tool_def)
       }

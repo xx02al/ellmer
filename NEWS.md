@@ -1,5 +1,7 @@
 # ellmer (development version)
 
+* `$extract_data()` now works better for arrays when `required = FALSE` (#384).
+
 * `chat_claude()` and `chat_bedrock()` no longer choke after receiving an 
   output that consists only of whitespace (#376).
 
