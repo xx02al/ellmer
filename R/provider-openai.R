@@ -52,7 +52,7 @@ NULL
 #'   Answer with a bulleted list
 #' ")
 #'
-#' chat$chat("Tell me three funny jokes about statistcians")
+#' chat$chat("Tell me three funny jokes about statisticians")
 chat_openai <- function(
   system_prompt = NULL,
   turns = NULL,

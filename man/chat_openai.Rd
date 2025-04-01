@@ -75,7 +75,7 @@ chat$chat("
   Answer with a bulleted list
 ")
 
-chat$chat("Tell me three funny jokes about statistcians")
+chat$chat("Tell me three funny jokes about statisticians")
 \dontshow{\}) # examplesIf}
 }
 \seealso{
