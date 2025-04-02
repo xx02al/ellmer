@@ -89,6 +89,7 @@ chat_azure <- function(
   credentials <- credentials %||% default_azure_credentials(api_key, token)
 
   provider <- ProviderAzure(
+    name = "Azure/OpenAI",
     base_url = paste0(endpoint, "/openai/deployments/", deployment_id),
     model = deployment_id,
     params = params,

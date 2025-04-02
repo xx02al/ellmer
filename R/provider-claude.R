@@ -52,6 +52,7 @@ chat_claude <- function(
   }
 
   provider <- ProviderClaude(
+    name = "Anthropic",
     model = model,
     params = params %||% params(),
     extra_args = api_args,
@@ -81,7 +82,6 @@ ProviderClaude <- new_class(
   parent = Provider,
   properties = list(
     api_key = prop_string(),
-    model = prop_string(),
     beta_headers = class_character
   )
 )
@@ -279,7 +279,7 @@ method(value_turn, ProviderClaude) <- function(
   })
 
   tokens <- c(result$usage$input_tokens, result$usage$output_tokens)
-  tokens_log("Claude", tokens)
+  tokens_log(provider, tokens)
 
   Turn(result$role, contents, json = result, tokens = tokens)
 }

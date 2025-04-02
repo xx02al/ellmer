@@ -43,6 +43,7 @@ chat_gemini <- function(
   credentials <- default_google_credentials(api_key)
 
   provider <- ProviderGemini(
+    name = "Google/Gemini",
     base_url = base_url,
     model = model,
     params = params %||% params(),
@@ -205,7 +206,7 @@ method(value_turn, ProviderGemini) <- function(
     usage$promptTokenCount %||% NA_integer_,
     usage$candidatesTokenCount %||% NA_integer_
   )
-  tokens_log("Gemini", tokens)
+  tokens_log(provider, tokens)
 
   Turn("assistant", contents, json = result, tokens = tokens)
 }

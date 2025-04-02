@@ -1,5 +1,8 @@
 # ellmer (development version)
 
+* `Provider` gains `name` and `model` fields (#406). These are now reported when
+  you print a chat object and used in `token_usage()`.
+
 * New `interpolate_package()` to make it easier to interpolate from prompts
   stored in the `inst/prompts` inside a package (#164).
 

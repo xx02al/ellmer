@@ -72,6 +72,7 @@ chat_openai <- function(
   }
 
   provider <- ProviderOpenAI(
+    name = "OpenAI",
     base_url = base_url,
     model = model,
     params = params,
@@ -96,7 +97,6 @@ ProviderOpenAI <- new_class(
   parent = Provider,
   properties = list(
     api_key = prop_string(),
-    model = prop_string(),
     # no longer used by OpenAI itself; but subclasses still need it
     seed = prop_number_whole(allow_null = TRUE)
   )
@@ -241,10 +241,7 @@ method(value_turn, ProviderOpenAI) <- function(
     result$usage$prompt_tokens %||% NA_integer_,
     result$usage$completion_tokens %||% NA_integer_
   )
-  tokens_log(
-    paste0("OpenAI-", gsub("https?://", "", provider@base_url)),
-    tokens
-  )
+  tokens_log(provider, tokens)
 
   Turn(message$role, content, json = result, tokens = tokens)
 }
