@@ -94,6 +94,7 @@ package.</p></li>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">chat_azure</span><span class="op">(</span></span>
 <span>  endpoint <span class="op">=</span> <span class="fu">azure_endpoint</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">deployment_id</span>,</span>
+<span>  params <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  api_version <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  system_prompt <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  turns <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -117,6 +118,10 @@ value of the <code>AZURE_OPENAI_ENDPOINT</code> envinronment variable.</p></dd>
 
 <dt id="arg-deployment-id">deployment_id<a class="anchor" aria-label="anchor" href="#arg-deployment-id"></a></dt>
 <dd><p>Deployment id for the model you want to use.</p></dd>
+
+
+<dt id="arg-params">params<a class="anchor" aria-label="anchor" href="#arg-params"></a></dt>
+<dd><p>Common model parameters, usually created by <code><a href="params.html">params()</a></code>.</p></dd>
 
 
 <dt id="arg-api-version">api_version<a class="anchor" aria-label="anchor" href="#arg-api-version"></a></dt>
