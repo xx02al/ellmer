@@ -3,29 +3,11 @@
 models under the Claude moniker.
 Note that a Claude Pro membership does not give you the ability to call
 models via the API; instead, you will need to sign up (and pay for) a
-developer account
-Authentication
-
-
-To authenticate, we recommend saving your
-API key to
-the ANTHROPIC_API_KEY env var in your .Renviron
-(which you can easily edit by calling usethis::edit_r_environ()).
-
-"><meta property="og:description" content="Anthropic provides a number of chat based
+developer account."><meta property="og:description" content="Anthropic provides a number of chat based
 models under the Claude moniker.
 Note that a Claude Pro membership does not give you the ability to call
 models via the API; instead, you will need to sign up (and pay for) a
-developer account
-Authentication
-
-
-To authenticate, we recommend saving your
-API key to
-the ANTHROPIC_API_KEY env var in your .Renviron
-(which you can easily edit by calling usethis::edit_r_environ()).
-
-"><meta property="og:image" content="https://ellmer.tidyverse.org/logo.png"><script defer data-domain="ellmer.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
+developer account."><meta property="og:image" content="https://ellmer.tidyverse.org/logo.png"><script defer data-domain="ellmer.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script></head><body>
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
 
 
@@ -71,16 +53,7 @@ the ANTHROPIC_API_KEY env var in your .Renviron
 models under the <a href="https://www.anthropic.com/claude" class="external-link">Claude</a> moniker.
 Note that a Claude Pro membership does not give you the ability to call
 models via the API; instead, you will need to sign up (and pay for) a
-<a href="https://console.anthropic.com/" class="external-link">developer account</a></p><div class="section">
-<h3 id="authentication">Authentication<a class="anchor" aria-label="anchor" href="#authentication"></a></h3>
-
-
-<p>To authenticate, we recommend saving your
-<a href="https://console.anthropic.com/account/keys" class="external-link">API key</a> to
-the <code>ANTHROPIC_API_KEY</code> env var in your <code>.Renviron</code>
-(which you can easily edit by calling <code>usethis::edit_r_environ()</code>).</p>
-</div>
-
+<a href="https://console.anthropic.com/" class="external-link">developer account</a>.</p>
     </div>
 
     <div class="section level2">
@@ -143,9 +116,10 @@ claude features that are still in beta.</p></dd>
 
 
 <dt id="arg-api-key">api_key<a class="anchor" aria-label="anchor" href="#arg-api-key"></a></dt>
-<dd><p>The API key to use for authentication. You generally should
-not supply this directly, but instead set the <code>ANTHROPIC_API_KEY</code> environment
-variable.</p></dd>
+<dd><p>API key to use for authentication.</p>
+<p>You generally should not supply this directly, but instead set the <code>ANTHROPIC_API_KEY</code> environment variable.
+The best place to set this is in <code>.Renviron</code>,
+which you can easily edit by calling <code>usethis::edit_r_environ()</code>.</p></dd>
 
 
 <dt id="arg-echo">echo<a class="anchor" aria-label="anchor" href="#arg-echo"></a></dt>
@@ -183,17 +157,18 @@ the console).</p></li>
 <span class="r-in"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"Tell me three jokes about statisticians"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Three Jokes About Statisticians</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1. Why did the statistician drown crossing the river? </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    It was 3 feet deep on average.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1. A statistician is someone who can have their head in an oven, their</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feet in a block of ice, and say "on average, I feel fine."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2. A statistician confidently boarded a plane with a bomb in his </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> luggage. His colleague asked why. "Well," he explained, "the </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> probability of having a bomb on a plane is very small. The probability</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> of having TWO bombs on a plane is virtually impossible!"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3. How many statisticians does it take to change a light bulb?</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    "Well... just one, but he needs to do it 30 times to ensure </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2. How many statisticians does it take to change a light bulb?</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    "Well... just one, but they need to change it 30 times to ensure </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> statistical significance."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3. A statistician returns from a doctor's appointment and his wife </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> asks, "Is everything okay?" He replies, "Well, I have good news and </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> bad news. The bad news is that the doctor gave me 24 hours to live." </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> His wife asks, "What's the good news?" The statistician responds, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "According to my analysis, I've been dead for three days already."</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
