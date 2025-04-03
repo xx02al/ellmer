@@ -1,5 +1,7 @@
 # ellmer (development version)
 
+* `chat_claude()` now supports the thinking content type (#396).
+
 * `tool()` gains an `.annotations` argument that can be created with the
   `tool_annotations()` helper. Tool annotations are described in the
   [Model Context Protocol](https://modelcontextprotocol.io/introduction) and can
