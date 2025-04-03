@@ -1,5 +1,8 @@
 # ellmer (development version)
 
+* `ContentToolResult` objects now include the error condition in the `error`
+  property when a tool call fails (#421, @gadenbuie).
+
 * Several chat functions were renamed to better align with the companies
   providing the API (#382, @gadenbuie):
   
