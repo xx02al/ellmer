@@ -122,7 +122,7 @@ extracts two specific values from a string:</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; $primary_shape</span></span>
-<span><span class="co">#&gt; [1] "oval with a letter"</span></span>
+<span><span class="co">#&gt; [1] "an oval and a letter"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $primary_colour</span></span>
 <span><span class="co">#&gt; [1] "gray and blue"</span></span></code></pre></div>
@@ -228,15 +228,15 @@ can use structured data extraction.</p>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_summary</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">summary</span><span class="op">)</span></span>
-<span><span class="co">#&gt; In the modern era of AI development, the creation of a comprehensive third-party testing regime for frontier AI systems is becoming a pivotal aspect of ensuring their safety and managing potential risks. According to experts across industry, government, and academia, such a regime is crucial for preventing societal harm from AI models, whether through unintended accidents or deliberate misuse. </span></span>
+<span><span class="co">#&gt; The article emphasizes the pivotal role of third-party testing in ensuring the safe deployment of frontier AI systems. It advocates for developing a robust testing regime involving industry, academia, and government collaboration to mitigate potential societal harms from AI technologies. This regime should focus on creating standardized tests to measure AI behaviors potentially harmful to election integrity, discrimination, and national security. By doing so, it aims to prevent knee-jerk regulatory actions while enabling the safe usage of AI advancements.</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; The deployment of systems like Claude demonstrates the current and future need for effective policy frameworks to manage the capabilities of increasingly powerful AI models. Third-party testing can instill public trust, support national security measures, and complement sector-specific regulations. However, developing this framework demands nuanced, evidence-based approaches, allowing for adaptation as AI technology evolves.</span></span>
+<span><span class="co">#&gt; Anthropic outlines steps for establishing an effective testing ecosystem, including prototyping testing regimes, engaging in third-party assessments, and promoting government funding for testing infrastructure. This approach promises enhanced trust in AI systems and balances regulatory oversight without stifling innovation. The article further explores the relevance of third-party testing concerning openly accessible AI models and regulatory capture, emphasizing the need for broadly trusted evaluation procedures to prevent misuse and ensure competitive fairness in the AI sector.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 5</span></span>
-<span><span class="co">#&gt;  $ author    : chr "Jane Doe"</span></span>
-<span><span class="co">#&gt;  $ topics    : chr [1:5] "AI policy" "third-party testing" "AI safety" "generative AI" ...</span></span>
-<span><span class="co">#&gt;  $ summary   : chr "In the modern era of AI development, the creation of a comprehensive third-party testing regime for frontier AI"| __truncated__</span></span>
+<span><span class="co">#&gt;  $ author    : chr "Anthropic"</span></span>
+<span><span class="co">#&gt;  $ topics    : chr [1:5] "AI policy" "third-party testing" "AI safety" "AI regulation" ...</span></span>
+<span><span class="co">#&gt;  $ summary   : chr "The article emphasizes the pivotal role of third-party testing in ensuring the safe deployment of frontier AI s"| __truncated__</span></span>
 <span><span class="co">#&gt;  $ coherence : int 85</span></span>
 <span><span class="co">#&gt;  $ persuasion: num 0.9</span></span></code></pre></div>
 </div>
@@ -259,13 +259,20 @@ can use structured data extraction.</p>
 <span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_openai.html">chat_openai</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
 <span><span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_named_entities</span><span class="op">)</span></span>
-<span><span class="co">#&gt;            name         type                             context</span></span>
-<span><span class="co">#&gt; 1          John       person         works at Google in New York</span></span>
-<span><span class="co">#&gt; 2        Google organization                    where John works</span></span>
-<span><span class="co">#&gt; 3      New York     location                    where John works</span></span>
-<span><span class="co">#&gt; 4         Sarah       person                       met with John</span></span>
-<span><span class="co">#&gt; 5     Acme Inc. organization              where Sarah is the CEO</span></span>
-<span><span class="co">#&gt; 6 San Francisco     location where John met with Sarah last week</span></span></code></pre></div>
+<span><span class="co">#&gt;            name         type</span></span>
+<span><span class="co">#&gt; 1          John       person</span></span>
+<span><span class="co">#&gt; 2        Google organization</span></span>
+<span><span class="co">#&gt; 3      New York     location</span></span>
+<span><span class="co">#&gt; 4         Sarah       person</span></span>
+<span><span class="co">#&gt; 5     Acme Inc. organization</span></span>
+<span><span class="co">#&gt; 6 San Francisco     location</span></span>
+<span><span class="co">#&gt;                                                  context</span></span>
+<span><span class="co">#&gt; 1 An individual employed at Google, located in New York.</span></span>
+<span><span class="co">#&gt; 2                          The company where John works.</span></span>
+<span><span class="co">#&gt; 3               The location where John works at Google.</span></span>
+<span><span class="co">#&gt; 4                The CEO of Acme Inc. who met with John.</span></span>
+<span><span class="co">#&gt; 5                    The company where Sarah is the CEO.</span></span>
+<span><span class="co">#&gt; 6          The city where John met with Sarah last week.</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-3-sentiment-analysis">Example 3: Sentiment analysis<a class="anchor" aria-label="anchor" href="#example-3-sentiment-analysis"></a>
@@ -325,9 +332,9 @@ guaranteed.</p>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_classification</span><span class="op">)</span></span>
 <span><span class="va">data</span></span>
 <span><span class="co">#&gt;         name score</span></span>
-<span><span class="co">#&gt; 1 Technology  0.81</span></span>
-<span><span class="co">#&gt; 2   Business  0.12</span></span>
-<span><span class="co">#&gt; 3      Other  0.07</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 Technology  0.85</span></span>
+<span><span class="co">#&gt; 2   Business  0.10</span></span>
+<span><span class="co">#&gt; 3      Other  0.05</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-5-working-with-unknown-keys">Example 5: Working with unknown keys<a class="anchor" aria-label="anchor" href="#example-5-working-with-unknown-keys"></a>
@@ -346,7 +353,7 @@ guaranteed.</p>
 <span><span class="st">  &lt;/description&gt;</span></span>
 <span><span class="st">"</span></span>
 <span></span>
-<span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_claude.html">chat_claude</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_anthropic.html">chat_anthropic</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"claude-3-7-sonnet-latest"</span>.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">prompt</span>, type <span class="op">=</span> <span class="va">type_characteristics</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  list()</span></span></code></pre></div>
@@ -391,7 +398,7 @@ and “unearned” income</div>
 <span><span class="co">#&gt; 2 San Francisco/San Francisco, CA, US         5000001         25000000</span></span>
 <span><span class="co">#&gt;   income_type income_low income_high tx_gt_1000</span></span>
 <span><span class="co">#&gt; 1 Grape Sales     100001     1000000       TRUE</span></span>
-<span><span class="co">#&gt; 2        Rent     100001     1000000      FALSE</span></span></code></pre></div>
+<span><span class="co">#&gt; 2        Rent     100001     1000000       TRUE</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -437,7 +444,7 @@ one in the text:</p>
 <span><span class="co">#&gt; [1] "Hadley Wickham"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $date</span></span>
-<span><span class="co">#&gt; [1] "2023-10-16"</span></span>
+<span><span class="co">#&gt; [1] "2023-11-01"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    2 obs. of  9 variables:</span></span>
 <span><span class="co">#&gt;  $ assert_name     : chr  "11 Zinfandel Lane - Home &amp; Vineyard [RP]" "25 Point Lobos - Commercial Property [RP]"</span></span>
@@ -448,7 +455,7 @@ one in the text:</p>
 <span><span class="co">#&gt;  $ income_type     : chr  "Grape Sales" "Rent"</span></span>
 <span><span class="co">#&gt;  $ income_low      : int  100001 100001</span></span>
 <span><span class="co">#&gt;  $ income_high     : int  1000000 1000000</span></span>
-<span><span class="co">#&gt;  $ tx_gt_1000      : logi  TRUE FALSE</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ tx_gt_1000      : logi  TRUE TRUE</span></span></code></pre></div>
 <p>Note that I’ve used more of an explict prompt here. For this example,
 I found that this generated better results and that it’s a useful place
 to put additional instructions.</p>
@@ -515,12 +522,12 @@ common in the wild.</p>
 <tr class="odd">
 <td align="left">OpenAI/gpt-4o</td>
 <td align="right">6009</td>
-<td align="right">575</td>
+<td align="right">647</td>
 </tr>
 <tr class="even">
 <td align="left">Anthropic/claude-3-7-sonnet-latest</td>
 <td align="right">480</td>
-<td align="right">81</td>
+<td align="right">89</td>
 </tr>
 </tbody>
 </table>
