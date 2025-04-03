@@ -1,5 +1,13 @@
 # ellmer (development version)
 
+* Several chat functions were renamed to better align with the companies
+  providing the API (#382, @gadenbuie):
+  
+  * `chat_azure_openai()` replaces `chat_azure()`
+  * `chat_aws_bedrock()` replaces `chat_bedrock()`
+  * `chat_anthropic()` replaces `chat_claude()`
+  * `chat_google_gemini()` replaces `chat_gemini()`
+
 * `chat_claude()` now supports the thinking content type (#396).
 
 * `tool()` gains an `.annotations` argument that can be created with the
