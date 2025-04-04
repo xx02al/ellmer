@@ -1,5 +1,8 @@
 # ellmer (development version)
 
+* `chat_` functions no longer take a turns object, instead use `set_turns()` 
+  (#427).
+
 * `echo = "output"` replaces the now-deprecated `echo = "text"` option in
   `Chat$chat()`. When using `echo = "output"`, additional output, such as tool
   requests and results, are shown as they occur. When `echo = "none"`, tool
