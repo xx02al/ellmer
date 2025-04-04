@@ -1,5 +1,17 @@
 # ellmer (development version)
 
+* `ContentToolResult` objects can now be returned directly from the `tool()`
+  function and now includes additional information (#398 #399, @gadenbuie):
+
+  * `extra`: A list of additional data associated with the tool result that is
+    not shown to the chatbot.
+  * `request`: The `ContentToolRequest` that triggered the tool call.
+    `ContentToolResult` no longer has an `id` property, instead the tool call
+    ID can be retrieved from `request@id`.
+
+* `ContentToolRequest` gains a `tool` property that includes the `tool()`
+  definition when a request is matched to a tool by ellmer (#423, @gadenbuie).
+
 * ellmer now tracks the cost of input and output tokens. The cost is displayed
   when you print a `Chat` object, in `tokens_usage()`, and with 
   `Chat$get_cost()`. This is our best effort at computing the cost, but you 
