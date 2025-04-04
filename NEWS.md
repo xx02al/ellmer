@@ -1,5 +1,8 @@
 # ellmer (development version)
 
+* `chat_gemini()` can now handle responses that include citation metadata 
+  (#358).
+
 * `chat_` functions no longer take a turns object, instead use `set_turns()` 
   (#427).
 
