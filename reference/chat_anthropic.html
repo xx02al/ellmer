@@ -60,7 +60,6 @@ models via the API; instead, you will need to sign up (and pay for) a
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">chat_anthropic</span><span class="op">(</span></span>
 <span>  system_prompt <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  turns <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  params <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  max_tokens <span class="op">=</span> <span class="fu"><a href="deprecated.html">deprecated</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  model <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -78,12 +77,6 @@ models via the API; instead, you will need to sign up (and pay for) a
 
 <dl><dt id="arg-system-prompt">system_prompt<a class="anchor" aria-label="anchor" href="#arg-system-prompt"></a></dt>
 <dd><p>A system prompt to set the behavior of the assistant.</p></dd>
-
-
-<dt id="arg-turns">turns<a class="anchor" aria-label="anchor" href="#arg-turns"></a></dt>
-<dd><p>A list of <a href="Turn.html">Turn</a>s to start the chat with (i.e., continuing a
-previous conversation). If not provided, the conversation begins from
-scratch.</p></dd>
 
 
 <dt id="arg-params">params<a class="anchor" aria-label="anchor" href="#arg-params"></a></dt>
@@ -158,16 +151,15 @@ the console).</p></li>
 <span class="r-in"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"Tell me three jokes about statisticians"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Three Jokes About Statisticians</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1. Why did the statistician drown crossing the river? </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    It was 3 feet deep on average.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1. A statistician is someone who can put their head in an oven, feet </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> in a freezer, and say "On average, I feel fine."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2. A statistician's wife gave birth to twins. He was delighted. He </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> rang the minister who asked, "Are they boys or girls?" "Yes," he </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> replied, "both kinds, and the probability of each is 0.5."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2. How many statisticians does it take to change a light bulb?</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    "Well... just one, but they need to change it 30 times to ensure </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> statistical significance."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3. How many statisticians does it take to change a light bulb?</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    "Well, technically... one, but we need a sample size of at least 30</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> bulbs to be statistically significant."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3. A statistician confidently walked into a bar... which is surprising</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> because most of them would have ducked under it.</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
