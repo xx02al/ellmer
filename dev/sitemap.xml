@@ -15,15 +15,14 @@
 <url><loc>https://ellmer.tidyverse.org/dev/reference/Provider.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/Turn.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/Type.html</loc></url>
-<url><loc>https://ellmer.tidyverse.org/dev/reference/chat_azure.html</loc></url>
-<url><loc>https://ellmer.tidyverse.org/dev/reference/chat_bedrock.html</loc></url>
-<url><loc>https://ellmer.tidyverse.org/dev/reference/chat_claude.html</loc></url>
-<url><loc>https://ellmer.tidyverse.org/dev/reference/chat_cortex.html</loc></url>
+<url><loc>https://ellmer.tidyverse.org/dev/reference/chat_anthropic.html</loc></url>
+<url><loc>https://ellmer.tidyverse.org/dev/reference/chat_aws_bedrock.html</loc></url>
+<url><loc>https://ellmer.tidyverse.org/dev/reference/chat_azure_openai.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/chat_cortex_analyst.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/chat_databricks.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/chat_deepseek.html</loc></url>
-<url><loc>https://ellmer.tidyverse.org/dev/reference/chat_gemini.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/chat_github.html</loc></url>
+<url><loc>https://ellmer.tidyverse.org/dev/reference/chat_google_gemini.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/chat_groq.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/chat_ollama.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/chat_openai.html</loc></url>
@@ -35,13 +34,17 @@
 <url><loc>https://ellmer.tidyverse.org/dev/reference/content_pdf_file.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/contents_text.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/create_tool_def.html</loc></url>
+<url><loc>https://ellmer.tidyverse.org/dev/reference/deprecated.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/ellmer-package.html</loc></url>
+<url><loc>https://ellmer.tidyverse.org/dev/reference/gemini_upload.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/has_credentials.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/index.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/interpolate.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/live_console.html</loc></url>
+<url><loc>https://ellmer.tidyverse.org/dev/reference/params.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/token_usage.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/tool.html</loc></url>
+<url><loc>https://ellmer.tidyverse.org/dev/reference/tool_annotations.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/type_boolean.html</loc></url>
 </urlset>
 
