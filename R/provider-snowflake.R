@@ -133,27 +133,6 @@ method(chat_request, ProviderSnowflakeCortex) <- function(
 
 # Snowflake -> ellmer --------------------------------------------------------
 
-method(value_turn, ProviderSnowflakeCortex) <- function(
-  provider,
-  result,
-  has_type = FALSE
-) {
-  deltas <- compact(sapply(result$choices, function(x) x$delta$content))
-  content <- list(as_content(paste(deltas, collapse = "")))
-  tokens <- tokens_log(
-    provider,
-    input = result$usage$prompt_tokens,
-    output = result$usage$completion_tokens
-  )
-  Turn(
-    # Snowflake's response format seems to omit the role.
-    "assistant",
-    content,
-    json = result,
-    tokens = tokens
-  )
-}
-
 # ellmer -> Snowflake --------------------------------------------------------
 
 # Snowflake only supports simple textual messages.
