@@ -1,5 +1,7 @@
 # ellmer (development version)
 
+* New `chat_mistral()` for models hosted at <https://mistral.ai> (#319).
+
 * `chat_gemini()` can now handle responses that include citation metadata 
   (#358).
 
