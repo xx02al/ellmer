@@ -360,8 +360,7 @@ data frames and arrays of strings into a character vector.</p></dd>
 </div><p></p><hr><a id="method-Chat-extract_data_parallel"></a><div class="section">
 <h3 id="method-extract-data-parallel-">Method <code>extract_data_parallel()</code><a class="anchor" aria-label="anchor" href="#method-extract-data-parallel-"></a></h3>
 <p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="figures/lifecycle-experimental.svg" alt="[Experimental]"></a></p>
-<p>Submit multiple prompts in parallel. Returns a list of
-extracted data, one for each prompt.</p><div class="section">
+<p>Submit multiple prompts in parallel.</p><div class="section">
 <h4 id="usage-13">Usage<a class="anchor" aria-label="anchor" href="#usage-13"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Chat</span><span class="op">$</span><span class="fu">extract_data_parallel</span><span class="op">(</span></span>
 <span>  <span class="va">prompts</span>,</span>
@@ -375,7 +374,8 @@ extracted data, one for each prompt.</p><div class="section">
 <div class="section">
 <h4 id="arguments-11">Arguments<a class="anchor" aria-label="anchor" href="#arguments-11"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>prompts</code></dt>
-<dd><p>A list of user prompts.</p></dd>
+<dd><p>A vector created by <code><a href="interpolate.html">interpolate()</a></code> or a list
+of character vectors.</p></dd>
 
 
 <dt><code>type</code></dt>
@@ -384,9 +384,10 @@ created with a <code><a href="type_boolean.html">type_()</a></code> function.</p
 
 
 <dt><code>convert</code></dt>
-<dd><p>Automatically convert from JSON lists to R data types
-using the schema. For example, this will turn arrays of objects into
-data frames and arrays of strings into a character vector.</p></dd>
+<dd><p>If <code>TRUE</code>, automatically convert from JSON lists to R
+data types using the schema. This typically works best when <code>type</code> is
+<code><a href="type_boolean.html">type_object()</a></code> as this will give you a data frame with one column for
+each property. If <code>FALSE</code>, returns a list.</p></dd>
 
 
 <dt><code>max_active</code></dt>
@@ -565,7 +566,11 @@ should use <code>register_tool()</code>.</p><div class="section">
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="chat_openai.html">chat_openai</a></span><span class="op">(</span>echo <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span>
 <span class="r-in"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"Tell me a funny joke"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Why don't skeletons fight each other? They don't have the guts.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Sure, here's a classic one for you:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Why don't scientists trust atoms?</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Because they make up everything!</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
