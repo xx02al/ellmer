@@ -71,7 +71,9 @@ check_echo <- function(echo = NULL) {
   }
 
   if (is.null(echo) || identical(echo, c("none", "output", "all"))) {
-    if (env_is_user_facing(parent.frame(2)) && !is_testing()) {
+    if (!interactive() || is_testing()) {
+      "none"
+    } else if (env_is_user_facing(parent.frame(2))) {
       "output"
     } else {
       "none"
@@ -165,4 +167,13 @@ api_key_param <- function(key) {
       which you can easily edit by calling `usethis::edit_r_environ()`."
     )
   )
+}
+
+ellmer_output <- function(x) {
+  structure(x, class = "ellmer_output")
+}
+#' @export
+print.ellmer_output <- function(x, ...) {
+  cat_line(x)
+  invisible(x)
 }

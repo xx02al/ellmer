@@ -217,7 +217,7 @@ Chat <- R6::R6Class(
       ))
 
       text <- self$last_turn()@text
-      if (echo == "none") text else invisible(text)
+      if (echo == "none") ellmer_output(text) else invisible(text)
     },
 
     #' @description `r lifecycle::badge("experimental")`
