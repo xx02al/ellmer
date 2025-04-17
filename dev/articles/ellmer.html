@@ -160,20 +160,17 @@ printing it, and you can see total usage for a session with
 <code class="sourceCode R"><span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_openai.html">chat_openai</a></span><span class="op">(</span>model <span class="op">=</span> <span class="st">"gpt-4o"</span><span class="op">)</span></span>
 <span><span class="va">.</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"Who created R?"</span>, echo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">chat</span></span>
-<span><span class="co">#&gt; &lt;Chat OpenAI/gpt-4o turns=2 tokens=11/72 $0.00&gt;</span></span>
+<span><span class="co">#&gt; &lt;Chat OpenAI/gpt-4o turns=2 tokens=11/42 $0.00&gt;</span></span>
 <span><span class="co">#&gt; ── <span style="color: #0000BB;">user</span> [11] ──────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Who created R?</span></span>
-<span><span class="co">#&gt; ── <span style="color: #00BB00;">assistant</span> [72] ─────────────────────────────────────────────────────</span></span>
-<span><span class="co">#&gt; R was created by Ross Ihaka and Robert Gentleman, who were </span></span>
-<span><span class="co">#&gt; statisticians at the University of Auckland, New Zealand. The </span></span>
-<span><span class="co">#&gt; development of R began in the early 1990s, and it was first released </span></span>
-<span><span class="co">#&gt; to the public in 1995. Since then, R has become one of the most widely</span></span>
-<span><span class="co">#&gt; used programming languages for statistical computing and data </span></span>
-<span><span class="co">#&gt; analysis.</span></span>
+<span><span class="co">#&gt; ── <span style="color: #00BB00;">assistant</span> [42] ─────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; R was created by Ross Ihaka and Robert Gentleman at the University of </span></span>
+<span><span class="co">#&gt; Auckland, New Zealand, in the mid-1990s. The language and its </span></span>
+<span><span class="co">#&gt; environment are widely used for statistical computing and graphics.</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/token_usage.html">token_usage</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   provider  model input output price</span></span>
-<span><span class="co">#&gt; 1   OpenAI gpt-4o    11     72 $0.00</span></span></code></pre></div>
+<span><span class="co">#&gt; 1   OpenAI gpt-4o    11     42 $0.00</span></span></code></pre></div>
 <p>If you want to learn more about tokens and tokenizers, I’d recommend
 watching the first 20-30 minutes of <a href="https://www.youtube.com/watch?v=zduSFxRajkE" class="external-link">Let’s build the GPT
 Tokenizer</a> by Andrej Karpathy. You certainly don’t need to learn how
