@@ -1,5 +1,8 @@
 # ellmer (development version)
 
+* New `chat_huggingface()` for models hosted at <https://huggingface.co> 
+  (#359, @s-spavound).
+
 * Bumped default time out up to 5 minutes (#451, #321).
 
 * `$extract_data(convert = TRUE)` now converts `NULL` to `NA` for 
