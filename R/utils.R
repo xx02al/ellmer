@@ -61,6 +61,8 @@ prettify <- function(x) {
 }
 
 check_echo <- function(echo = NULL) {
+  allowed <- c("none", "output", "all")
+
   if (identical(echo, "text")) {
     lifecycle::deprecate_soft(
       when = "0.2.0",
@@ -70,9 +72,9 @@ check_echo <- function(echo = NULL) {
     echo <- "output"
   }
 
-  if (is.null(echo) || identical(echo, c("none", "output", "all"))) {
-    if (!interactive() || is_testing()) {
-      "none"
+  if (is.null(echo) || identical(echo, allowed)) {
+    if (is_testing()) {
+      "test"
     } else if (env_is_user_facing(parent.frame(2))) {
       "output"
     } else {
@@ -82,6 +84,8 @@ check_echo <- function(echo = NULL) {
     "output"
   } else if (isFALSE(echo)) {
     "none"
+  } else if (echo %in% c(allowed, "test")) {
+    echo
   } else {
     arg_match(echo, c("none", "output", "all"))
   }
