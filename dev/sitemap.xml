@@ -18,6 +18,7 @@
 <url><loc>https://ellmer.tidyverse.org/dev/reference/chat_anthropic.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/chat_aws_bedrock.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/chat_azure_openai.html</loc></url>
+<url><loc>https://ellmer.tidyverse.org/dev/reference/chat_cloudflare.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/chat_cortex_analyst.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/chat_databricks.html</loc></url>
 <url><loc>https://ellmer.tidyverse.org/dev/reference/chat_deepseek.html</loc></url>
