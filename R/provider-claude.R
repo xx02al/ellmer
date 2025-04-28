@@ -72,7 +72,7 @@ chat_anthropic_test <- function(
     params$temperature <- params$temperature %||% 0
   }
 
-  chat_anthropic(model = model, params = params, ..., echo = "none")
+  chat_anthropic(model = model, params = params, ...)
 }
 
 ProviderAnthropic <- new_class(

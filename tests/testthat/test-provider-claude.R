@@ -1,4 +1,6 @@
 test_that("can make simple batch request", {
+  local_cassette_test("anthropic-batch")
+
   chat <- chat_anthropic_test("Be as terse as possible; no punctuation")
   resp <- chat$chat("What is 1 + 1?", echo = FALSE)
   expect_match(resp, "2")
@@ -25,24 +27,39 @@ test_that("supports standard parameters", {
 })
 
 test_that("all tool variations work", {
-  local_cassette_test("anthropic-tools")
-
   chat_fun <- chat_anthropic_test
 
-  retry_test(test_tools_simple(chat_fun))
-  test_tools_async(chat_fun)
-  test_tools_parallel(chat_fun)
+  local({
+    local_cassette_test("anthropic-tools-simple")
+    test_tools_simple(chat_fun)
+  })
+
+  local({
+    local_cassette_test("anthropic-tools-async")
+    test_tools_async(chat_fun)
+  })
+
+  local({
+    local_cassette_test("anthropic-tools-parallel")
+    test_tools_parallel(chat_fun)
+  })
+
   # Claude sometimes returns an empty string
-  retry_test(test_tools_sequential(chat_fun, total_calls = 6))
+  local({
+    local_cassette_test("anthropic-tools-sequential")
+    test_tools_sequential(chat_fun, total_calls = 6)
+  })
 })
 
 test_that("can extract data", {
+  local_cassette_test("anthropic-data")
   chat_fun <- chat_anthropic_test
 
   test_data_extraction(chat_fun)
 })
 
 test_that("can use images", {
+  local_cassette_test("anthropic-images")
   chat_fun <- chat_anthropic_test
 
   test_images_inline(chat_fun)
@@ -50,6 +67,7 @@ test_that("can use images", {
 })
 
 test_that("can use pdfs", {
+  local_cassette_test("anthropic-pdfs")
   chat_fun <- chat_anthropic_test
 
   test_pdf_local(chat_fun)
@@ -64,9 +82,14 @@ test_that("can set beta headers", {
 })
 
 test_that("continues to work after whitespace only outputs (#376)", {
-  chat <- chat_anthropic()
+  local_cassette_test("anthropic-whitespace-only")
+
+  chat <- chat_anthropic_test(echo = FALSE)
   chat$chat("Respond with only two blank lines")
-  expect_equal(chat$chat("What's 1+1? Just give me the number"), "2")
+  expect_equal(
+    chat$chat("What's 1+1? Just give me the number"),
+    ellmer_output("2")
+  )
 })
 
 test_that("max_tokens is deprecated", {
