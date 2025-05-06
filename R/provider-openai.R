@@ -77,14 +77,17 @@ chat_openai <- function(
   Chat$new(provider = provider, system_prompt = system_prompt, echo = echo)
 }
 
-chat_openai_test <- function(..., model = "gpt-4o-mini", params = NULL) {
+chat_openai_test <- function(
+  ...,
+  model = "gpt-4o-mini",
+  params = NULL,
+  echo = FALSE
+) {
   params <- params %||% params()
-  if (is_testing()) {
-    params$seed <- params$seed %||% 1014
-    params$temperature <- params$temperature %||% 0
-  }
+  params$seed <- params$seed %||% 1014
+  params$temperature <- params$temperature %||% 0
 
-  chat_openai(model = model, params = params, ...)
+  chat_openai(model = model, params = params, echo = echo, ...)
 }
 
 ProviderOpenAI <- new_class(
