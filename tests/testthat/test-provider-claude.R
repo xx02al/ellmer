@@ -34,10 +34,7 @@ test_that("all tool variations work", {
     test_tools_simple(chat_fun)
   })
 
-  local({
-    vcr::local_cassette("anthropic-tools-async")
-    test_tools_async(chat_fun)
-  })
+  test_tools_async(chat_fun)
 
   local({
     vcr::local_cassette("anthropic-tools-parallel")
@@ -108,3 +105,4 @@ test_that("strips suffix from model name", {
     "claude-3-7-sonnet"
   )
 })
+ 
