@@ -69,7 +69,7 @@ test_that("setting turns usually preserves, but can set system prompt", {
 
 
 test_that("can perform a simple batch chat", {
-  local_cassette_test("chat-batch")
+  vcr::local_cassette("chat-batch")
   chat <- chat_openai_test(echo = FALSE)
 
   result <- chat$chat("What's 1 + 1. Just give me the answer, no punctuation")
@@ -158,7 +158,7 @@ test_that("can chat in parallel", {
 })
 
 test_that("can extract structured data", {
-  local_cassette_test("chat-structured")
+  vcr::local_cassette("chat-structured")
 
   person <- type_object(name = type_string(), age = type_integer())
 
@@ -238,7 +238,7 @@ test_that("can optionally echo", {
 })
 
 test_that("can retrieve last_turn for user and assistant", {
-  local_cassette_test("chat-echo")
+  vcr::local_cassette("chat-echo")
   chat <- chat_openai(echo = FALSE)
   expect_equal(chat$last_turn("user"), NULL)
   expect_equal(chat$last_turn("assistant"), NULL)
@@ -249,7 +249,7 @@ test_that("can retrieve last_turn for user and assistant", {
 })
 
 test_that("chat messages get timestamped in sequence", {
-  local_cassette_test("chat-timestamp")
+  vcr::local_cassette("chat-timestamp")
   chat <- chat_openai(echo = FALSE)
 
   before_send <- Sys.time()
@@ -314,7 +314,7 @@ test_that("chat can get and register a list of tools", {
 })
 
 test_that("chat warns on tool failures", {
-  local_cassette_test("chat-tool-failure")
+  vcr::local_cassette("chat-tool-failure")
   chat <- chat_openai_test("Be very terse, not even punctuation.", echo = FALSE)
 
   chat$register_tool(tool(

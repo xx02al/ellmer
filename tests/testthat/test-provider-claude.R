@@ -1,5 +1,5 @@
 test_that("can make simple batch request", {
-  local_cassette_test("anthropic-batch")
+  vcr::local_cassette("anthropic-batch")
 
   chat <- chat_anthropic_test("Be as terse as possible; no punctuation")
   resp <- chat$chat("What is 1 + 1?", echo = FALSE)
@@ -20,7 +20,7 @@ test_that("defaults are reported", {
 })
 
 test_that("supports standard parameters", {
-  local_cassette_test("anthropic-params")
+  vcr::local_cassette("anthropic-params")
   chat_fun <- chat_anthropic_test
 
   test_params_stop(chat_fun)
@@ -30,36 +30,36 @@ test_that("all tool variations work", {
   chat_fun <- chat_anthropic_test
 
   local({
-    local_cassette_test("anthropic-tools-simple")
+    vcr::local_cassette("anthropic-tools-simple")
     test_tools_simple(chat_fun)
   })
 
   local({
-    local_cassette_test("anthropic-tools-async")
+    vcr::local_cassette("anthropic-tools-async")
     test_tools_async(chat_fun)
   })
 
   local({
-    local_cassette_test("anthropic-tools-parallel")
+    vcr::local_cassette("anthropic-tools-parallel")
     test_tools_parallel(chat_fun)
   })
 
   # Claude sometimes returns an empty string
   local({
-    local_cassette_test("anthropic-tools-sequential")
+    vcr::local_cassette("anthropic-tools-sequential")
     test_tools_sequential(chat_fun, total_calls = 6)
   })
 })
 
 test_that("can extract data", {
-  local_cassette_test("anthropic-data")
+  vcr::local_cassette("anthropic-data")
   chat_fun <- chat_anthropic_test
 
   test_data_extraction(chat_fun)
 })
 
 test_that("can use images", {
-  local_cassette_test("anthropic-images")
+  vcr::local_cassette("anthropic-images")
   chat_fun <- chat_anthropic_test
 
   test_images_inline(chat_fun)
@@ -67,7 +67,7 @@ test_that("can use images", {
 })
 
 test_that("can use pdfs", {
-  local_cassette_test("anthropic-pdfs")
+  vcr::local_cassette("anthropic-pdfs")
   chat_fun <- chat_anthropic_test
 
   test_pdf_local(chat_fun)
@@ -82,7 +82,7 @@ test_that("can set beta headers", {
 })
 
 test_that("continues to work after whitespace only outputs (#376)", {
-  local_cassette_test("anthropic-whitespace-only")
+  vcr::local_cassette("anthropic-whitespace-only")
 
   chat <- chat_anthropic_test(echo = FALSE)
   chat$chat("Respond with only two blank lines")
