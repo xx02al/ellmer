@@ -58,7 +58,7 @@ test_that("can extract data", {
 
 test_that("can use images", {
   vcr::local_cassette("openai-images")
-  chat_fun <- chat_openai_test
+  chat_fun <- \(...) chat_openai_test(model = "gpt-4.1-mini", ...)
 
   test_images_inline(chat_fun)
   test_images_remote(chat_fun)
