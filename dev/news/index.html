@@ -60,7 +60,10 @@
 <code>request</code>: The <code>ContentToolRequest</code> that triggered the tool call. <code>ContentToolResult</code> no longer has an <code>id</code> property, instead the tool call ID can be retrieved from <code>request@id</code>.</li>
 </ul></li>
 <li><p><code>ContentToolRequest</code> gains a <code>tool</code> property that includes the <code><a href="../reference/tool.html">tool()</a></code> definition when a request is matched to a tool by ellmer (<a href="https://github.com/tidyverse/ellmer/issues/423" class="external-link">#423</a>, <a href="https://github.com/gadenbuie" class="external-link">@gadenbuie</a>).</p></li>
-<li><p>ellmer now tracks the cost of input and output tokens. The cost is displayed when you print a <code>Chat</code> object, in <code>tokens_usage()</code>, and with <code>Chat$get_cost()</code>. This is our best effort at computing the cost, but you should treat it as an estimate rather than the exact price. Unfortunately LLM APIs currently make it very hard to figure out exactly how much your queries are costing (<a href="https://github.com/tidyverse/ellmer/issues/203" class="external-link">#203</a>).</p></li>
+<li>
+<p>ellmer now tracks the cost of input and output tokens. The cost is displayed when you print a <code>Chat</code> object, in <code>tokens_usage()</code>, and with <code>Chat$get_cost()</code>. You can also request costs in <code>$parallel_extract_data()</code>.</p>
+<p>We do our best to accurately compute the cost, but you should treat it as an estimate rather than the exact price. Unfortunately LLM APIs currently make it very hard to figure out exactly how much your queries cost (<a href="https://github.com/tidyverse/ellmer/issues/203" class="external-link">#203</a>).</p>
+</li>
 <li><p><code>ContentToolResult</code> objects now include the error condition in the <code>error</code> property when a tool call fails (<a href="https://github.com/tidyverse/ellmer/issues/421" class="external-link">#421</a>, <a href="https://github.com/gadenbuie" class="external-link">@gadenbuie</a>).</p></li>
 <li>
 <p>Several chat functions were renamed to better align with the companies providing the API (<a href="https://github.com/tidyverse/ellmer/issues/382" class="external-link">#382</a>, <a href="https://github.com/gadenbuie" class="external-link">@gadenbuie</a>):</p>
