@@ -663,11 +663,13 @@ Chat <- R6::R6Class(
     }),
 
     invoke_tools = function(echo = "none") {
-      invoke_tools(self$last_turn(), echo = echo)
+      tool_results <- invoke_tools(self$last_turn(), echo = echo)
+      tool_results_as_turn(tool_results)
     },
 
     invoke_tools_async = async_method(function(self, private, echo = "none") {
-      await(invoke_tools_async(self$last_turn(), echo = echo))
+      tool_results <- await(invoke_tools_async(self$last_turn(), echo = echo))
+      tool_results_as_turn(tool_results)
     }),
 
     has_system_prompt = function() {
