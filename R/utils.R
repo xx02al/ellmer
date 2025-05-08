@@ -167,6 +167,16 @@ api_key_param <- function(key) {
   )
 }
 
+color_role <- function(role) {
+  switch(
+    role,
+    user = cli::col_blue(role),
+    assistant = cli::col_green(role),
+    system = cli::col_br_white(role),
+    role
+  )
+}
+
 counter <- function() {
   count <- 0
   function() {
