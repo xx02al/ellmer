@@ -15,7 +15,6 @@ match_tools <- function(turn, tools) {
   turn
 }
 
-# Results a content list
 invoke_tools <- function(turn, echo = "none") {
   if (is.null(turn)) return(NULL)
 
@@ -81,9 +80,15 @@ invoke_tool <- function(request) {
     return(new_tool_result(request, error = "Unknown tool"))
   }
 
+  args <- tool_request_args(request)
+  if (S7_inherits(args, ContentToolResult)) {
+    # Failed to convert the arguments
+    return(args)
+  }
+
   tryCatch(
     {
-      result <- do.call(request@tool@fun, request@arguments)
+      result <- do.call(request@tool@fun, args)
       new_tool_result(request, result)
     },
     error = function(e) {
@@ -99,9 +104,15 @@ on_load(
       return(new_tool_result(request, error = "Unknown tool"))
     }
 
+    args <- tool_request_args(request)
+    if (S7_inherits(args, ContentToolResult)) {
+      # Failed to convert the arguments
+      return(args)
+    }
+
     tryCatch(
       {
-        result <- await(do.call(request@tool@fun, request@arguments))
+        result <- await(do.call(request@tool@fun, args))
         new_tool_result(request, result)
       },
       error = function(e) {
@@ -111,6 +122,23 @@ on_load(
     )
   })
 )
+
+tool_request_args <- function(request) {
+  tool <- request@tool
+  args <- request@arguments
+
+  if (!tool@convert) {
+    return(args)
+  }
+
+  extra_args <- setdiff(names(args), names(tool@arguments@properties))
+  if (length(extra_args) > 0) {
+    e <- catch_cnd(cli::cli_abort("Unused argument{?s}: {extra_args}"))
+    return(new_tool_result(request, error = e))
+  }
+
+  convert_from_type(args, tool@arguments)
+}
 
 tool_results_as_turn <- function(results) {
   if (length(results) == 0) {
