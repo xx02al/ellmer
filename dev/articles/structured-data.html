@@ -122,7 +122,7 @@ extracts two specific values from a string:</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; $primary_shape</span></span>
-<span><span class="co">#&gt; [1] "oval and letter"</span></span>
+<span><span class="co">#&gt; [1] "oval with a letter"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $primary_colour</span></span>
 <span><span class="co">#&gt; [1] "grey and blue"</span></span></code></pre></div>
@@ -228,15 +228,15 @@ can use structured data extraction.</p>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_summary</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">summary</span><span class="op">)</span></span>
-<span><span class="co">#&gt; In today's rapidly evolving AI landscape, Anthropic advocates for robust third-party testing as a fundamental AI policy measure. The company emphasizes the growing necessity for external evaluations of AI systems to prevent accidental and deliberate societal harm, suggesting a multi-faceted approach involving industry, government, and academia. They propose a two-stage testing regimen to address the safety concerns of current and future AI technologies. Anthropic outlines their initiatives supporting these testing efforts and stresses the importance of having widely trusted third-party testing for managing AI's powerful potentials, ensuring regulatory actions are both effective and equitable.</span></span>
+<span><span class="co">#&gt; The rapid deployment of large-scale generative AI systems highlights the necessity for effective third-party testing as a cornerstone of AI policy. Such a testing regime should be designed collaboratively with insights from industry, governmental bodies, and academic institutions to mitigate both deliberate and accidental societal harms from advanced AI systems. Given current capabilities and the potential for future enhancements, it is crucial that this testing infrastructure is proactive rather than reactionary. The program must balance comprehensive oversight with feasibility to ensure fairness and trust in AI applications, while not stifling smaller companies. Anthropic advocates for government-supported infrastructure to develop and administer such testing beyond corporate self-governance, proposing a diversified and multi-tiered approach to evaluation, leveraging insights from ongoing testing regime prototypes and collaborations with governmental partners. This article emphasizes the importance of coherent policy approaches to prevent regulatory capture and support transparency and innovation in AI, ensuring that societal benefits are maximized safely and ethically.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 5</span></span>
-<span><span class="co">#&gt;  $ author    : chr "John Doe"</span></span>
-<span><span class="co">#&gt;  $ topics    : chr [1:5] "AI policy" "AI safety" "AI regulation" "third-party testing" ...</span></span>
-<span><span class="co">#&gt;  $ summary   : chr "In today's rapidly evolving AI landscape, Anthropic advocates for robust third-party testing as a fundamental A"| __truncated__</span></span>
-<span><span class="co">#&gt;  $ coherence : int 90</span></span>
-<span><span class="co">#&gt;  $ persuasion: num 0.85</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ author    : chr "Anthropic"</span></span>
+<span><span class="co">#&gt;  $ topics    : chr [1:7] "AI Policy" "Third-Party Testing" "AI Safety" "Regulatory Frameworks" ...</span></span>
+<span><span class="co">#&gt;  $ summary   : chr "The rapid deployment of large-scale generative AI systems highlights the necessity for effective third-party te"| __truncated__</span></span>
+<span><span class="co">#&gt;  $ coherence : int 85</span></span>
+<span><span class="co">#&gt;  $ persuasion: num 0.89</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-2-named-entity-recognition">Example 2: Named entity recognition<a class="anchor" aria-label="anchor" href="#example-2-named-entity-recognition"></a>
@@ -262,17 +262,15 @@ can use structured data extraction.</p>
 <span><span class="co">#&gt; 2        Google organization</span></span>
 <span><span class="co">#&gt; 3      New York     location</span></span>
 <span><span class="co">#&gt; 4         Sarah       person</span></span>
-<span><span class="co">#&gt; 5           CEO       person</span></span>
-<span><span class="co">#&gt; 6     Acme Inc. organization</span></span>
-<span><span class="co">#&gt; 7 San Francisco     location</span></span>
-<span><span class="co">#&gt;                                         context</span></span>
-<span><span class="co">#&gt; 1                   Works at Google in New York</span></span>
-<span><span class="co">#&gt; 2                              John works there</span></span>
-<span><span class="co">#&gt; 3   Location of John's work placement at Google</span></span>
-<span><span class="co">#&gt; 4 She is the CEO of Acme Inc. and met with John</span></span>
-<span><span class="co">#&gt; 5              Title held by Sarah at Acme Inc.</span></span>
-<span><span class="co">#&gt; 6                               Sarah's company</span></span>
-<span><span class="co">#&gt; 7     Meeting place of John and Sarah last week</span></span></code></pre></div>
+<span><span class="co">#&gt; 5     Acme Inc. organization</span></span>
+<span><span class="co">#&gt; 6 San Francisco     location</span></span>
+<span><span class="co">#&gt;                                                              context</span></span>
+<span><span class="co">#&gt; 1                                  John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 2                                  John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 3                                  John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 4          Sarah is mentioned as the CEO of Acme Inc. whom John met.</span></span>
+<span><span class="co">#&gt; 5 Acme Inc. is mentioned as the organization where Sarah is the CEO.</span></span>
+<span><span class="co">#&gt; 6                    John met with Sarah last week in San Francisco.</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-3-sentiment-analysis">Example 3: Sentiment analysis<a class="anchor" aria-label="anchor" href="#example-3-sentiment-analysis"></a>
@@ -332,9 +330,9 @@ guaranteed.</p>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_classification</span><span class="op">)</span></span>
 <span><span class="va">data</span></span>
 <span><span class="co">#&gt;         name score</span></span>
-<span><span class="co">#&gt; 1 Technology  0.80</span></span>
-<span><span class="co">#&gt; 2   Business  0.15</span></span>
-<span><span class="co">#&gt; 3      Other  0.05</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 Technology  0.90</span></span>
+<span><span class="co">#&gt; 2   Business  0.07</span></span>
+<span><span class="co">#&gt; 3      Other  0.03</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-5-working-with-unknown-keys">Example 5: Working with unknown keys<a class="anchor" aria-label="anchor" href="#example-5-working-with-unknown-keys"></a>
@@ -390,9 +388,9 @@ and “unearned” income</div>
 <span><span class="va">image</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/content_image_url.html">content_image_file</a></span><span class="op">(</span><span class="st">"congressional-assets.png"</span><span class="op">)</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">image</span>, type <span class="op">=</span> <span class="va">type_assets</span><span class="op">)</span></span>
 <span><span class="va">data</span></span>
-<span><span class="co">#&gt;                            assert_name owner</span></span>
-<span><span class="co">#&gt; 1  11 Zinfandel Lane - Home &amp; Vineyard    JT</span></span>
-<span><span class="co">#&gt; 2 25 Point Lobos - Commercial Property    SP</span></span>
+<span><span class="co">#&gt;                                 assert_name owner</span></span>
+<span><span class="co">#&gt; 1  11 Zinfandel Lane - Home &amp; Vineyard [RP]    JT</span></span>
+<span><span class="co">#&gt; 2 25 Point Lobos - Commercial Property [RP]    SP</span></span>
 <span><span class="co">#&gt;                              location asset_value_low asset_value_high</span></span>
 <span><span class="co">#&gt; 1             St. Helena/Napa, CA, US         5000001         25000000</span></span>
 <span><span class="co">#&gt; 2 San Francisco/San Francisco, CA, US         5000001         25000000</span></span>
@@ -444,10 +442,10 @@ one in the text:</p>
 <span><span class="co">#&gt; [1] "Hadley Wickham"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $date</span></span>
-<span><span class="co">#&gt; [1] "2023-10-15"</span></span>
+<span><span class="co">#&gt; [1] "2023-10-31"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    2 obs. of  9 variables:</span></span>
-<span><span class="co">#&gt;  $ assert_name     : chr  "11 Zinfandel Lane - Home &amp; Vineyard" "25 Point Lobos - Commercial Property"</span></span>
+<span><span class="co">#&gt;  $ assert_name     : chr  "11 Zinfandel Lane - Home &amp; Vineyard [RP]" "25 Point Lobos - Commercial Property [RP]"</span></span>
 <span><span class="co">#&gt;  $ owner           : chr  "JT" "SP"</span></span>
 <span><span class="co">#&gt;  $ location        : chr  "St. Helena/Napa, CA, US" "San Francisco/San Francisco, CA, US"</span></span>
 <span><span class="co">#&gt;  $ asset_value_low : int  5000001 5000001</span></span>
@@ -525,14 +523,14 @@ common in the wild.</p>
 <td align="left">OpenAI</td>
 <td align="left">gpt-4o</td>
 <td align="right">6009</td>
-<td align="right">575</td>
+<td align="right">665</td>
 <td align="right">$0.02</td>
 </tr>
 <tr class="even">
 <td align="left">Anthropic</td>
 <td align="left">claude-3-7-sonnet</td>
 <td align="right">480</td>
-<td align="right">98</td>
+<td align="right">94</td>
 <td align="right">$0.00</td>
 </tr>
 </tbody>
