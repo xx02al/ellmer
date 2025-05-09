@@ -107,7 +107,8 @@ description of the annotation properties recommended by the <a href="https://mod
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other tool calling helpers:
-<code><a href="tool_annotations.html">tool_annotations</a>()</code></p></div>
+<code><a href="tool_annotations.html">tool_annotations</a>()</code>,
+<code><a href="tool_reject.html">tool_reject</a>()</code></p></div>
     </div>
 
     <div class="section level2">
@@ -136,7 +137,9 @@ description of the annotation properties recommended by the <a href="https://mod
 <span class="r-in"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"</span></span></span>
 <span class="r-in"><span><span class="st">  Give me five numbers from a random normal distribution.</span></span></span>
 <span class="r-in"><span><span class="st">"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Please provide the mean and standard deviation for the distribution.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> To generate five numbers from a random normal distribution, please </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> provide the mean and standard deviation values you'd like to use for </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> this distribution.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Look at the chat history to see how tool calling works:</span></span></span>
 <span class="r-in"><span><span class="co"># Assistant sends a tool request which is evaluated locally and</span></span></span>
