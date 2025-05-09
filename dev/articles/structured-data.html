@@ -104,15 +104,15 @@ specific values from a string:</p>
 <span><span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span></span>
 <span>  <span class="st">"My name is Susan and I'm 13 years old"</span>,</span>
 <span>  type <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
-<span>    age <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_number</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    name <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>    name <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    age <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_number</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; $age</span></span>
-<span><span class="co">#&gt; [1] 13</span></span>
-<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $name</span></span>
-<span><span class="co">#&gt; [1] "Susan"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "Susan"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $age</span></span>
+<span><span class="co">#&gt; [1] 13</span></span></code></pre></div>
 <p>The same basic idea works with images too:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span></span>
@@ -123,10 +123,41 @@ specific values from a string:</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; $primary_shape</span></span>
-<span><span class="co">#&gt; [1] "letter R with an oval"</span></span>
+<span><span class="co">#&gt; [1] "a large blue letter \"R\" inside a gray circular shape"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $primary_colour</span></span>
 <span><span class="co">#&gt; [1] "blue and gray"</span></span></code></pre></div>
+<p>If you need to extract data from multiple prompts, you can use the
+same techniques with <code><a href="../reference/parallel_chat.html">parallel_chat_structured()</a></code>. It takes
+the same arguments as <code>$chat_structured()</code> with two
+exceptions: it needs a <code>chat</code> object since it’s a standalone
+function, not a method, and it can take a vector of prompts.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">prompts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="st">"I go by Alex. 42 years on this planet and counting."</span>,</span>
+<span>  <span class="st">"Pleased to meet you! I'm Jamal, age 27."</span>,</span>
+<span>  <span class="st">"They call me Li Wei. Nineteen years young."</span>,</span>
+<span>  <span class="st">"Fatima here. Just celebrated my 35th birthday last week."</span>,</span>
+<span>  <span class="st">"The name's Robert - 51 years old and proud of it."</span>,</span>
+<span>  <span class="st">"Kwame here - just hit the big 5-0 this year."</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/parallel_chat.html">parallel_chat_structured</a></span><span class="op">(</span></span>
+<span>  <span class="va">chat</span>,  </span>
+<span>  <span class="va">prompts</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
+<span>    name <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    age <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_number</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; [working] (0 + 0) -&gt; 5 -&gt; 1 | <span style="color: #00BB00;">■■■■■■                          </span>  17%</span></span>
+<span><span class="co">#&gt; [working] (0 + 0) -&gt; 0 -&gt; 6 | <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ </span> 100%</span></span>
+<span><span class="co">#&gt;     name age</span></span>
+<span><span class="co">#&gt; 1   Alex  42</span></span>
+<span><span class="co">#&gt; 2  Jamal  27</span></span>
+<span><span class="co">#&gt; 3 Li Wei  19</span></span>
+<span><span class="co">#&gt; 4 Fatima  35</span></span>
+<span><span class="co">#&gt; 5 Robert  51</span></span>
+<span><span class="co">#&gt; 6  Kwame  50</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="data-types-basics">Data types basics<a class="anchor" aria-label="anchor" href="#data-types-basics"></a>
@@ -148,14 +179,14 @@ same type. They are created with <code><a href="../reference/type_boolean.html">
 always supply the <code>item</code> argument which specifies the type
 for each individual element. Arrays of scalars are very similar to R’s
 atomic vectors:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_logical_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_boolean</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">type_integer_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_integer</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">type_double_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">type_character_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>You can also have arrays of arrays and arrays of objects, which more
 closely resemble lists with well defined structures:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">list_of_integers</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="va">type_integer_vector</span><span class="op">)</span></span></code></pre></div>
 </li>
 <li>
@@ -163,7 +194,7 @@ closely resemble lists with well defined structures:</p>
 They are created with <code><a href="../reference/type_boolean.html">type_object()</a></code>. Objects can contain
 any number of scalars, arrays, and other objects. They are similar to
 named lists in R.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_person</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  age <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_integer</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -185,7 +216,7 @@ describes the data that you want. This is a good place to ask nicely for
 other attributes you’ll like the value to have (e.g. minimum or maximum
 values, date formats, …). There’s no guarantee that these requests will
 be honoured, but the LLM will usually make a best effort to do so.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_type_person</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
 <span>  <span class="st">"A person"</span>,</span>
 <span>  name <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="st">"Name"</span><span class="op">)</span>,</span>
@@ -207,7 +238,7 @@ can use structured data extraction.</p>
 <div class="section level3">
 <h3 id="example-1-article-summarisation">Example 1: Article summarisation<a class="anchor" aria-label="anchor" href="#example-1-article-summarisation"></a>
 </h3>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples/third-party-testing.txt"</span>, package <span class="op">=</span> <span class="st">"ellmer"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># url &lt;- "https://www.anthropic.com/news/third-party-testing"</span></span>
 <span><span class="co"># html &lt;- rvest::read_html(url)</span></span>
@@ -229,20 +260,20 @@ can use structured data extraction.</p>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_summary</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">summary</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The article advocates for implementing a robust third-party testing regime for frontier AI systems to ensure their safe and responsible deployment. Highlighting the critical need for thorough evaluation of AI models in terms of potential misuse and accidental outcomes, it emphasizes that such testing should extend beyond self-governance and involve trusted independent entities. The piece also discusses the potential role of government, academia, and private sector partnerships in developing effective regulatory frameworks, amidst challenges of regulatory capture and the balance of open innovation with societal safety.</span></span>
+<span><span class="co">#&gt; This article highlights the critical role of third-party testing in crafting effective AI policy, particularly for advanced AI systems. The implementation of a robust testing regime can mitigate potential risks such as election interference, discriminatory practices, and national security threats. By involving industry, government, and academia, a structured approach can help create standards that protect society from AI-related harms while fostering innovation. The piece also addresses challenges like regulatory capture and the balance between open-source development and security, urging proactive design in AI regulation.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 5</span></span>
-<span><span class="co">#&gt;  $ author    : chr "Anthropic"</span></span>
-<span><span class="co">#&gt;  $ topics    : chr [1:4] "AI Policy" "Third-party Testing" "AI Safety" "Regulatory Compliance"</span></span>
-<span><span class="co">#&gt;  $ summary   : chr "The article advocates for implementing a robust third-party testing regime for frontier AI systems to ensure th"| __truncated__</span></span>
+<span><span class="co">#&gt;  $ author    : chr "Tech Policy Contributor"</span></span>
+<span><span class="co">#&gt;  $ topics    : chr [1:4] "AI Policy" "Third-Party Testing" "Regulatory Frameworks" "Ethical AI"</span></span>
+<span><span class="co">#&gt;  $ summary   : chr "This article highlights the critical role of third-party testing in crafting effective AI policy, particularly "| __truncated__</span></span>
 <span><span class="co">#&gt;  $ coherence : int 85</span></span>
 <span><span class="co">#&gt;  $ persuasion: num 0.9</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-2-named-entity-recognition">Example 2: Named entity recognition<a class="anchor" aria-label="anchor" href="#example-2-named-entity-recognition"></a>
 </h3>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">text</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
 <span><span class="st">  John works at Google in New York. He met with Sarah, the CEO of</span></span>
 <span><span class="st">  Acme Inc., last week in San Francisco.</span></span>
@@ -265,18 +296,18 @@ can use structured data extraction.</p>
 <span><span class="co">#&gt; 4         Sarah       person</span></span>
 <span><span class="co">#&gt; 5     Acme Inc. organization</span></span>
 <span><span class="co">#&gt; 6 San Francisco     location</span></span>
-<span><span class="co">#&gt;                                         context</span></span>
-<span><span class="co">#&gt; 1                  works at Google in New York.</span></span>
-<span><span class="co">#&gt; 2         employer of John located in New York.</span></span>
-<span><span class="co">#&gt; 3          location where John works at Google.</span></span>
-<span><span class="co">#&gt; 4     the CEO of Acme Inc., whom John met with.</span></span>
-<span><span class="co">#&gt; 5                company led by Sarah, the CEO.</span></span>
-<span><span class="co">#&gt; 6 location where John met with Sarah last week.</span></span></code></pre></div>
+<span><span class="co">#&gt;                                           context</span></span>
+<span><span class="co">#&gt; 1               John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 2               John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 3               John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 4         He met with Sarah, the CEO of Acme Inc.</span></span>
+<span><span class="co">#&gt; 5         He met with Sarah, the CEO of Acme Inc.</span></span>
+<span><span class="co">#&gt; 6 He met with Sarah...last week in San Francisco.</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-3-sentiment-analysis">Example 3: Sentiment analysis<a class="anchor" aria-label="anchor" href="#example-3-sentiment-analysis"></a>
 </h3>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">text</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
 <span><span class="st">  The product was okay, but the customer service was terrible. I probably</span></span>
 <span><span class="st">  won't buy from them again.</span></span>
@@ -293,8 +324,8 @@ can use structured data extraction.</p>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_sentiment</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 3</span></span>
-<span><span class="co">#&gt;  $ positive_score: num 0.2</span></span>
-<span><span class="co">#&gt;  $ negative_score: num 0.6</span></span>
+<span><span class="co">#&gt;  $ positive_score: num 0.1</span></span>
+<span><span class="co">#&gt;  $ negative_score: num 0.7</span></span>
 <span><span class="co">#&gt;  $ neutral_score : num 0.2</span></span></code></pre></div>
 <p>Note that while we’ve asked nicely for the scores to sum 1, which
 they do in this example (at least when I ran the code), this is not
@@ -303,7 +334,7 @@ guaranteed.</p>
 <div class="section level3">
 <h3 id="example-4-text-classification">Example 4: Text classification<a class="anchor" aria-label="anchor" href="#example-4-text-classification"></a>
 </h3>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">text</span> <span class="op">&lt;-</span> <span class="st">"The new quantum computing breakthrough could revolutionize the tech industry."</span></span>
 <span></span>
 <span><span class="va">type_classification</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span></span>
@@ -331,14 +362,14 @@ guaranteed.</p>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_classification</span><span class="op">)</span></span>
 <span><span class="va">data</span></span>
 <span><span class="co">#&gt;         name score</span></span>
-<span><span class="co">#&gt; 1 Technology  0.85</span></span>
-<span><span class="co">#&gt; 2   Business  0.10</span></span>
+<span><span class="co">#&gt; 1 Technology  0.80</span></span>
+<span><span class="co">#&gt; 2   Business  0.15</span></span>
 <span><span class="co">#&gt; 3      Other  0.05</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-5-working-with-unknown-keys">Example 5: Working with unknown keys<a class="anchor" aria-label="anchor" href="#example-5-working-with-unknown-keys"></a>
 </h3>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_characteristics</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
 <span>  <span class="st">"All characteristics"</span>,</span>
 <span>  .additional_properties <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -370,7 +401,7 @@ The goal is to extract structured data from this screenshot:</p>
 and “unearned” income</div>
 </div>
 <p>Even without any descriptions, ChatGPT does pretty well:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_asset</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
 <span>  assert_name <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  owner <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -389,9 +420,9 @@ and “unearned” income</div>
 <span><span class="va">image</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/content_image_url.html">content_image_file</a></span><span class="op">(</span><span class="st">"congressional-assets.png"</span><span class="op">)</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">image</span>, type <span class="op">=</span> <span class="va">type_assets</span><span class="op">)</span></span>
 <span><span class="va">data</span></span>
-<span><span class="co">#&gt;                                 assert_name owner</span></span>
-<span><span class="co">#&gt; 1  11 Zinfandel Lane - Home &amp; Vineyard [RP]    JT</span></span>
-<span><span class="co">#&gt; 2 25 Point Lobos - Commercial Property [RP]    SP</span></span>
+<span><span class="co">#&gt;                            assert_name owner</span></span>
+<span><span class="co">#&gt; 1  11 Zinfandel Lane - Home &amp; Vineyard    JT</span></span>
+<span><span class="co">#&gt; 2 25 Point Lobos - Commercial Property    SP</span></span>
 <span><span class="co">#&gt;                              location asset_value_low asset_value_high</span></span>
 <span><span class="co">#&gt; 1             St. Helena/Napa, CA, US         5000001         25000000</span></span>
 <span><span class="co">#&gt; 2 San Francisco/San Francisco, CA, US         5000001         25000000</span></span>
@@ -414,7 +445,7 @@ idea if you don’t think your text will always contain the required
 fields as LLMs may hallucinate data in order to fulfill your spec.</p>
 <p>For example, here the LLM hallucinates a date even though there isn’t
 one in the text:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_article</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
 <span>  <span class="st">"Information about an article written in markdown"</span>,</span>
 <span>  title <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="st">"Article title"</span><span class="op">)</span>,</span>
@@ -443,10 +474,10 @@ one in the text:</p>
 <span><span class="co">#&gt; [1] "Hadley Wickham"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $date</span></span>
-<span><span class="co">#&gt; [1] "2023-04-29"</span></span>
+<span><span class="co">#&gt; [1] "unknown"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    2 obs. of  9 variables:</span></span>
-<span><span class="co">#&gt;  $ assert_name     : chr  "11 Zinfandel Lane - Home &amp; Vineyard [RP]" "25 Point Lobos - Commercial Property [RP]"</span></span>
+<span><span class="co">#&gt;  $ assert_name     : chr  "11 Zinfandel Lane - Home &amp; Vineyard" "25 Point Lobos - Commercial Property"</span></span>
 <span><span class="co">#&gt;  $ owner           : chr  "JT" "SP"</span></span>
 <span><span class="co">#&gt;  $ location        : chr  "St. Helena/Napa, CA, US" "San Francisco/San Francisco, CA, US"</span></span>
 <span><span class="co">#&gt;  $ asset_value_low : int  5000001 5000001</span></span>
@@ -460,7 +491,7 @@ I found that this generated better results and that it’s a useful place
 to put additional instructions.</p>
 <p>If I let the LLM know that the fields are all optional, it’ll return
 <code>NULL</code> for the missing fields:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_article</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
 <span>  <span class="st">"Information about an article written in markdown"</span>,</span>
 <span>  title <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="st">"Article title"</span>, required <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
@@ -483,7 +514,7 @@ to put additional instructions.</p>
 <p>If you want to define a data frame like object, you might be tempted
 to create a definition similar to what R uses: an object (i.e., a named
 list) containing multiple vectors (i.e., an array):</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_my_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  age <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_integer</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -493,7 +524,7 @@ list) containing multiple vectors (i.e., an array):</p>
 <p>This, however, is not quite right becuase there’s no way to specify
 that each array should have the same length. Instead, you’ll need to
 turn the data structure “inside out” and create an array of objects:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_my_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span></span>
 <span>  items <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
 <span>    name <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -523,15 +554,15 @@ common in the wild.</p>
 <tr class="odd">
 <td align="left">OpenAI</td>
 <td align="left">gpt-4o</td>
-<td align="right">6009</td>
-<td align="right">559</td>
-<td align="right">$0.02</td>
+<td align="right">8186</td>
+<td align="right">642</td>
+<td align="right">$0.03</td>
 </tr>
 <tr class="even">
 <td align="left">Anthropic</td>
 <td align="left">claude-3-7-sonnet</td>
 <td align="right">480</td>
-<td align="right">97</td>
+<td align="right">81</td>
 <td align="right">$0.00</td>
 </tr>
 </tbody>
