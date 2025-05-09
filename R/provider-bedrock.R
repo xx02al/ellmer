@@ -20,7 +20,7 @@ NULL
 #' org uses AWS SSO, you'll need to run `aws sso login` at the terminal.
 #'
 #' @param profile AWS profile to use.
-#' @param model `r param_model("anthropic.claude-3-5-sonnet-20241022-v2:0", "models_aws_bedrock")`.
+#' @param model `r param_model("anthropic.claude-3-5-sonnet-20240620-v1:0", "models_aws_bedrock")`.
 #'
 #'   While ellmer provides a default model, there's no guarantee that you'll
 #'   have access to it, so you'll need to specify a model that you can.
@@ -61,7 +61,7 @@ chat_aws_bedrock <- function(
   cache <- aws_creds_cache(profile)
   credentials <- paws_credentials(profile, cache = cache)
 
-  model <- set_default(model, "anthropic.claude-3-5-sonnet-20241022-v2:0")
+  model <- set_default(model, "anthropic.claude-3-5-sonnet-20240620-v1:0")
   echo <- check_echo(echo)
 
   provider <- ProviderAWSBedrock(
