@@ -1,13 +1,16 @@
 # ellmer (development version)
 
+* New `tool_reject()` function can be used to reject a tool request with an
+  explanation for the rejection reason. (#490, @gadenbuie).
+
 * `$chat_async()` and `$stream_async()` gain a `tool_mode` argument to decide
   between `"sequential"` and `"concurrent"` tool calling. This is an advanced
   feature that primarily affects asynchronous tools (#488, @gadenbuie).
-  
-* `models_google_gemini()`, `models_anthropic()`, `models_openai()`,  
-  `models_aws_bedrock()`, `models_ollama()` and `models_vllm()`, list available 
-  models for Google Gemini, Anthropic, OpenAI, AWS Bedrock, Ollama, and VLLM 
-  respectively. Different providers return different metadata so they are only 
+
+* `models_google_gemini()`, `models_anthropic()`, `models_openai()`,
+  `models_aws_bedrock()`, `models_ollama()` and `models_vllm()`, list available
+  models for Google Gemini, Anthropic, OpenAI, AWS Bedrock, Ollama, and VLLM
+  respectively. Different providers return different metadata so they are only
   guaranteed to return a data frame with at least an `id` column (#296).
   Where possible (currently for Gemini, Anthropic, and OpenAI) we include
   known token prices (per million tokens).
