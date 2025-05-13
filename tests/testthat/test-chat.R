@@ -34,10 +34,10 @@ test_that("system prompt must be a character vector", {
 })
 
 test_that("can retrieve system prompt with last_turn()", {
-  chat1 <- chat_openai_test()
+  chat1 <- chat_openai_test(system_prompt = NULL)
   expect_equal(chat1$last_turn("system"), NULL)
 
-  chat2 <- chat_openai(system_prompt = "You are from New Zealand")
+  chat2 <- chat_openai_test(system_prompt = "You are from New Zealand")
   expect_equal(
     chat2$last_turn("system"),
     Turn("system", "You are from New Zealand", completed = NULL)
@@ -45,7 +45,7 @@ test_that("can retrieve system prompt with last_turn()", {
 })
 
 test_that("can get and set turns", {
-  chat <- chat_openai()
+  chat <- chat_openai_test()
   expect_equal(chat$get_turns(), list())
 
   turns <- list(Turn("user"), Turn("assistant"))
@@ -75,6 +75,11 @@ test_that("can perform a simple batch chat", {
   result <- chat$chat("What's 1 + 1. Just give me the answer, no punctuation")
   expect_equal(result, ellmer_output("2"))
   expect_equal(chat$last_turn()@contents[[1]]@text, "2")
+})
+
+test_that("can chat with a single prompt", {
+  chat <- chat_openai_test()
+  expect_no_error(chat$chat(interpolate("What's 1 + 1?")))
 })
 
 test_that("can't chat with multiple prompts", {
@@ -163,29 +168,15 @@ test_that("can extract structured data", {
   person <- type_object(name = type_string(), age = type_integer())
 
   chat <- chat_openai_test()
-  data <- chat$extract_data("John, age 15, won first prize", type = person)
+  data <- chat$chat_structured("John, age 15, won first prize", type = person)
   expect_equal(data, list(name = "John", age = 15))
-})
-
-test_that("can extract data in parallel", {
-  person <- type_object(name = type_string(), age = type_integer())
-
-  chat <- chat_openai_test()
-  data <- chat$extract_data_parallel(
-    list(
-      "John, age 15, won first prize",
-      "Jane, age 16, won second prize"
-    ),
-    type = person
-  )
-  expect_equal(data, data.frame(name = c("John", "Jane"), age = c(15, 16)))
 })
 
 test_that("can extract structured data (async)", {
   person <- type_object(name = type_string(), age = type_integer())
 
   chat <- chat_openai_test()
-  data <- sync(chat$extract_data_async(
+  data <- sync(chat$chat_structured_async(
     "John, age 15, won first prize",
     type = person
   ))
@@ -197,15 +188,13 @@ test_that("can retrieve tokens with or without system prompt", {
   expect_equal(nrow(chat$get_tokens(FALSE)), 0)
   expect_equal(nrow(chat$get_tokens(TRUE)), 1)
 
-  chat <- chat_openai()
+  chat <- chat_openai_test(NULL)
   expect_equal(nrow(chat$get_tokens(FALSE)), 0)
   expect_equal(nrow(chat$get_tokens(TRUE)), 0)
 })
 
 test_that("has a basic print method", {
-  chat <- chat_openai(
-    "You're a helpful assistant that returns very minimal output"
-  )
+  chat <- chat_openai_test()
   chat$set_turns(list(
     Turn("user", "What's 1 + 1?\nWhat's 1 + 2?"),
     Turn("assistant", "2\n\n3", tokens = c(15, 5))
@@ -214,7 +203,7 @@ test_that("has a basic print method", {
 })
 
 test_that("print method shows cumulative tokens & cost", {
-  chat <- chat_openai()
+  chat <- chat_openai_test(model = "gpt-4o", system_prompt = NULL)
   chat$set_turns(list(
     Turn("user", "Input 1"),
     Turn("assistant", "Output 1", tokens = c(15000, 500)),
@@ -228,18 +217,18 @@ test_that("print method shows cumulative tokens & cost", {
 })
 
 test_that("can optionally echo", {
-  chat <- chat_openai("Repeat the input back to me exactly", echo = TRUE)
+  chat <- chat_openai_test("Repeat the input back to me exactly", echo = TRUE)
   expect_output(chat$chat("Echo this."), "Echo this.")
   expect_output(chat$chat("Echo this.", echo = FALSE), NA)
 
-  chat <- chat_openai("Repeat the input back to me exactly")
+  chat <- chat_openai_test("Repeat the input back to me exactly")
   expect_output(chat$chat("Echo this."), NA)
   expect_output(chat$chat("Echo this.", echo = TRUE), "Echo this.")
 })
 
 test_that("can retrieve last_turn for user and assistant", {
   vcr::local_cassette("chat-echo")
-  chat <- chat_openai(echo = FALSE)
+  chat <- chat_openai_test(echo = FALSE)
   expect_equal(chat$last_turn("user"), NULL)
   expect_equal(chat$last_turn("assistant"), NULL)
 
@@ -250,7 +239,7 @@ test_that("can retrieve last_turn for user and assistant", {
 
 test_that("chat messages get timestamped in sequence", {
   vcr::local_cassette("chat-timestamp")
-  chat <- chat_openai(echo = FALSE)
+  chat <- chat_openai_test(echo = FALSE)
 
   before_send <- Sys.time()
   chat$chat("What's 1 + 1?")
@@ -264,9 +253,24 @@ test_that("chat messages get timestamped in sequence", {
   expect_true(turns[[2]]@completed <= after_receive)
 })
 
+test_that("async chat messages get timestamped in sequence", {
+  chat <- chat_openai_test()
+
+  before_send <- Sys.time()
+  promise <- chat$chat_async("What's 1 + 1?")
+  result <- sync(promise)
+  after_receive <- Sys.time()
+
+  turns <- chat$get_turns()
+
+  expect_true(turns[[1]]@completed >= before_send)
+  expect_true(turns[[1]]@completed <= turns[[2]]@completed)
+  expect_true(turns[[2]]@completed <= after_receive)
+})
+
 test_that("chat can get and register a list of tools", {
-  chat <- chat_openai(api_key = "not required")
-  chat2 <- chat_openai(api_key = "not required")
+  chat <- chat_openai_test()
+  chat2 <- chat_openai_test()
 
   tools <- list(
     "sys_time" = tool(
@@ -315,7 +319,7 @@ test_that("chat can get and register a list of tools", {
 
 test_that("chat warns on tool failures", {
   vcr::local_cassette("chat-tool-failure")
-  chat <- chat_openai_test("Be very terse, not even punctuation.", echo = FALSE)
+  chat <- chat_openai_test(, echo = FALSE)
 
   chat$register_tool(tool(
     function(user) stop("User denied tool request"),
@@ -328,4 +332,165 @@ test_that("chat warns on tool failures", {
     . <- chat$chat("What are Joe, Hadley, Simon, and Tom's favorite colors?"),
     transform = function(value) gsub(" \\(\\w+_[a-z0-9A-Z]+\\)", " (ID)", value)
   )
+})
+
+test_that("chat callbacks for tool requests/results", {
+  chat <- chat_openai_test()
+
+  test_tool <- tool(
+    function(user) c("red", "blue")[nchar(user) %% 2 + 1],
+    .description = "Find out a user's favorite color",
+    user = type_string("User's name"),
+    .name = "user_favorite_color"
+  )
+
+  chat$register_tool(test_tool)
+
+  last_request <- NULL
+  cb_count_request <- 0
+  cb_count_result <- 0
+
+  chat$on_tool_request(function(request) {
+    cb_count_request <<- cb_count_request + 1
+    cli::cli_inform(
+      "[{cb_count_request}] Tool request: {request@arguments$user}"
+    )
+
+    expect_s7_class(request, ContentToolRequest)
+    expect_equal(request@tool, test_tool)
+    last_request <<- request
+  })
+  chat$on_tool_result(function(result) {
+    cb_count_result <<- cb_count_result + 1
+    cli::cli_inform("[{cb_count_result}] Tool result: {result@value}")
+
+    expect_s7_class(result, ContentToolResult)
+    expect_equal(result@request, last_request)
+  })
+
+  expect_snapshot(
+    . <- chat$chat("What are Joe and Hadley's favorite colors?")
+  )
+  expect_equal(cb_count_request, 2L)
+  expect_equal(cb_count_result, 2L)
+
+  expect_snapshot(error = TRUE, {
+    chat$on_tool_request(function(data) NULL)
+    chat$on_tool_result(function(data) NULL)
+  })
+})
+
+test_that("tool calls can be rejected via `tool_request` callbacks", {
+  chat <- chat_openai_test()
+
+  chat$register_tool(tool(
+    function(user) "red",
+    "Find out a user's favorite color",
+    user = type_string("User's name"),
+    .name = "user_favorite_color"
+  ))
+
+  chat$on_tool_request(function(request) {
+    if (request@arguments$user == "Joe") {
+      tool_reject("Joe denied the request.")
+    }
+  })
+
+  expect_snapshot(
+    . <- chat$chat(
+      "What are Joe and Hadley's favorite colors?",
+      "Write 'Joe ____ Hadley ____'. Use 'unknown' if you don't know.",
+      echo = "output"
+    )
+  )
+})
+
+test_that("tool calls can be rejected via the tool function", {
+  chat <- chat_openai_test()
+
+  chat$register_tool(tool(
+    function(user) if (user == "Joe") tool_reject() else "red",
+    "Find out a user's favorite color",
+    user = type_string("User's name"),
+    .name = "user_favorite_color"
+  ))
+
+  expect_snapshot(
+    . <- chat$chat(
+      "What are Joe and Hadley's favorite colors?",
+      "Write 'Joe ____ Hadley ____'. Use 'unknown' if you don't know.",
+      echo = "output"
+    )
+  )
+})
+
+test_that("$chat_async() can run tools concurrently", {
+  res <- list()
+
+  chat <- chat_openai_test()
+  chat$register_tool(tool(
+    coro::async(function(i) {
+      res[[i]] <<- list(start = Sys.time())
+      coro::await(coro::async_sleep(0.5))
+      res[[i]]$end <<- Sys.time()
+      i
+    }),
+    .description = "Tests async tool usage",
+    .name = "test_async_tool",
+    i = type_string("ID of the tool call")
+  ))
+
+  sync(chat$chat_async(
+    "Run `test_async_tool` twice with inputs '1' and '2'.",
+    tool_mode = "concurrent"
+  ))
+
+  # The calls overlap, and both start before the first ends
+  expect_true(res[[1]]$start < res[[1]]$end)
+  expect_true(res[[2]]$start < res[[1]]$end)
+  expect_true(res[[2]]$start < res[[2]]$end)
+})
+
+test_that("$chat_async() can run tools sequentially", {
+  res <- list()
+
+  chat <- chat_openai_test()
+  chat$register_tool(tool(
+    coro::async(function(i) {
+      res[[i]] <<- list(start = Sys.time())
+      coro::await(coro::async_sleep(0.5))
+      res[[i]]$end <<- Sys.time()
+      i
+    }),
+    .description = "Tests async tool usage",
+    .name = "test_async_tool",
+    i = type_string("ID of the tool call")
+  ))
+
+  sync(chat$chat_async(
+    "Run `test_async_tool` twice with inputs '1' and '2'.",
+    tool_mode = "sequential"
+  ))
+
+  # The calls don't overlap, the first ends before the second starts
+  expect_true(res[[1]]$start < res[[1]]$end)
+  expect_true(res[[1]]$end < res[[2]]$start)
+  expect_true(res[[2]]$start < res[[2]]$end)
+})
+
+test_that("old extract methods are deprecated", {
+  ChatNull <- R6::R6Class(
+    "ChatNull",
+    inherit = Chat,
+    public = list(
+      chat_structured = function(...) invisible(),
+      chat_structured_async = function(...) invisible()
+    )
+  )
+
+  chat_null <- ChatNull$new(provider = chat_openai()$get_provider())
+  expect_snapshot({
+    chat_null$extract_data()
+    chat_null$extract_data_async()
+  })
 })

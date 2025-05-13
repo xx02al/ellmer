@@ -1,51 +1,101 @@
 #' @include turns.R
 NULL
 
-# Results a content list
-invoke_tools <- function(turn, echo = "none") {
-  tool_requests <- extract_tool_requests(turn@contents)
+match_tools <- function(turn, tools) {
+  if (is.null(turn)) return(NULL)
 
-  lapply(tool_requests, function(request) {
-    maybe_echo_tool(request, echo = echo)
-    result <- invoke_tool(request)
-
-    if (promises::is.promise(result@value)) {
-      cli::cli_abort(c(
-        "Can't use async tools with `$chat()` or `$stream()`.",
-        i = "Async tools are supported, but you must use `$chat_async()` or `$stream_async()`."
-      ))
+  turn@contents <- map(turn@contents, function(content) {
+    if (!S7_inherits(content, ContentToolRequest)) {
+      return(content)
     }
-
-    maybe_echo_tool(result, echo = echo)
-    result
+    content@tool <- tools[[content@name]]
+    content
   })
+
+  turn
 }
 
-on_load(
-  invoke_tools_async <- coro::async(function(turn, tools, echo = "none") {
-    tool_requests <- extract_tool_requests(turn@contents)
+on_load({
+  invoke_tools <- coro::generator(function(
+    turn,
+    echo = "none",
+    on_tool_request = function(request) invisible(),
+    on_tool_result = function(result) invisible()
+  ) {
+    tool_requests <- extract_tool_requests(turn)
 
-    # We call it this way instead of a more natural for + await_each() because
-    # we want to run all the async tool calls in parallel
-    result_promises <- lapply(tool_requests, function(request) {
+    for (request in tool_requests) {
       maybe_echo_tool(request, echo = echo)
 
-      invoke_tool_async(request)
-    })
+      rejected <- maybe_on_tool_request(request, on_tool_request)
+      if (!is.null(rejected)) {
+        maybe_echo_tool(rejected, echo = echo)
+        on_tool_result(rejected)
+        yield(rejected)
+        next
+      }
 
-    result_promises <- lapply(result_promises, function(p) {
-      p$then(function(result) {
-        maybe_echo_tool(result, echo = echo)
-      })
-    })
+      result <- invoke_tool(request)
 
-    promises::promise_all(.list = result_promises)
+      if (promises::is.promise(result@value)) {
+        cli::cli_abort(c(
+          "Can't use async tools with `$chat()` or `$stream()`.",
+          i = "Async tools are supported, but you must use `$chat_async()` or `$stream_async()`."
+        ))
+      }
+
+      maybe_echo_tool(result, echo = echo)
+      on_tool_result(result)
+      yield(result)
+    }
   })
-)
 
-extract_tool_requests <- function(contents) {
-  is_tool_request <- map_lgl(contents, S7_inherits, ContentToolRequest)
-  contents[is_tool_request]
+  # invoke_tools_async is intentionally *not* an _async_ generator, instead it
+  # is a generator that returns promises. This lets the caller decide if the
+  # tasks should be run in parallel or sequentially.
+  invoke_tools_async <- coro::generator(function(
+    turn,
+    tools,
+    echo = "none",
+    on_tool_request = function(request) invisible(),
+    on_tool_result = function(result) invisible()
+  ) {
+    tool_requests <- extract_tool_requests(turn)
+
+    invoke_tool_async_wrapper <- coro::async(function(request) {
+      maybe_echo_tool(request, echo = echo)
+
+      rejected <- coro::await(
+        maybe_on_tool_request_async(request, on_tool_request)
+      )
+      if (!is.null(rejected)) {
+        maybe_echo_tool(rejected, echo = echo)
+        on_tool_result(rejected)
+        return(rejected)
+      }
+
+      result <- coro::await(invoke_tool_async(request))
+
+      maybe_echo_tool(result, echo = echo)
+      on_tool_result(result)
+      result
+    })
+
+    for (request in tool_requests) {
+      yield(invoke_tool_async_wrapper(request))
+    }
+  })
+})
+
+gen_async_promise_all <- function(generator) {
+  promises::promise_all(.list = coro::collect(generator))
+}
+
+extract_tool_requests <- function(turn) {
+  if (is.null(turn)) return(NULL)
+
+  is_tool_request <- map_lgl(turn@contents, S7_inherits, ContentToolRequest)
+  turn@contents[is_tool_request]
 }
 
 new_tool_result <- function(request, result = NULL, error = NULL) {
@@ -66,9 +116,15 @@ invoke_tool <- function(request) {
     return(new_tool_result(request, error = "Unknown tool"))
   }
 
+  args <- tool_request_args(request)
+  if (S7_inherits(args, ContentToolResult)) {
+    # Failed to convert the arguments
+    return(args)
+  }
+
   tryCatch(
     {
-      result <- do.call(request@tool@fun, request@arguments)
+      result <- do.call(request@tool@fun, args)
       new_tool_result(request, result)
     },
     error = function(e) {
@@ -84,9 +140,15 @@ on_load(
       return(new_tool_result(request, error = "Unknown tool"))
     }
 
+    args <- tool_request_args(request)
+    if (S7_inherits(args, ContentToolResult)) {
+      # Failed to convert the arguments
+      return(args)
+    }
+
     tryCatch(
       {
-        result <- await(do.call(request@tool@fun, request@arguments))
+        result <- await(do.call(request@tool@fun, args))
         new_tool_result(request, result)
       },
       error = function(e) {
@@ -96,6 +158,65 @@ on_load(
     )
   })
 )
+
+tool_request_args <- function(request) {
+  tool <- request@tool
+  args <- request@arguments
+
+  if (!tool@convert) {
+    return(args)
+  }
+
+  extra_args <- setdiff(names(args), names(tool@arguments@properties))
+  if (length(extra_args) > 0) {
+    e <- catch_cnd(cli::cli_abort("Unused argument{?s}: {extra_args}"))
+    return(new_tool_result(request, error = e))
+  }
+
+  convert_from_type(args, tool@arguments)
+}
+
+maybe_on_tool_request <- function(
+  request,
+  on_tool_request = function(request) invisible()
+) {
+  tryCatch(
+    {
+      on_tool_request(request)
+      NULL
+    },
+    ellmer_tool_reject = function(e) {
+      ContentToolResult(error = e$message, request = request)
+    }
+  )
+}
+
+on_load(
+  maybe_on_tool_request_async <- coro::async(
+    function(request, on_tool_request = function(request) invisible()) {
+      tryCatch(
+        {
+          coro::await(on_tool_request(request))
+          NULL
+        },
+        ellmer_tool_reject = function(e) {
+          ContentToolResult(error = e$message, request = request)
+        }
+      )
+    }
+  )
+)
+
+tool_results_as_turn <- function(results) {
+  if (length(results) == 0) {
+    return(NULL)
+  }
+  is_tool_result <- map_lgl(results, S7_inherits, ContentToolResult)
+  if (!any(is_tool_result)) {
+    return(NULL)
+  }
+  Turn("user", contents = results[is_tool_result])
+}
 
 turn_get_tool_errors <- function(turn = NULL) {
   if (is.null(turn)) return(NULL)
