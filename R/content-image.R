@@ -15,10 +15,7 @@
 #'
 #' @export
 #' @examplesIf has_credentials("openai")
-#' \dontshow{
-#'   vcr::vcr_configure(dir = system.file("vcr", package = "ellmer"))
-#'   vcr::insert_cassette("content_image_url")
-#' }
+#' \dontshow{vcr::insert_example_cassette("content_image_url", "ellmer", match_requests_on = "body_json")}
 #' chat <- chat_openai(echo = FALSE)
 #' chat$chat(
 #'   "What do you see in these images?",
