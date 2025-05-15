@@ -1,5 +1,8 @@
 # ellmer (development version)
 
+* New `chat_portkey()` and `models_portkey()` for models hosted at 
+  <https://portkey.ai> (#363, @maciekbanas).
+
 * `$stream()` and `$stream_async()` gain support for streaming the additional
   content types generated during a tool call with a new `stream` argument. When
   `stream = "content"` is set, the streaming response yields `Content` objects,
