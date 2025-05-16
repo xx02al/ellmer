@@ -123,7 +123,7 @@ specific values from a string:</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; $primary_shape</span></span>
-<span><span class="co">#&gt; [1] "a combination of an elliptical ring and a capital letter R"</span></span>
+<span><span class="co">#&gt; [1] "oval and letter"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $primary_colour</span></span>
 <span><span class="co">#&gt; [1] "grey and blue"</span></span></code></pre></div>
@@ -260,17 +260,17 @@ can use structured data extraction.</p>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4.1"</span>.</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_summary</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">summary</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The article argues that effective third-party testing of frontier AI systems is essential for ensuring AI safety and societal trust as AI capabilities and deployments rapidly advance. Anthropic advocates for a regime where independent entities – spanning industry subcontractors, academia, and government agencies – continually test and evaluate the safety, security, and potential abuses of advanced generative AI, such as election interference, discrimination, or national security threats. They suggest starting with narrowly-scoped tests for the most powerful models, iterating on standards, and ensuring these regimes do not disadvantage smaller companies or lead to regulatory capture by large players.</span></span>
+<span><span class="co">#&gt; This article from Anthropic argues for the vital role of third-party testing in the oversight and regulation of powerful, "frontier" AI systems. It makes the case that existing forms of AI self-governance and internal testing are insufficient given the risks posed by advanced generative models to issues like election integrity, discrimination, and national security. The piece lays out a vision for a regime where outside entities—ranging from contractors to universities and government agencies—test and evaluate the safety of large-scale AI models, both proprietary and open. The authors discuss how such a regime should be precisely scoped to avoid excessive regulatory burden, focus on the most consequential systems, and balance assurance with feasibility. </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; The article outlines the necessity for robust, independent oversight, drawing parallels to regulatory structures in areas like food and automobile safety. Anthropic commits to supporting this infrastructure by prototyping their Responsible Scaling Policy (RSP), deepening red teaming efforts, and advocating for public investment in research and testing infrastructure. They also highlight the importance of careful policy design to avoid excessive administrative burdens, maintain openness where possible, and ensure that regulations neither stifle innovation nor entrench incumbents. Overall, the post is a comprehensive argument that collaborative, third-party oversight is the most promising path for responsible AI governance.</span></span>
+<span><span class="co">#&gt; The post also covers related policy challenges, including how to handle openly-disseminated models, the risk of regulatory capture by large incumbents, and the importance of coordination between industry, government, and academia in developing standards. Anthropic details the steps it is taking to support robust third-party testing infrastructure and stresses the need for public investment in government and academic testing resources. The main thesis is that third-party testing is both an immediate and future need for effective AI oversight, crucial for building public trust and reducing the risk of harmful accidents or abuses by AI systems.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 5</span></span>
-<span><span class="co">#&gt;  $ author    : chr "Anthropic Policy Team (implied)"</span></span>
-<span><span class="co">#&gt;  $ topics    : chr [1:10] "AI policy" "third-party testing" "AI safety" "regulation" ...</span></span>
-<span><span class="co">#&gt;  $ summary   : chr "The article argues that effective third-party testing of frontier AI systems is essential for ensuring AI safet"| __truncated__</span></span>
-<span><span class="co">#&gt;  $ coherence : int 92</span></span>
-<span><span class="co">#&gt;  $ persuasion: num 0.91</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ author    : chr "Anthropic Policy Team (implied, not listed explicitly)"</span></span>
+<span><span class="co">#&gt;  $ topics    : chr [1:8] "AI policy" "third-party testing" "AI regulation" "AI safety" ...</span></span>
+<span><span class="co">#&gt;  $ summary   : chr "This article from Anthropic argues for the vital role of third-party testing in the oversight and regulation of"| __truncated__</span></span>
+<span><span class="co">#&gt;  $ coherence : int 93</span></span>
+<span><span class="co">#&gt;  $ persuasion: num 0.85</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-2-named-entity-recognition">Example 2: Named entity recognition<a class="anchor" aria-label="anchor" href="#example-2-named-entity-recognition"></a>
@@ -298,13 +298,13 @@ can use structured data extraction.</p>
 <span><span class="co">#&gt; 4         Sarah       person</span></span>
 <span><span class="co">#&gt; 5     Acme Inc. organization</span></span>
 <span><span class="co">#&gt; 6 San Francisco     location</span></span>
-<span><span class="co">#&gt;                                         context</span></span>
-<span><span class="co">#&gt; 1                  Works at Google in New York.</span></span>
-<span><span class="co">#&gt; 2                         John works at Google.</span></span>
-<span><span class="co">#&gt; 3                    The city where John works.</span></span>
-<span><span class="co">#&gt; 4 Met with John, identified as CEO of Acme Inc.</span></span>
-<span><span class="co">#&gt; 5                 Sarah is the CEO of Acme Inc.</span></span>
-<span><span class="co">#&gt; 6          Where John met with Sarah last week.</span></span></code></pre></div>
+<span><span class="co">#&gt;                                                          context</span></span>
+<span><span class="co">#&gt; 1 John works at Google in New York and met with Sarah last week.</span></span>
+<span><span class="co">#&gt; 2                              John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 3                              John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 4     Sarah is the CEO of Acme Inc. and met with John last week.</span></span>
+<span><span class="co">#&gt; 5                                  Sarah is the CEO of Acme Inc.</span></span>
+<span><span class="co">#&gt; 6                John met with Sarah last week in San Francisco.</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-3-sentiment-analysis">Example 3: Sentiment analysis<a class="anchor" aria-label="anchor" href="#example-3-sentiment-analysis"></a>
@@ -327,8 +327,8 @@ can use structured data extraction.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_sentiment</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 3</span></span>
 <span><span class="co">#&gt;  $ positive_score: num 0.05</span></span>
-<span><span class="co">#&gt;  $ negative_score: num 0.8</span></span>
-<span><span class="co">#&gt;  $ neutral_score : num 0.15</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ negative_score: num 0.85</span></span>
+<span><span class="co">#&gt;  $ neutral_score : num 0.1</span></span></code></pre></div>
 <p>Note that while we’ve asked nicely for the scores to sum 1, which
 they do in this example (at least when I ran the code), this is not
 guaranteed.</p>
@@ -363,9 +363,13 @@ guaranteed.</p>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4.1"</span>.</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_classification</span><span class="op">)</span></span>
 <span><span class="va">data</span></span>
-<span><span class="co">#&gt;         name score</span></span>
-<span><span class="co">#&gt; 1 Technology  0.95</span></span>
-<span><span class="co">#&gt; 2   Business  0.05</span></span></code></pre></div>
+<span><span class="co">#&gt;            name score</span></span>
+<span><span class="co">#&gt; 1    Technology  0.95</span></span>
+<span><span class="co">#&gt; 2      Business  0.04</span></span>
+<span><span class="co">#&gt; 3         Other  0.01</span></span>
+<span><span class="co">#&gt; 4      Politics  0.00</span></span>
+<span><span class="co">#&gt; 5        Sports  0.00</span></span>
+<span><span class="co">#&gt; 6 Entertainment  0.00</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-5-working-with-unknown-keys">Example 5: Working with unknown keys<a class="anchor" aria-label="anchor" href="#example-5-working-with-unknown-keys"></a>
@@ -556,14 +560,14 @@ common in the wild.</p>
 <td align="left">OpenAI</td>
 <td align="left">gpt-4.1</td>
 <td align="right">8186</td>
-<td align="right">776</td>
+<td align="right">834</td>
 <td align="right">$0.02</td>
 </tr>
 <tr class="even">
 <td align="left">Anthropic</td>
 <td align="left">claude-3-7-sonnet</td>
 <td align="right">480</td>
-<td align="right">97</td>
+<td align="right">81</td>
 <td align="right">$0.00</td>
 </tr>
 </tbody>
