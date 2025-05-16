@@ -260,17 +260,15 @@ can use structured data extraction.</p>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_summary</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">summary</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The growing capabilities of AI systems, such as ChatGPT and Claude, necessitate the establishment of a robust third-party testing framework. This framework aims to address societal concerns about AI's potential misuse, from election interference to national security risks. Designed collaboratively with insights from industry, government, and academia, this regime seeks to ensure AI systems' safety and ethical deployment without stifling innovation. </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Experts argue that current self-governance models by individual companies are insufficient; thus, a more standardized, widely-trusted approach is vital. The proposal includes fast initial testing stages to catch potential issues, followed by more comprehensive evaluations if necessary. A combination of government, academic, and private sector actors will oversee these tests to maintain neutrality and efficacy.</span></span>
+<span><span class="co">#&gt; In this article, the necessity of implementing a structured third-party testing regime in the AI sector is laid out, arguing its importance in ensuring both the safety and effectiveness of existing and future AI systems. As frontier AI systems, such as generative models, continue to evolve and become more integral to various aspects of society, they bring with them significant potential for misuse or accidents. The proposal emphasizes collaboration across industry, government, and academia to develop these frameworks and interventions. The article outlines what such a testing system might necessitate, including specific guidelines, tests for national security implications, and the importance of a fair, universally accepted structure that does not hinder smaller entities. Moreover, the piece articulates the imperative need for adequate funding to bolster testing initiatives and infrastructure within the government. Through illustrating both the complexities and the potential involved in establishing these practices, the article makes a persuasive argument for proactive, carefully designed regulation in the fast-growing landscape of AI.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 5</span></span>
-<span><span class="co">#&gt;  $ author    : chr "AI Policy Experts"</span></span>
-<span><span class="co">#&gt;  $ topics    : chr [1:8] "AI Policy" "Third-Party Testing" "Generative AI Systems" "Regulatory Frameworks" ...</span></span>
-<span><span class="co">#&gt;  $ summary   : chr "The growing capabilities of AI systems, such as ChatGPT and Claude, necessitate the establishment of a robust t"| __truncated__</span></span>
-<span><span class="co">#&gt;  $ coherence : int 85</span></span>
-<span><span class="co">#&gt;  $ persuasion: num 0.9</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ author    : chr "John Doe"</span></span>
+<span><span class="co">#&gt;  $ topics    : chr [1:5] "AI Policy" "Third-Party Testing" "Generative AI" "AI Safety" ...</span></span>
+<span><span class="co">#&gt;  $ summary   : chr "In this article, the necessity of implementing a structured third-party testing regime in the AI sector is laid"| __truncated__</span></span>
+<span><span class="co">#&gt;  $ coherence : int 90</span></span>
+<span><span class="co">#&gt;  $ persuasion: num 0.85</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-2-named-entity-recognition">Example 2: Named entity recognition<a class="anchor" aria-label="anchor" href="#example-2-named-entity-recognition"></a>
@@ -291,14 +289,20 @@ can use structured data extraction.</p>
 <span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_openai.html">chat_openai</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
 <span><span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_named_entities</span><span class="op">)</span></span>
-<span><span class="co">#&gt;            name         type                                  context</span></span>
-<span><span class="co">#&gt; 1          John       person    Person working at Google in New York.</span></span>
-<span><span class="co">#&gt; 2        Google organization The organization where John is employed.</span></span>
-<span><span class="co">#&gt; 3      New York     location               The city where John works.</span></span>
-<span><span class="co">#&gt; 4         Sarah       person CEO of Acme Inc. who met John last week.</span></span>
-<span><span class="co">#&gt; 5           CEO organization                Sarah's role at Acme Inc.</span></span>
-<span><span class="co">#&gt; 6     Acme Inc. organization   The company of which Sarah is the CEO.</span></span>
-<span><span class="co">#&gt; 7 San Francisco     location Location where John met Sarah last week.</span></span></code></pre></div>
+<span><span class="co">#&gt;            name         type</span></span>
+<span><span class="co">#&gt; 1          John       person</span></span>
+<span><span class="co">#&gt; 2        Google organization</span></span>
+<span><span class="co">#&gt; 3      New York     location</span></span>
+<span><span class="co">#&gt; 4         Sarah       person</span></span>
+<span><span class="co">#&gt; 5     Acme Inc. organization</span></span>
+<span><span class="co">#&gt; 6 San Francisco     location</span></span>
+<span><span class="co">#&gt;                                                         context</span></span>
+<span><span class="co">#&gt; 1 John works at Google in New York and met with Sarah last week</span></span>
+<span><span class="co">#&gt; 2                                    John works at this company</span></span>
+<span><span class="co">#&gt; 3                                     The city where John works</span></span>
+<span><span class="co">#&gt; 4       She is the CEO of Acme Inc. and met with John last week</span></span>
+<span><span class="co">#&gt; 5                            The company where Sarah is the CEO</span></span>
+<span><span class="co">#&gt; 6                  The city where John met with Sarah last week</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-3-sentiment-analysis">Example 3: Sentiment analysis<a class="anchor" aria-label="anchor" href="#example-3-sentiment-analysis"></a>
@@ -424,7 +428,7 @@ and “unearned” income</div>
 <span><span class="co">#&gt; 2 San Francisco/San Francisco, CA, US         5000001         25000000</span></span>
 <span><span class="co">#&gt;   income_type income_low income_high tx_gt_1000</span></span>
 <span><span class="co">#&gt; 1 Grape Sales     100001     1000000       TRUE</span></span>
-<span><span class="co">#&gt; 2        Rent     100001     1000000      FALSE</span></span></code></pre></div>
+<span><span class="co">#&gt; 2        Rent     100001     1000000       TRUE</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -470,7 +474,7 @@ one in the text:</p>
 <span><span class="co">#&gt; [1] "Hadley Wickham"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $date</span></span>
-<span><span class="co">#&gt; [1] "2023-10-17"</span></span>
+<span><span class="co">#&gt; [1] "2023-02-09"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    2 obs. of  9 variables:</span></span>
 <span><span class="co">#&gt;  $ assert_name     : chr  "11 Zinfandel Lane - Home &amp; Vineyard [RP]" "25 Point Lobos - Commercial Property [RP]"</span></span>
@@ -481,7 +485,7 @@ one in the text:</p>
 <span><span class="co">#&gt;  $ income_type     : chr  "Grape Sales" "Rent"</span></span>
 <span><span class="co">#&gt;  $ income_low      : int  100001 100001</span></span>
 <span><span class="co">#&gt;  $ income_high     : int  1000000 1000000</span></span>
-<span><span class="co">#&gt;  $ tx_gt_1000      : logi  TRUE FALSE</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ tx_gt_1000      : logi  TRUE TRUE</span></span></code></pre></div>
 <p>Note that I’ve used more of an explict prompt here. For this example,
 I found that this generated better results and that it’s a useful place
 to put additional instructions.</p>
@@ -551,14 +555,14 @@ common in the wild.</p>
 <td align="left">OpenAI</td>
 <td align="left">gpt-4o</td>
 <td align="right">8186</td>
-<td align="right">710</td>
+<td align="right">720</td>
 <td align="right">$0.03</td>
 </tr>
 <tr class="even">
 <td align="left">Anthropic</td>
 <td align="left">claude-3-7-sonnet</td>
 <td align="right">480</td>
-<td align="right">96</td>
+<td align="right">81</td>
 <td align="right">$0.00</td>
 </tr>
 </tbody>
