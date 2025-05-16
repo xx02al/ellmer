@@ -10,26 +10,34 @@
 
   Additionally ellmer now converts `NULL` to `NA` for `type_boolean()`, 
   `type_integer()`, `type_number()`, and `type_string()` (#445), and does a 
-  better job for arrays when `required = FALSE` (#384).
+  better job with arrays when `required = FALSE` (#384).
 
-* `chat_` functions no longer take a turns object, instead use 
-  `Chat$set_turns()` (#427). `Chat$tokens()` has been renamed to 
-  `Chat$get_tokens()` and returns a data frame of tokens, correctly aligned to 
-  the individual turn. The print method now uses this to show how many 
-  input/output tokens used by each turn (#354).
+* `chat_` functions no longer have a `turn` argument. If you need to set the
+  turns, you can now use `Chat$set_turns()` (#427). Additionally, 
+  `Chat$tokens()` has been renamed to `Chat$get_tokens()` and returns a data 
+  frame of tokens, correctly aligned to the individual turn. The print method 
+  now uses this to show how many input/output tokens were used by each turn 
+  (#354).
 
 ## New features
 
-* `batch_chat()` and `batch_chat_structured()` allow you to submit multiple 
-  chats to OpenAI and Anthropic's batched interfaces. These only guarantee a 
-  response within 24 hours, but are 50% of the price of regular requests (#143).
+* Two new interfaces help you do multiple chats with a single function call:
 
-* `parallel_chat()` and `parallel_chat_structured()` allow you to submit multiple
-  chats in parallel (#143). This is experimental because I'm not 100% sure that 
+  * `batch_chat()` and `batch_chat_structured()` allow you to submit multiple 
+    chats to OpenAI and Anthropic's batched interfaces. These only guarantee a 
+    response within 24 hours, but are 50% of the price of regular requests 
+    (#143).
+
+  * `parallel_chat()` and `parallel_chat_structured()` work with any provider
+    and allow you to submit multiple chats in parallel (#143). This doesn't give
+    you any cost savings, but it's can be much, much faster.
+
+  This new family of functions is experimental because I'm not 100% sure that 
   the shape of the user interface is correct, particularly as it pertains to 
   handling errors.
 
 * `google_upload()` lets you upload files to Google Gemini or Vertex AI (#310).
+  This allows you to work with videos, PDFs, and other large files with Gemini.
 
 * `models_google_gemini()`, `models_anthropic()`, `models_openai()`,
   `models_aws_bedrock()`, `models_ollama()` and `models_vllm()`, list available
@@ -45,8 +53,8 @@
   makes it easier to interpolate from prompts stored in the `inst/prompts` 
   directory inside a package (#164).
 
-* `chat_azure()`, `chat_claude()`, `chat_openai()`, and `chat_gemini()` now 
-  take a `params` argument that coupled with the `params()` helpers, makes it 
+* `chat_anthropic()`, `chat_azure()`, `chat_openai()`, and `chat_gemini()` now 
+  take a `params` argument, that coupled with the `params()` helper, makes it 
   easy to specify common model parameters (like `seed` and `temperature`) 
   across providers. Support for other providers will grow as you request it 
   (#280).
@@ -73,11 +81,11 @@
 
   * `chat_azure_openai()` replaces `chat_azure()`.
   * `chat_aws_bedrock()` replaces `chat_bedrock()`.
-  * `chat_anthropic()` replaces `chat_claude()`.
+  * `chat_anthropic()` replaces `chat_anthropic()`.
   * `chat_google_gemini()` replaces `chat_gemini()`.
 
 * We have updated the default model for a couple of providers:
-  * `chat_claude()` uses Sonnet 3.7 (which it also now displays) (#336).
+  * `chat_anthropic()` uses Sonnet 3.7 (which it also now displays) (#336).
   * `chat_openai()` uses GPT-4.1 (#512)
 
 ## Developer tooling
@@ -137,19 +145,20 @@
   come from ellmer (#341). The default timeout has been increased to 
   5 minutes (#451, #321).
 
-* `chat_claude()` now supports the thinking content type (#396), and 
+* `chat_anthropic()` now supports the thinking content type (#396), and 
   `content_image_url()` (#347). It gains a `beta_header` argument to opt-in 
   to beta features (#339). It (along with `chat_bedrock()`) no longer chokes 
   after receiving an output that consists only of whitespace (#376).
-  Finally, `chat_claude(max_tokens =)` is now deprecated in favour of
-  `chat_claude(params = )` (#280).
+  Finally, `chat_anthropic(max_tokens =)` is now deprecated in favour of
+  `chat_anthropic(params = )` (#280).
 
-* `chat_gemini()` can now handle responses that include citation metadata
-  (#358). It uses `GEMINI_API_KEY` if set (@t-kalinowski, #513), can 
+* `chat_google_gemini()` and `chat_google_vertex()` gain more ways to 
+  authenticate. They can use `GEMINI_API_KEY` if set (@t-kalinowski, #513), 
   authenticate with Google default application credentials (including service 
   accounts, etc) (#317, @atheriel) and use viewer-based credentials when 
   running on Posit Connect (#320, @atheriel). Authentication with default 
-  application credentials requires the `gargle` package.
+  application credentials requires the {gargle} package. They now also can now 
+  handle responses that include citation metadata (#358).
 
 * `chat_ollama()` now works with `tool()` definitions with optional arguments 
   or empty properties (#342, #348, @gadenbuie), and now accepts `api_key` and 
@@ -157,12 +166,12 @@
   local usage, but enables bearer-token authentication when Ollama is running 
   behind a reverse proxy (#501, @gadenbuie).
 
-* `chat_openai(seed =)` is now deprecated in favour of
-  `chat_openai(params = )` (#280).
+* `chat_openai(seed =)` is now deprecated in favour of `chat_openai(params = )` 
+  (#280).
 
 * `create_tool_def()` can now use any Chat instance (#118, @pedrobtz).
 
-* `live_browser()` now requires `{shinychat}` v0.2.0 or later which provides
+* `live_browser()` now requires {shinychat} v0.2.0 or later which provides
   access to the app that powers `live_browser()` via `shinychat::chat_app()`,
   as well as a Shiny module for easily including a chat interface for an ellmer
   `Chat` object in your Shiny apps (#397, @gadenbuie). It now initializes the
@@ -170,7 +179,7 @@
   server-side (#381).
 
 * `Provider` gains `name` and `model` fields (#406). These are now reported when
-  you print a chat object and used in `token_usage()`.
+  you print a chat object and are used in `token_usage()`.
 
 # ellmer 0.1.1
 
