@@ -123,10 +123,10 @@ specific values from a string:</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; $primary_shape</span></span>
-<span><span class="co">#&gt; [1] "oval surrounding a letter"</span></span>
+<span><span class="co">#&gt; [1] "oval and letter"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $primary_colour</span></span>
-<span><span class="co">#&gt; [1] "gray and blue"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "grey and blue"</span></span></code></pre></div>
 <p>If you need to extract data from multiple prompts, you can use the
 same techniques with <code><a href="../reference/parallel_chat.html">parallel_chat_structured()</a></code>. It takes
 the same arguments as <code>$chat_structured()</code> with two
@@ -260,15 +260,15 @@ can use structured data extraction.</p>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_summary</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">summary</span><span class="op">)</span></span>
-<span><span class="co">#&gt; In this detailed exploration, the need for third-party testing as a vital component in AI policy is discussed. Anthropic outlines the importance of creating testing regimes to ensure AI systems are safe for deployment, while maintaining their beneficial aspects. The proposed testing framework aims to detect potential misuse or malfunction of AI models, crucial in avoiding societal harm either by mistake or misuse in domains like election integrity, discrimination, and national security. Furthermore, this policy seeks to integrate insights from industry, academia, and the government to establish a broadly trusted system ensuring AI safety.</span></span>
+<span><span class="co">#&gt; The article discusses the importance of developing third-party testing regimes for AI systems to ensure they are safe for public use and prevent societal harms associated with advanced AI technologies like Claude. It proposes developing a testing regime that leverages the collective insights of industry, government, and academia to address current and future AI challenges. The article outlines policy strategies for building a robust third-party testing infrastructure, emphasizing the importance of trusted and legitimate organizations that can administer safety tests and audit companies' AI systems effectively. Additionally, the article stresses the necessity of these testing regimes to tackle AI systems' potential misuse in areas such as national security and proposes measures to be adopted by public and private sectors to support the development of standardized testing procedures for AI safety.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 5</span></span>
-<span><span class="co">#&gt;  $ author    : chr "John Doe"</span></span>
-<span><span class="co">#&gt;  $ topics    : chr [1:4] "AI policy" "third-party testing" "regulatory frameworks" "AI safety"</span></span>
-<span><span class="co">#&gt;  $ summary   : chr "In this detailed exploration, the need for third-party testing as a vital component in AI policy is discussed. "| __truncated__</span></span>
-<span><span class="co">#&gt;  $ coherence : int 95</span></span>
-<span><span class="co">#&gt;  $ persuasion: num 0.89</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ author    : chr "Open AI Policy Team"</span></span>
+<span><span class="co">#&gt;  $ topics    : chr [1:5] "AI policy" "regulation" "third-party testing" "AI safety" ...</span></span>
+<span><span class="co">#&gt;  $ summary   : chr "The article discusses the importance of developing third-party testing regimes for AI systems to ensure they ar"| __truncated__</span></span>
+<span><span class="co">#&gt;  $ coherence : int 85</span></span>
+<span><span class="co">#&gt;  $ persuasion: num 0.85</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-2-named-entity-recognition">Example 2: Named entity recognition<a class="anchor" aria-label="anchor" href="#example-2-named-entity-recognition"></a>
@@ -289,13 +289,20 @@ can use structured data extraction.</p>
 <span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_openai.html">chat_openai</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
 <span><span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_named_entities</span><span class="op">)</span></span>
-<span><span class="co">#&gt;            name         type                            context</span></span>
-<span><span class="co">#&gt; 1          John       person        Works at Google in New York</span></span>
-<span><span class="co">#&gt; 2        Google organization                   John's workplace</span></span>
-<span><span class="co">#&gt; 3      New York     location       Location of John's workplace</span></span>
-<span><span class="co">#&gt; 4         Sarah       person                   CEO of Acme Inc.</span></span>
-<span><span class="co">#&gt; 5     Acme Inc. organization                    Sarah's company</span></span>
-<span><span class="co">#&gt; 6 San Francisco     location Meeting location of John and Sarah</span></span></code></pre></div>
+<span><span class="co">#&gt;            name         type</span></span>
+<span><span class="co">#&gt; 1          John       person</span></span>
+<span><span class="co">#&gt; 2        Google organization</span></span>
+<span><span class="co">#&gt; 3      New York     location</span></span>
+<span><span class="co">#&gt; 4         Sarah       person</span></span>
+<span><span class="co">#&gt; 5     Acme Inc. organization</span></span>
+<span><span class="co">#&gt; 6 San Francisco     location</span></span>
+<span><span class="co">#&gt;                                                                                           context</span></span>
+<span><span class="co">#&gt; 1                                             John is mentioned as working at Google in New York.</span></span>
+<span><span class="co">#&gt; 2                                                        Google is mentioned as John's workplace.</span></span>
+<span><span class="co">#&gt; 3                                         New York is mentioned as the location where John works.</span></span>
+<span><span class="co">#&gt; 4                                                      Sarah is mentioned as the CEO of Acme Inc.</span></span>
+<span><span class="co">#&gt; 5                              Acme Inc. is mentioned as the organization where Sarah is the CEO.</span></span>
+<span><span class="co">#&gt; 6 San Francisco is mentioned as the location where the meeting between John and Sarah took place.</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-3-sentiment-analysis">Example 3: Sentiment analysis<a class="anchor" aria-label="anchor" href="#example-3-sentiment-analysis"></a>
@@ -318,8 +325,8 @@ can use structured data extraction.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_sentiment</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 3</span></span>
 <span><span class="co">#&gt;  $ positive_score: num 0.1</span></span>
-<span><span class="co">#&gt;  $ negative_score: num 0.7</span></span>
-<span><span class="co">#&gt;  $ neutral_score : num 0.2</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ negative_score: num 0.8</span></span>
+<span><span class="co">#&gt;  $ neutral_score : num 0.1</span></span></code></pre></div>
 <p>Note that while we’ve asked nicely for the scores to sum 1, which
 they do in this example (at least when I ran the code), this is not
 guaranteed.</p>
@@ -355,8 +362,9 @@ guaranteed.</p>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_classification</span><span class="op">)</span></span>
 <span><span class="va">data</span></span>
 <span><span class="co">#&gt;         name score</span></span>
-<span><span class="co">#&gt; 1 Technology   0.9</span></span>
-<span><span class="co">#&gt; 2   Business   0.1</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 Technology  0.85</span></span>
+<span><span class="co">#&gt; 2   Business  0.10</span></span>
+<span><span class="co">#&gt; 3      Other  0.05</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-5-working-with-unknown-keys">Example 5: Working with unknown keys<a class="anchor" aria-label="anchor" href="#example-5-working-with-unknown-keys"></a>
@@ -420,7 +428,7 @@ and “unearned” income</div>
 <span><span class="co">#&gt; 2 San Francisco/San Francisco, CA, US         5000001         25000000</span></span>
 <span><span class="co">#&gt;   income_type income_low income_high tx_gt_1000</span></span>
 <span><span class="co">#&gt; 1 Grape Sales     100001     1000000       TRUE</span></span>
-<span><span class="co">#&gt; 2        Rent     100001     1000000      FALSE</span></span></code></pre></div>
+<span><span class="co">#&gt; 2        Rent     100001     1000000       TRUE</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -466,7 +474,7 @@ one in the text:</p>
 <span><span class="co">#&gt; [1] "Hadley Wickham"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $date</span></span>
-<span><span class="co">#&gt; [1] "2023-10-15"</span></span>
+<span><span class="co">#&gt; [1] "2023-10-24"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    2 obs. of  9 variables:</span></span>
 <span><span class="co">#&gt;  $ assert_name     : chr  "11 Zinfandel Lane - Home &amp; Vineyard [RP]" "25 Point Lobos - Commercial Property [RP]"</span></span>
@@ -477,7 +485,7 @@ one in the text:</p>
 <span><span class="co">#&gt;  $ income_type     : chr  "Grape Sales" "Rent"</span></span>
 <span><span class="co">#&gt;  $ income_low      : int  100001 100001</span></span>
 <span><span class="co">#&gt;  $ income_high     : int  1000000 1000000</span></span>
-<span><span class="co">#&gt;  $ tx_gt_1000      : logi  TRUE FALSE</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ tx_gt_1000      : logi  TRUE TRUE</span></span></code></pre></div>
 <p>Note that I’ve used more of an explict prompt here. For this example,
 I found that this generated better results and that it’s a useful place
 to put additional instructions.</p>
@@ -547,14 +555,14 @@ common in the wild.</p>
 <td align="left">OpenAI</td>
 <td align="left">gpt-4o</td>
 <td align="right">8186</td>
-<td align="right">603</td>
+<td align="right">692</td>
 <td align="right">$0.03</td>
 </tr>
 <tr class="even">
 <td align="left">Anthropic</td>
 <td align="left">claude-3-7-sonnet</td>
 <td align="right">480</td>
-<td align="right">136</td>
+<td align="right">81</td>
 <td align="right">$0.00</td>
 </tr>
 </tbody>
