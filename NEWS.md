@@ -2,15 +2,15 @@
 
 ## Breaking changes
 
-* We have made a number of refinements to the way the ellmer converts JSON
+* We have made a number of refinements to the way ellmer converts JSON
   to R data structures. These are breaking changes, although we don't expect
-  them to affect much code in the wild. Mostly important tools are now invoked 
+  them to affect much code in the wild. Most importantly, tools are now invoked 
   with their inputs coerced to standard R data structures (#461); opt-out
   by setting `convert = FALSE` in `tool()`.
 
-  We now now converts `NULL` to `NA` for `type_boolean()`, `type_integer()`, 
-  `type_number()`, and `type_string()` (#445), and do a better job with 
-  for arrays with `required = FALSE` (#384).
+  Additionally ellmer now converts `NULL` to `NA` for `type_boolean()`, 
+  `type_integer()`, `type_number()`, and `type_string()` (#445), and does a 
+  better job for arrays when `required = FALSE` (#384).
 
 * `chat_` functions no longer take a turns object, instead use 
   `Chat$set_turns()` (#427). `Chat$tokens()` has been renamed to 
@@ -29,6 +29,8 @@
   the shape of the user interface is correct, particularly as it pertains to 
   handling errors.
 
+* `google_upload()` lets you upload files to Google Gemini or Vertex AI (#310).
+
 * `models_google_gemini()`, `models_anthropic()`, `models_openai()`,
   `models_aws_bedrock()`, `models_ollama()` and `models_vllm()`, list available
   models for Google Gemini, Anthropic, OpenAI, AWS Bedrock, Ollama, and VLLM
@@ -36,8 +38,6 @@
   guaranteed to return a data frame with at least an `id` column (#296).
   Where possible (currently for Gemini, Anthropic, and OpenAI) we include
   known token prices (per million tokens).
-
-* `google_upload()` lets you upload files to Google Gemini or Vertex AI (#310).
 
 * `interpolate()` and friends are now vectorised so you can generate multiple
   prompts for (e.g.) a data frame of inputs. They also now return a specially
@@ -47,13 +47,13 @@
 
 * `chat_azure()`, `chat_claude()`, `chat_openai()`, and `chat_gemini()` now 
   take a `params` argument that coupled with the `params()` helpers, makes it 
-  easy to specify common model paramaters (like `seed` and `temperature`) 
+  easy to specify common model parameters (like `seed` and `temperature`) 
   across providers. Support for other providers will grow as you request it 
   (#280).
 
 * ellmer now tracks the cost of input and output tokens. The cost is displayed
   when you print a `Chat` object, in `tokens_usage()`, and with
-  `Chat$get_cost()`. You can also request costs in `$parallel_extract_data()`.
+  `Chat$get_cost()`. You can also request costs in `parallel_chat_structured()`.
   We do our best to accurately compute the cost, but you should treat it as an
   estimate rather than the exact price. Unfortunately LLM providers currently
   make it very difficult to figure out exactly how much your queries cost (#203).
@@ -66,7 +66,7 @@
     (#359, @s-spavound).
   * `chat_mistral()` for models hosted at <https://mistral.ai> (#319).
   * `chat_portkey()` and `models_portkey()` for models hosted at
-  <https://portkey.ai> (#363, @maciekbanas).
+    <https://portkey.ai> (#363, @maciekbanas).
 
 * We also renamed (with deprecation) a few functions to make the naming 
   scheme more consistent (#382, @gadenbuie):
@@ -80,10 +80,28 @@
   * `chat_claude()` uses Sonnet 3.7 (which it also now displays) (#336).
   * `chat_openai()` uses GPT-4.1 (#512)
 
-## Streaming/async
+## Developer tooling
 
-* `echo = "output"` replaces the now-deprecated `echo = "text"` option in
-  `Chat$chat()`. When using `echo = "output"`, additional output, such as tool
+* New `Chat$get_provider()` lets you access the underlying provider object 
+  (#202).
+
+* `Chat$chat_async()` and `Chat$stream_async()` gain a `tool_mode` argument to 
+  decide between `"sequential"` and `"concurrent"` tool calling. This is an 
+  advanced feature that primarily affects asynchronous tools (#488, @gadenbuie).
+
+* `Chat$stream()` and `Chat$stream_async()` gain support for streaming the 
+  additional content types generated during a tool call with a new `stream` 
+  argument. When `stream = "content"` is set, the streaming response yields 
+  `Content` objects, including the `ContentToolRequest` and `ContentToolResult` 
+  objects used to request and return tool calls (#400, @gadenbuie).
+
+* New `Chat$on_tool_request()` and `$on_tool_result()` methods allow you to
+  register callbacks to run on a tool request or tool result. These callbacks
+  can be used to implement custom logging or other actions when tools are
+  called, without modifying the tool function (#493, @gadenbuie).
+
+* `Chat$chat(echo = "output")` replaces the now-deprecated `echo = "text"` 
+  option. When using `echo = "output"`, additional output, such as tool
   requests and results, are shown as they occur. When `echo = "none"`, tool
   call failures are emitted as warnings (#366, @gadenbuie).
 
@@ -96,52 +114,33 @@
     `ContentToolResult` no longer has an `id` property, instead the tool call
     ID can be retrieved from `request@id`.
 
+  They also include the error condition in the `error` property when a tool call 
+  fails (#421, @gadenbuie).
+
 * `ContentToolRequest` gains a `tool` property that includes the `tool()`
   definition when a request is matched to a tool by ellmer (#423, @gadenbuie).
-
-* `ContentToolResult` objects now include the error condition in the `error`
-  property when a tool call fails (#421, @gadenbuie).
-
-* `$stream()` and `$stream_async()` gain support for streaming the additional
-  content types generated during a tool call with a new `stream` argument. When
-  `stream = "content"` is set, the streaming response yields `Content` objects,
-  including the `ContentToolRequest` and `ContentToolResult` objects used to
-  request and return tool calls (#400, @gadenbuie).
-
-* New `Chat$on_tool_request()` and `$on_tool_result()` methods allow you to
-  register callbacks to run on a tool request or tool result. These callbacks
-   can be used to implement custom logging or other actions when tools are
-  called, without modifying the tool function (#493, @gadenbuie).
-
-* New `tool_reject()` function can be used to reject a tool request with an
-  explanation for the rejection reason. `tool_reject()` can be called within a
-  tool function or in a `Chat$on_tool_request()` callback. In the latter case,
-  rejecting a tool call will ensure that the tool function is not evaluated
-  (#490 #493, @gadenbuie).
-
-* `$chat_async()` and `$stream_async()` gain a `tool_mode` argument to decide
-  between `"sequential"` and `"concurrent"` tool calling. This is an advanced
-  feature that primarily affects asynchronous tools (#488, @gadenbuie).
-
-* Added a Shiny app example in `vignette("streaming-async")` showcasing
-  asynchronous streaming with `{ellmer}` and `{shinychat}` (#131, @gadenbuie,
-  @adisarid).
 
 * `tool()` gains an `.annotations` argument that can be created with the
   `tool_annotations()` helper. Tool annotations are described in the
   [Model Context Protocol](https://modelcontextprotocol.io/introduction) and can
   be used to describe the tool to clients. (#402, @gadenbuie)
 
+* New `tool_reject()` function can be used to reject a tool request with an
+  explanation for the rejection reason. `tool_reject()` can be called within a
+  tool function or in a `Chat$on_tool_request()` callback. In the latter case,
+  rejecting a tool call will ensure that the tool function is not evaluated
+  (#490, #493, @gadenbuie).
+
 ## Minor improvements and bug fixes
 
 * All requests now set a custom User-Agent that identifies that the requests
-  comes from ellmer (#341). The default timeout has been increased to 
+  come from ellmer (#341). The default timeout has been increased to 
   5 minutes (#451, #321).
 
 * `chat_claude()` now supports the thinking content type (#396), and 
-  `content_image_url()` (#347). It gains gains `beta_header` argument to 
-  opt-in to beta features (#339). It (along with `chat_bedrock()`) no longer 
-  chokes after receiving an output that consists only of whitespace (#376).
+  `content_image_url()` (#347). It gains a `beta_header` argument to opt-in 
+  to beta features (#339). It (along with `chat_bedrock()`) no longer chokes 
+  after receiving an output that consists only of whitespace (#376).
   Finally, `chat_claude(max_tokens =)` is now deprecated in favour of
   `chat_claude(params = )` (#280).
 
@@ -161,13 +160,11 @@
 * `chat_openai(seed =)` is now deprecated in favour of
   `chat_openai(params = )` (#280).
 
-* `Chat$get_provider()` lets you access the underlying provider object (#202).
-
 * `create_tool_def()` can now use any Chat instance (#118, @pedrobtz).
 
 * `live_browser()` now requires `{shinychat}` v0.2.0 or later which provides
   access to the app that powers `live_browser()` via `shinychat::chat_app()`,
-  as well as Shiny module for easily including a chat interface for an ellmer
+  as well as a Shiny module for easily including a chat interface for an ellmer
   `Chat` object in your Shiny apps (#397, @gadenbuie). It now initializes the
   UI with the messages from the chat turns, rather than replaying the turns
   server-side (#381).
