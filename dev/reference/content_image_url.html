@@ -110,39 +110,47 @@ the <code>chat()</code>, <code>stream()</code>, <code>chat_async()</code>, or <c
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="chat_openai.html">chat_openai</a></span><span class="op">(</span>echo <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4.1"</span>.</span>
 <span class="r-in"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"What do you see in these images?"</span>,</span></span>
 <span class="r-in"><span>  <span class="fu">content_image_url</span><span class="op">(</span><span class="st">"https://www.r-project.org/Rlogo.png"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="fu">content_image_file</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"httr2.png"</span>, package <span class="op">=</span> <span class="st">"ellmer"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The first image shows the logo for R, a programming language used for </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> statistical computing and graphics. It features a stylized "R" with an</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> oval shape around it.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Here’s what I see in these images:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The second image is a hexagonal logo with "httr2" written on it, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> featuring a silhouette of a baseball player swinging a bat. This </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> likely represents the httr2 package in R, which is used for HTTP </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> requests.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1. **First image**: This is the logo for the **R programming </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> language**, widely used for statistical computing, data analysis, and </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> graphical representation.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2. **Second image**: This is the hex sticker for the **httr2** R </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> package. It features the package's name "httr2" in stylized lettering </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> above the figure of a baseball player swinging a bat, set against a </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> dark hexagonal background. **httr2** is an R package used for working </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> with HTTP in R.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Both images are associated with the **R programming environment** and </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> its ecosystem of packages.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">waiting</span> <span class="op">~</span> <span class="va">eruptions</span>, data <span class="op">=</span> <span class="va">faithful</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="content_image_url-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="chat_openai.html">chat_openai</a></span><span class="op">(</span>echo <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4.1"</span>.</span>
 <span class="r-in"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"Describe this plot in one paragraph, as suitable for inclusion in</span></span></span>
 <span class="r-in"><span><span class="st">   alt-text. You should briefly describe the plot type, the axes, and</span></span></span>
 <span class="r-in"><span><span class="st">   2-5 major visual patterns."</span>,</span></span>
 <span class="r-in"><span>   <span class="fu">content_image_plot</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> This plot is a line graph displaying the sine and cosine functions on </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a plane. The x-axis represents the angle in radians, while the y-axis </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> shows the value of the sine or cosine. The sine function, shown in </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> blue, begins at zero and oscillates between -1 and 1, peaking every π </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> radians. The cosine function, depicted in orange, starts at 1 and </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> follows a similar oscillation pattern, peaking at even multiples of π </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> radians. Both functions exhibit periodic oscillations with a </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> consistent frequency across the domain.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> This image shows a line plot with sinusoidal (wave-like) curves. The </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x-axis is labeled "x" and the y-axis is labeled "sin(x)". The plot </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> displays three lines: sin(x) (a smooth curve oscillating between -1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> and 1), sin(x+π/3) (a similar curve shifted left), and sin(x+2π/3) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (shifted further left). Major visual patterns include the repeating </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> peaks and valleys characteristic of sine functions, the phase shift </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> between the curves, the consistent amplitude, and the way all three </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> curves maintain the same shape but are horizontally offset from each </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> other. A legend in the top right corner labels each line accordingly.</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

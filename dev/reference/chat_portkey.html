@@ -105,7 +105,10 @@ stored inside Portkey application.</p>
 
 
 <dt id="arg-api-key">api_key<a class="anchor" aria-label="anchor" href="#arg-api-key"></a></dt>
-<dd><p>A Portkey API key.</p></dd>
+<dd><p>API key to use for authentication.</p>
+<p>You generally should not supply this directly, but instead set the <code>PORTKEY_API_KEY</code> environment variable.
+The best place to set this is in <code>.Renviron</code>,
+which you can easily edit by calling <code>usethis::edit_r_environ()</code>.</p></dd>
 
 
 <dt id="arg-virtual-key">virtual_key<a class="anchor" aria-label="anchor" href="#arg-virtual-key"></a></dt>
