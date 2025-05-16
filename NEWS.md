@@ -1,5 +1,9 @@
 # ellmer (development version)
 
+* `batch_chat()` allows you to submit multiple chats to OpenAI and Anthropic's
+  batched interfaces. These only guarantee a response within 24 hours, but are
+  50% of the price of regular requests (#143).
+
 * `chat_ollama()` now accepts `api_key` or consults the `OLLAMA_API_KEY`
   environment variable. This is not needed for local usage, but enables
   bearer-token authentication when Ollama is running behind a reverse proxy
