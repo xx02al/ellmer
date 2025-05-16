@@ -123,10 +123,10 @@ specific values from a string:</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; $primary_shape</span></span>
-<span><span class="co">#&gt; [1] "oval and letter"</span></span>
+<span><span class="co">#&gt; [1] "oval with letter"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $primary_colour</span></span>
-<span><span class="co">#&gt; [1] "grey and blue"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "blue and gray"</span></span></code></pre></div>
 <p>If you need to extract data from multiple prompts, you can use the
 same techniques with <code><a href="../reference/parallel_chat.html">parallel_chat_structured()</a></code>. It takes
 the same arguments as <code>$chat_structured()</code> with two
@@ -260,17 +260,39 @@ can use structured data extraction.</p>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_summary</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">summary</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The article discusses the need for a third-party testing regime in the rapidly advancing AI sector. Currently, most oversight and testing are conducted by individual companies, which is not sufficient to guarantee the prevention of societal harm from AI systems. A third-party testing regime, supported by industry, government, and academic collaboration, would enhance AI safety by ensuring that AI models meet specific safety and ethical standards before deployment. This type of oversight is particularly crucial for frontier AI systems, which have the potential for significant misuse or accident if not properly monitored. The article argues that establishing such a testing framework is essential to manage the complexities and minimize the risks associated with AI technology's future growth.</span></span>
+<span><span class="co">#&gt; ### Summary:</span></span>
+<span><span class="co">#&gt; In recent developments in AI policy, </span></span>
+<span><span class="co">#&gt; Anthropic advocates for the implementation of third-party testing regimes for frontier AI systems. These testing regimes aim to ensure the safety and reliability of AI models before they are widely deployed, thus minimizing societal harm. The policy highlights the need for collaboration among industry, government, and academia to build effective testing frameworks that can address potential risks, including election interference, harmful discrimination, and national security threats.</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; A robust third-party testing structure would build trust and encourage safe AI development, fostering global cooperation in AI regulation. Additionally, it would help avoid potential regulatory overshoots following any major AI-related incidents, thereby preventing harmful industry regulations. Importantly, this approach aims to balance the need for rigorous AI testing with the administrative feasibility for smaller companies, preventing competitive disadvantage while ensuring public safety.</span></span>
+<span><span class="co">#&gt; ### Key Points:</span></span>
+<span><span class="co">#&gt; 1. **Need for Oversight:** </span></span>
+<span><span class="co">#&gt;    - Third-party testing is crucial to validate the safety of frontier AI systems.</span></span>
+<span><span class="co">#&gt;    - It helps in understanding model behaviors, especially in contexts like election integrity and preventing misuse.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 2. **Designing the Testing Regime:**</span></span>
+<span><span class="co">#&gt;    - Tests should be implemented only on the most computationally-intensive systems.</span></span>
+<span><span class="co">#&gt;    - The regime should allow for ease of access and not disproportionately burden smaller companies.</span></span>
+<span><span class="co">#&gt;    - Collaboration across countries is encouraged to develop shared standards.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 3. **Challenges and Implementation:**</span></span>
+<span><span class="co">#&gt;    - A two-stage testing method is proposed with initial automated testing followed by expert analysis.</span></span>
+<span><span class="co">#&gt;    - The policy outlines a need for increased resources and funding for entities responsible for test development.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 4. **National Security Implications:**</span></span>
+<span><span class="co">#&gt;    - Testing should include capabilities related to national security, reducing the risk of misuse in sensitive areas.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; 5. **Role of Anthropic:**</span></span>
+<span><span class="co">#&gt;    - Anthropic will support government efforts in developing these regimes by prototyping testing methods, consulting with contractors and government partners, and advocating for funding in government entities.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; The proposal suggests that a robust third-party testing ecosystem could enhance trust in AI systems and promote safer deployment practices, ultimately making AI technology more reliable and reducing the potential for misuse or accidents.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 5</span></span>
-<span><span class="co">#&gt;  $ author    : chr "Jane Doe"</span></span>
-<span><span class="co">#&gt;  $ topics    : chr [1:5] "AI policy" "third-party testing" "regulation" "AI safety" ...</span></span>
-<span><span class="co">#&gt;  $ summary   : chr "The article discusses the need for a third-party testing regime in the rapidly advancing AI sector. Currently, "| __truncated__</span></span>
-<span><span class="co">#&gt;  $ coherence : int 95</span></span>
-<span><span class="co">#&gt;  $ persuasion: num 0.9</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ author    : chr "Anthropic"</span></span>
+<span><span class="co">#&gt;  $ topics    : chr [1:7] "AI policy" "third-party testing" "AI regulation" "AI safety" ...</span></span>
+<span><span class="co">#&gt;  $ summary   : chr "### Summary:\nIn recent developments in AI policy, \nAnthropic advocates for the implementation of third-party "| __truncated__</span></span>
+<span><span class="co">#&gt;  $ coherence : int 85</span></span>
+<span><span class="co">#&gt;  $ persuasion: num 0.8</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-2-named-entity-recognition">Example 2: Named entity recognition<a class="anchor" aria-label="anchor" href="#example-2-named-entity-recognition"></a>
@@ -298,13 +320,13 @@ can use structured data extraction.</p>
 <span><span class="co">#&gt; 4         Sarah       person</span></span>
 <span><span class="co">#&gt; 5     Acme Inc. organization</span></span>
 <span><span class="co">#&gt; 6 San Francisco     location</span></span>
-<span><span class="co">#&gt;                                                                       context</span></span>
-<span><span class="co">#&gt; 1   John works at Google in New York and met with Sarah, the CEO of Acme Inc.</span></span>
-<span><span class="co">#&gt; 2                                           John works at Google in New York.</span></span>
-<span><span class="co">#&gt; 3                                           John works at Google in New York.</span></span>
-<span><span class="co">#&gt; 4 Sarah is the CEO of Acme Inc. and met with John last week in San Francisco.</span></span>
-<span><span class="co">#&gt; 5                                               Sarah is the CEO of Acme Inc.</span></span>
-<span><span class="co">#&gt; 6                             John met with Sarah last week in San Francisco.</span></span></code></pre></div>
+<span><span class="co">#&gt;                                                                                       context</span></span>
+<span><span class="co">#&gt; 1                                                 Mentioned as an employee working at Google.</span></span>
+<span><span class="co">#&gt; 2                                            Identified as the organization where John works.</span></span>
+<span><span class="co">#&gt; 3 Location mentioned as the city where Google, the organization where John works, is located.</span></span>
+<span><span class="co">#&gt; 4                                                          Identified as the CEO of Acme Inc.</span></span>
+<span><span class="co">#&gt; 5                                             Mentioned in relation to Sarah, who is its CEO.</span></span>
+<span><span class="co">#&gt; 6                                                    The city where John met Sarah last week.</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-3-sentiment-analysis">Example 3: Sentiment analysis<a class="anchor" aria-label="anchor" href="#example-3-sentiment-analysis"></a>
@@ -326,8 +348,8 @@ can use structured data extraction.</p>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_sentiment</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 3</span></span>
-<span><span class="co">#&gt;  $ positive_score: num 0.2</span></span>
-<span><span class="co">#&gt;  $ negative_score: num 0.6</span></span>
+<span><span class="co">#&gt;  $ positive_score: num 0.1</span></span>
+<span><span class="co">#&gt;  $ negative_score: num 0.7</span></span>
 <span><span class="co">#&gt;  $ neutral_score : num 0.2</span></span></code></pre></div>
 <p>Note that while we’ve asked nicely for the scores to sum 1, which
 they do in this example (at least when I ran the code), this is not
@@ -363,13 +385,10 @@ guaranteed.</p>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_classification</span><span class="op">)</span></span>
 <span><span class="va">data</span></span>
-<span><span class="co">#&gt;            name score</span></span>
-<span><span class="co">#&gt; 1      Politics  0.05</span></span>
-<span><span class="co">#&gt; 2        Sports  0.01</span></span>
-<span><span class="co">#&gt; 3    Technology  0.70</span></span>
-<span><span class="co">#&gt; 4 Entertainment  0.02</span></span>
-<span><span class="co">#&gt; 5      Business  0.20</span></span>
-<span><span class="co">#&gt; 6         Other  0.02</span></span></code></pre></div>
+<span><span class="co">#&gt;         name score</span></span>
+<span><span class="co">#&gt; 1 Technology  0.85</span></span>
+<span><span class="co">#&gt; 2   Business  0.10</span></span>
+<span><span class="co">#&gt; 3      Other  0.05</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-5-working-with-unknown-keys">Example 5: Working with unknown keys<a class="anchor" aria-label="anchor" href="#example-5-working-with-unknown-keys"></a>
@@ -433,7 +452,7 @@ and “unearned” income</div>
 <span><span class="co">#&gt; 2 San Francisco/San Francisco, CA, US         5000001         25000000</span></span>
 <span><span class="co">#&gt;   income_type income_low income_high tx_gt_1000</span></span>
 <span><span class="co">#&gt; 1 Grape Sales     100001     1000000       TRUE</span></span>
-<span><span class="co">#&gt; 2        Rent     100001     1000000       TRUE</span></span></code></pre></div>
+<span><span class="co">#&gt; 2        Rent     100001     1000000      FALSE</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -479,7 +498,7 @@ one in the text:</p>
 <span><span class="co">#&gt; [1] "Hadley Wickham"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $date</span></span>
-<span><span class="co">#&gt; [1] "2023-10-07"</span></span>
+<span><span class="co">#&gt; [1] "2023-10-03"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    2 obs. of  9 variables:</span></span>
 <span><span class="co">#&gt;  $ assert_name     : chr  "11 Zinfandel Lane - Home &amp; Vineyard [RP]" "25 Point Lobos - Commercial Property [RP]"</span></span>
@@ -490,7 +509,7 @@ one in the text:</p>
 <span><span class="co">#&gt;  $ income_type     : chr  "Grape Sales" "Rent"</span></span>
 <span><span class="co">#&gt;  $ income_low      : int  100001 100001</span></span>
 <span><span class="co">#&gt;  $ income_high     : int  1000000 1000000</span></span>
-<span><span class="co">#&gt;  $ tx_gt_1000      : logi  TRUE TRUE</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ tx_gt_1000      : logi  TRUE FALSE</span></span></code></pre></div>
 <p>Note that I’ve used more of an explict prompt here. For this example,
 I found that this generated better results and that it’s a useful place
 to put additional instructions.</p>
@@ -560,14 +579,14 @@ common in the wild.</p>
 <td align="left">OpenAI</td>
 <td align="left">gpt-4o</td>
 <td align="right">8186</td>
-<td align="right">794</td>
+<td align="right">923</td>
 <td align="right">$0.03</td>
 </tr>
 <tr class="even">
 <td align="left">Anthropic</td>
 <td align="left">claude-3-7-sonnet</td>
 <td align="right">480</td>
-<td align="right">81</td>
+<td align="right">97</td>
 <td align="right">$0.00</td>
 </tr>
 </tbody>
