@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ellmer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,8 +42,11 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ellmer-development-version">ellmer (development version)<a class="anchor" aria-label="anchor" href="#ellmer-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.0" id="ellmer-020">ellmer 0.2.0<a class="anchor" aria-label="anchor" href="#ellmer-020"></a></h2><p class="text-muted">CRAN release: 2025-05-17</p>
 <div class="section level3">
-<h3 id="breaking-changes-development-version">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
+<h3 id="breaking-changes-0-2-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-2-0"></a></h3>
 <ul><li>
 <p>We have made a number of refinements to the way ellmer converts JSON to R data structures. These are breaking changes, although we don’t expect them to affect much code in the wild. Most importantly, tools are now invoked with their inputs coerced to standard R data structures (<a href="https://github.com/tidyverse/ellmer/issues/461" class="external-link">#461</a>); opt-out by setting <code>convert = FALSE</code> in <code><a href="../reference/tool.html">tool()</a></code>.</p>
 <p>Additionally ellmer now converts <code>NULL</code> to <code>NA</code> for <code><a href="../reference/type_boolean.html">type_boolean()</a></code>, <code><a href="../reference/type_boolean.html">type_integer()</a></code>, <code><a href="../reference/type_boolean.html">type_number()</a></code>, and <code><a href="../reference/type_boolean.html">type_string()</a></code> (<a href="https://github.com/tidyverse/ellmer/issues/445" class="external-link">#445</a>), and does a better job with arrays when <code>required = FALSE</code> (<a href="https://github.com/tidyverse/ellmer/issues/384" class="external-link">#384</a>).</p>
@@ -51,7 +54,7 @@
 <li><p><code>chat_</code> functions no longer have a <code>turn</code> argument. If you need to set the turns, you can now use <code>Chat$set_turns()</code> (<a href="https://github.com/tidyverse/ellmer/issues/427" class="external-link">#427</a>). Additionally, <code>Chat$tokens()</code> has been renamed to <code>Chat$get_tokens()</code> and returns a data frame of tokens, correctly aligned to the individual turn. The print method now uses this to show how many input/output tokens were used by each turn (<a href="https://github.com/tidyverse/ellmer/issues/354" class="external-link">#354</a>).</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<h3 id="new-features-0-2-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-2-0"></a></h3>
 <ul><li>
 <p>Two new interfaces help you do multiple chats with a single function call:</p>
 <ul><li><p><code><a href="../reference/batch_chat.html">batch_chat()</a></code> and <code><a href="../reference/batch_chat.html">batch_chat_structured()</a></code> allow you to submit multiple chats to OpenAI and Anthropic’s batched interfaces. These only guarantee a response within 24 hours, but are 50% of the price of regular requests (<a href="https://github.com/tidyverse/ellmer/issues/143" class="external-link">#143</a>).</p></li>
@@ -65,7 +68,7 @@
 <li><p>ellmer now tracks the cost of input and output tokens. The cost is displayed when you print a <code>Chat</code> object, in <code>tokens_usage()</code>, and with <code>Chat$get_cost()</code>. You can also request costs in <code><a href="../reference/parallel_chat.html">parallel_chat_structured()</a></code>. We do our best to accurately compute the cost, but you should treat it as an estimate rather than the exact price. Unfortunately LLM providers currently make it very difficult to figure out exactly how much your queries cost (<a href="https://github.com/tidyverse/ellmer/issues/203" class="external-link">#203</a>).</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="provider-updates-development-version">Provider updates<a class="anchor" aria-label="anchor" href="#provider-updates-development-version"></a></h3>
+<h3 id="provider-updates-0-2-0">Provider updates<a class="anchor" aria-label="anchor" href="#provider-updates-0-2-0"></a></h3>
 <ul><li>
 <p>We have support for three new providers:</p>
 <ul><li>
@@ -95,7 +98,7 @@
 </ul></li>
 </ul></div>
 <div class="section level3">
-<h3 id="developer-tooling-development-version">Developer tooling<a class="anchor" aria-label="anchor" href="#developer-tooling-development-version"></a></h3>
+<h3 id="developer-tooling-0-2-0">Developer tooling<a class="anchor" aria-label="anchor" href="#developer-tooling-0-2-0"></a></h3>
 <ul><li><p>New <code>Chat$get_provider()</code> lets you access the underlying provider object (<a href="https://github.com/tidyverse/ellmer/issues/202" class="external-link">#202</a>).</p></li>
 <li><p><code>Chat$chat_async()</code> and <code>Chat$stream_async()</code> gain a <code>tool_mode</code> argument to decide between <code>"sequential"</code> and <code>"concurrent"</code> tool calling. This is an advanced feature that primarily affects asynchronous tools (<a href="https://github.com/tidyverse/ellmer/issues/488" class="external-link">#488</a>, <a href="https://github.com/gadenbuie" class="external-link">@gadenbuie</a>).</p></li>
 <li><p><code>Chat$stream()</code> and <code>Chat$stream_async()</code> gain support for streaming the additional content types generated during a tool call with a new <code>stream</code> argument. When <code>stream = "content"</code> is set, the streaming response yields <code>Content</code> objects, including the <code>ContentToolRequest</code> and <code>ContentToolResult</code> objects used to request and return tool calls (<a href="https://github.com/tidyverse/ellmer/issues/400" class="external-link">#400</a>, <a href="https://github.com/gadenbuie" class="external-link">@gadenbuie</a>).</p></li>
@@ -114,7 +117,7 @@
 <li><p>New <code><a href="../reference/tool_reject.html">tool_reject()</a></code> function can be used to reject a tool request with an explanation for the rejection reason. <code><a href="../reference/tool_reject.html">tool_reject()</a></code> can be called within a tool function or in a <code>Chat$on_tool_request()</code> callback. In the latter case, rejecting a tool call will ensure that the tool function is not evaluated (<a href="https://github.com/tidyverse/ellmer/issues/490" class="external-link">#490</a>, <a href="https://github.com/tidyverse/ellmer/issues/493" class="external-link">#493</a>, <a href="https://github.com/gadenbuie" class="external-link">@gadenbuie</a>).</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="minor-improvements-and-bug-fixes-development-version">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-development-version"></a></h3>
+<h3 id="minor-improvements-and-bug-fixes-0-2-0">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-0-2-0"></a></h3>
 <ul><li><p>All requests now set a custom User-Agent that identifies that the requests come from ellmer (<a href="https://github.com/tidyverse/ellmer/issues/341" class="external-link">#341</a>). The default timeout has been increased to 5 minutes (<a href="https://github.com/tidyverse/ellmer/issues/451" class="external-link">#451</a>, <a href="https://github.com/tidyverse/ellmer/issues/321" class="external-link">#321</a>).</p></li>
 <li><p><code><a href="../reference/chat_anthropic.html">chat_anthropic()</a></code> now supports the thinking content type (<a href="https://github.com/tidyverse/ellmer/issues/396" class="external-link">#396</a>), and <code><a href="../reference/content_image_url.html">content_image_url()</a></code> (<a href="https://github.com/tidyverse/ellmer/issues/347" class="external-link">#347</a>). It gains a <code>beta_header</code> argument to opt-in to beta features (<a href="https://github.com/tidyverse/ellmer/issues/339" class="external-link">#339</a>). It (along with <code><a href="../reference/deprecated.html">chat_bedrock()</a></code>) no longer chokes after receiving an output that consists only of whitespace (<a href="https://github.com/tidyverse/ellmer/issues/376" class="external-link">#376</a>). Finally, <code>chat_anthropic(max_tokens =)</code> is now deprecated in favour of <code>chat_anthropic(params = )</code> (<a href="https://github.com/tidyverse/ellmer/issues/280" class="external-link">#280</a>).</p></li>
 <li><p><code><a href="../reference/chat_google_gemini.html">chat_google_gemini()</a></code> and <code><a href="../reference/chat_google_gemini.html">chat_google_vertex()</a></code> gain more ways to authenticate. They can use <code>GEMINI_API_KEY</code> if set (<a href="https://github.com/t-kalinowski" class="external-link">@t-kalinowski</a>, <a href="https://github.com/tidyverse/ellmer/issues/513" class="external-link">#513</a>), authenticate with Google default application credentials (including service accounts, etc) (<a href="https://github.com/tidyverse/ellmer/issues/317" class="external-link">#317</a>, <a href="https://github.com/atheriel" class="external-link">@atheriel</a>) and use viewer-based credentials when running on Posit Connect (<a href="https://github.com/tidyverse/ellmer/issues/320" class="external-link">#320</a>, <a href="https://github.com/atheriel" class="external-link">@atheriel</a>). Authentication with default application credentials requires the {gargle} package. They now also can now handle responses that include citation metadata (<a href="https://github.com/tidyverse/ellmer/issues/358" class="external-link">#358</a>).</p></li>
