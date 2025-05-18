@@ -6,16 +6,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Getting started with ellmer • ellmer</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.9/font.css" rel="stylesheet">
-<link href="../deps/Source_Code_Pro-0.4.9/font.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/Source_Code_Pro-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Getting started with ellmer">
@@ -29,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ellmer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +42,8 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/prompt-design.html">Prompt design</a></li>
+<li><a class="dropdown-item" href="../articles/programming.html">Programming with ellmer</a></li>
+    <li><a class="dropdown-item" href="../articles/prompt-design.html">Prompt design</a></li>
     <li><a class="dropdown-item" href="../articles/streaming-async.html">Streaming and async APIs</a></li>
     <li><a class="dropdown-item" href="../articles/structured-data.html">Structured data</a></li>
     <li><a class="dropdown-item" href="../articles/tool-calling.html">Tool/function calling</a></li>
@@ -71,7 +71,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Getting started with ellmer</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ellmer/blob/v0.1.1/vignettes/ellmer.Rmd" class="external-link"><code>vignettes/ellmer.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ellmer/blob/main/vignettes/ellmer.Rmd" class="external-link"><code>vignettes/ellmer.Rmd</code></a></small>
       <div class="d-none name"><code>ellmer.Rmd</code></div>
     </div>
 
@@ -141,9 +141,9 @@ languages will typically require more tokens, because (in brief) LLMs
 are trained on data from the internet, which is primarily in
 English.</p>
 <p>LLMs are priced per million tokens. State of the art models (like
-GPT-4o or Claude 3.5 sonnet) cost $2-3 per million input tokens, and
+GPT-4.1 or Claude 3.5 sonnet) cost $2-3 per million input tokens, and
 $10-15 per million output tokens. Cheaper models can cost much less,
-e.g. GPT-4o mini costs $0.15 per million input tokens and $0.60 per
+e.g. GPT-4.1 nanoo costs $0.10 per million input tokens and $0.40 per
 million output tokens. Even $10 of API credit will give you a lot of
 room for experimentation, particularly with cheaper models, and prices
 are likely to decline as model performance improves.</p>
@@ -156,22 +156,19 @@ cost grow rapidly with the number of conversational turns.</p>
 printing it, and you can see total usage for a session with
 <code><a href="../reference/token_usage.html">token_usage()</a></code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_openai.html">chat_openai</a></span><span class="op">(</span>model <span class="op">=</span> <span class="st">"gpt-4o"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_openai.html">chat_openai</a></span><span class="op">(</span>model <span class="op">=</span> <span class="st">"gpt-4.1"</span><span class="op">)</span></span>
 <span><span class="va">.</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"Who created R?"</span>, echo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">chat</span></span>
-<span><span class="co">#&gt; &lt;Chat turns=2 tokens=11/62&gt;</span></span>
-<span><span class="co">#&gt; ── <span style="color: #0000BB;">user</span> ───────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; &lt;Chat OpenAI/gpt-4.1 turns=2 tokens=11/103 $0.00&gt;</span></span>
+<span><span class="co">#&gt; ── <span style="color: #0000BB;">user</span> [11] ──────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Who created R?</span></span>
-<span><span class="co">#&gt; ── <span style="color: #00BB00;">assistant</span> ──────────────────────────────────────────────────────────</span></span>
-<span><span class="co">#&gt; R was created by Ross Ihaka and Robert Gentleman at the University of </span></span>
-<span><span class="co">#&gt; Auckland, New Zealand. The development of R began in the early 1990s, </span></span>
-<span><span class="co">#&gt; and it was first released to the public in 1995. R is an open-source </span></span>
-<span><span class="co">#&gt; programming language primarily used for statistical computing and data</span></span>
-<span><span class="co">#&gt; analysis.</span></span>
+<span><span class="co">#&gt; ── <span style="color: #00BB00;">assistant</span> [103] ────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; **R** is a programming language and environment for statistical computing and graphics.  </span></span>
+<span><span class="co">#&gt; It was **created by Ross Ihaka and Robert Gentleman** at the University of Auckland, New Zealand, in the early 1990s. The project began in 1992, and the first public release happened in 1995. The name **R** is partly derived from the first names of its two creators (Ross and Robert), as well as a play on the name of the S programming language, which inspired R.</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/token_usage.html">token_usage</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                       name input output</span></span>
-<span><span class="co">#&gt; 1 OpenAI-api.openai.com/v1    11     62</span></span></code></pre></div>
+<span><span class="co">#&gt;   provider   model input output price</span></span>
+<span><span class="co">#&gt; 1   OpenAI gpt-4.1    11    103 $0.00</span></span></code></pre></div>
 <p>If you want to learn more about tokens and tokenizers, I’d recommend
 watching the first 20-30 minutes of <a href="https://www.youtube.com/watch?v=zduSFxRajkE" class="external-link">Let’s build the GPT
 Tokenizer</a> by Andrej Karpathy. You certainly don’t need to learn how
@@ -267,7 +264,7 @@ prompt stuffed with useful knowledge. For example:</p>
 <li><p>Help people use your new package. To do so, you need a custom
 prompt because LLMs were trained on data prior to your package’s
 existence. You can create a surprisingly useful tool just by preloading
-the prompt with your README and vignettes. This is how the <a href="https://github.com/jcheng5/elmer-assistant" class="external-link">ellmer assistant</a>
+the prompt with your README and vignettes. This is how the <a href="https://github.com/jcheng5/ellmer-assistant" class="external-link">ellmer assistant</a>
 works.</p></li>
 <li><p>Build language specific prompts for R and/or python. <a href="https://shiny.posit.co/blog/posts/shiny-assistant/" class="external-link">Shiny
 assistant</a> helps you build shiny apps (either in R or python) by
@@ -334,7 +331,7 @@ example:</p>
 <li><p>Write a detailed prompt that explains how to update code to use a
 new version of a package. You could combine this with the rstudioapi
 package to allow the user to select code, transform it, and replace it
-in the existing text. A comprehensive example of this sort of app is <a href="https://simonpcouch.github.io/pal/" class="external-link">pal</a>, which includes
+in the existing text. A comprehensive example of this sort of app is <a href="https://simonpcouch.github.io/chores/" class="external-link">chores</a>, which includes
 prompts for automatically generating roxygen documentation blocks,
 updating testthat code to the 3rd edition, and converting
 <code><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop()</a></code> and <code>abort()</code> to use
@@ -387,11 +384,11 @@ plots to match your corporate style guide.</p></li>
    </div>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, Joe Cheng, Aaron Jacobs, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" width="62" style="margin-bottom: 3px;"></a>.</p>
+  <p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, Joe Cheng, Aaron Jacobs, <a href="https://garrickadenbuie.com" class="external-link">Garrick Aden-Buie</a>, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" width="62" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
   </div></footer>

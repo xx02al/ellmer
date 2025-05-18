@@ -6,16 +6,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Structured data • ellmer</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.9/font.css" rel="stylesheet">
-<link href="../deps/Source_Code_Pro-0.4.9/font.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/Source_Code_Pro-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Structured data">
@@ -29,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ellmer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +42,8 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/prompt-design.html">Prompt design</a></li>
+<li><a class="dropdown-item" href="../articles/programming.html">Programming with ellmer</a></li>
+    <li><a class="dropdown-item" href="../articles/prompt-design.html">Prompt design</a></li>
     <li><a class="dropdown-item" href="../articles/streaming-async.html">Streaming and async APIs</a></li>
     <li><a class="dropdown-item" href="../articles/structured-data.html">Structured data</a></li>
     <li><a class="dropdown-item" href="../articles/tool-calling.html">Tool/function calling</a></li>
@@ -71,7 +71,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Structured data</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ellmer/blob/v0.1.1/vignettes/structured-data.Rmd" class="external-link"><code>vignettes/structured-data.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/ellmer/blob/main/vignettes/structured-data.Rmd" class="external-link"><code>vignettes/structured-data.Rmd</code></a></small>
       <div class="d-none name"><code>structured-data.Rmd</code></div>
     </div>
 
@@ -92,29 +92,29 @@ the LLM ensures that’s what you’ll get back.</p>
 <div class="section level2">
 <h2 id="structured-data-basics">Structured data basics<a class="anchor" aria-label="anchor" href="#structured-data-basics"></a>
 </h2>
-<p>To extract structured data you call the <code>$extract_data()</code>
-method instead of the <code>$chat()</code> method. You’ll also need to
-define a type specification that describes the structure of the data
-that you want (more on that shortly). Here’s a simple example that
-extracts two specific values from a string:</p>
+<p>To extract structured data you call <code>$chat_structured()</code>
+instead of the <code>$chat()</code> method. You’ll also need to define a
+type specification that describes the structure of the data that you
+want (more on that shortly). Here’s a simple example that extracts two
+specific values from a string:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_openai.html">chat_openai</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
-<span><span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span></span>
+<span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4.1"</span>.</span></span>
+<span><span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span></span>
 <span>  <span class="st">"My name is Susan and I'm 13 years old"</span>,</span>
 <span>  type <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
-<span>    age <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_number</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    name <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>    name <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    age <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_number</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; $age</span></span>
-<span><span class="co">#&gt; [1] 13</span></span>
-<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $name</span></span>
-<span><span class="co">#&gt; [1] "Susan"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "Susan"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $age</span></span>
+<span><span class="co">#&gt; [1] 13</span></span></code></pre></div>
 <p>The same basic idea works with images too:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/content_image_url.html">content_image_url</a></span><span class="op">(</span><span class="st">"https://www.r-project.org/Rlogo.png"</span><span class="op">)</span>,</span>
 <span>  type <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
 <span>    primary_shape <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -122,10 +122,41 @@ extracts two specific values from a string:</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; $primary_shape</span></span>
-<span><span class="co">#&gt; [1] "oval with a letter"</span></span>
+<span><span class="co">#&gt; [1] "Rounded letter R overlaying an oval/circle"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $primary_colour</span></span>
-<span><span class="co">#&gt; [1] "gray and blue"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "Blue (for the R) and Gray (for the oval)"</span></span></code></pre></div>
+<p>If you need to extract data from multiple prompts, you can use the
+same techniques with <code><a href="../reference/parallel_chat.html">parallel_chat_structured()</a></code>. It takes
+the same arguments as <code>$chat_structured()</code> with two
+exceptions: it needs a <code>chat</code> object since it’s a standalone
+function, not a method, and it can take a vector of prompts.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">prompts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  <span class="st">"I go by Alex. 42 years on this planet and counting."</span>,</span>
+<span>  <span class="st">"Pleased to meet you! I'm Jamal, age 27."</span>,</span>
+<span>  <span class="st">"They call me Li Wei. Nineteen years young."</span>,</span>
+<span>  <span class="st">"Fatima here. Just celebrated my 35th birthday last week."</span>,</span>
+<span>  <span class="st">"The name's Robert - 51 years old and proud of it."</span>,</span>
+<span>  <span class="st">"Kwame here - just hit the big 5-0 this year."</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/parallel_chat.html">parallel_chat_structured</a></span><span class="op">(</span></span>
+<span>  <span class="va">chat</span>,  </span>
+<span>  <span class="va">prompts</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
+<span>    name <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    age <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_number</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; [working] (0 + 0) -&gt; 5 -&gt; 1 | <span style="color: #00BB00;">■■■■■■                          </span>  17%</span></span>
+<span><span class="co">#&gt; [working] (0 + 0) -&gt; 0 -&gt; 6 | <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ </span> 100%</span></span>
+<span><span class="co">#&gt;     name age</span></span>
+<span><span class="co">#&gt; 1   Alex  42</span></span>
+<span><span class="co">#&gt; 2  Jamal  27</span></span>
+<span><span class="co">#&gt; 3 Li Wei  19</span></span>
+<span><span class="co">#&gt; 4 Fatima  35</span></span>
+<span><span class="co">#&gt; 5 Robert  51</span></span>
+<span><span class="co">#&gt; 6  Kwame  50</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="data-types-basics">Data types basics<a class="anchor" aria-label="anchor" href="#data-types-basics"></a>
@@ -136,34 +167,33 @@ extracts two specific values from a string:</p>
 calling, as discussed in <code>vignette("function-calling")</code>). The
 type functions can be divided into three main groups:</p>
 <ul>
-<li><p><strong>Scalars</strong> represent single values, of which there
-are five types: <code><a href="../reference/type_boolean.html">type_boolean()</a></code>,
-<code><a href="../reference/type_boolean.html">type_integer()</a></code>, <code><a href="../reference/type_boolean.html">type_number()</a></code>,
-<code><a href="../reference/type_boolean.html">type_string()</a></code>, and <code><a href="../reference/type_boolean.html">type_enum()</a></code>, representing a
-single logical, integer, double, string, and factor value
-respectively.</p></li>
+<li><p><strong>Scalars</strong> represent five types of single values,
+<code><a href="../reference/type_boolean.html">type_boolean()</a></code>, <code><a href="../reference/type_boolean.html">type_integer()</a></code>,
+<code><a href="../reference/type_boolean.html">type_number()</a></code>, <code><a href="../reference/type_boolean.html">type_string()</a></code>, and
+<code><a href="../reference/type_boolean.html">type_enum()</a></code>, which represent a single logical, integer,
+double, string, and factor value respectively.</p></li>
 <li>
 <p><strong>Arrays</strong> represent any number of values of the
-same type and are created with <code><a href="../reference/type_boolean.html">type_array()</a></code>. You must
-always supply the <code>item</code> argument which specifies the type of
-each individual element. Arrays of scalars are very similar to R’s
+same type. They are created with <code><a href="../reference/type_boolean.html">type_array()</a></code>. You must
+always supply the <code>item</code> argument which specifies the type
+for each individual element. Arrays of scalars are very similar to R’s
 atomic vectors:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_logical_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_boolean</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">type_integer_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_integer</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">type_double_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">type_character_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>You can also have arrays of arrays and arrays of objects, which more
 closely resemble lists with well defined structures:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">list_of_integers</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="va">type_integer_vector</span><span class="op">)</span></span></code></pre></div>
 </li>
 <li>
-<p><strong>Objects</strong> represent a collection of named values
-and are created with <code><a href="../reference/type_boolean.html">type_object()</a></code>. Objects can contain any
-number of scalars, arrays, and other objects. They are similar to named
-lists in R.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<p><strong>Objects</strong> represent a collection of named values.
+They are created with <code><a href="../reference/type_boolean.html">type_object()</a></code>. Objects can contain
+any number of scalars, arrays, and other objects. They are similar to
+named lists in R.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_person</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  age <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_integer</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -172,21 +202,20 @@ lists in R.</p>
 </li>
 </ul>
 <p>Using these type specifications ensures that the LLM will return
-JSON. But ellmer goes one step further to convert the results to their
-most natural R representation. This currently converts arrays of
-boolean, integers, numbers, and strings into logical, integer, numeric,
-and character vectors, and arrays of objects into data frames. You can
-opt-out of this and get plain lists instead by setting
-<code>convert = FALSE</code> in <code>$extract_data()</code>.</p>
-<p>As well as the definition of the types, you need to provide the LLM
-with some information about what you actually want. This is the purpose
-of the first argument, <code>description</code>, which is a string that
+JSON. But ellmer goes one step further to convert the results to the
+closest R analog. Currently, this converts arrays of boolean, integers,
+numbers, and strings into logical, integer, numeric, and character
+vectors. Arrays of objects are converted into data frames. You can
+opt-out of this and get plain lists by setting
+<code>convert = FALSE</code> in <code>$chat_structured()</code>.</p>
+<p>In addition to defining types, you need to provide the LLM with some
+information about what you actually want. This is the purpose of the
+first argument, <code>description</code>, which is a string that
 describes the data that you want. This is a good place to ask nicely for
-other attributes you’ll like the value to possess (e.g. minimum or
-maximum values, date formats, …). You aren’t guaranteed that these
-requests will be honoured, but the LLM will usually make a best effort
-to do so.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+other attributes you’ll like the value to have (e.g. minimum or maximum
+values, date formats, …). There’s no guarantee that these requests will
+be honoured, but the LLM will usually make a best effort to do so.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_type_person</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
 <span>  <span class="st">"A person"</span>,</span>
 <span>  name <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="st">"Name"</span><span class="op">)</span>,</span>
@@ -197,18 +226,18 @@ to do so.</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Now we’ll dive into some examples before coming back to talk more
-data types details.</p>
+about the details of data types.</p>
 </div>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
-<p>The following examples are <a href="https://github.com/anthropics/anthropic-cookbook/blob/main/tool_use/extracting_structured_json.ipynb" class="external-link">closely
-inspired by the Claude documentation</a> and hint at some of the ways
-you can use structured data extraction.</p>
+<p>The following examples, which are <a href="https://github.com/anthropics/anthropic-cookbook/blob/main/tool_use/extracting_structured_json.ipynb" class="external-link">closely
+inspired by the Claude documentation</a>, hint at some of the ways you
+can use structured data extraction.</p>
 <div class="section level3">
 <h3 id="example-1-article-summarisation">Example 1: Article summarisation<a class="anchor" aria-label="anchor" href="#example-1-article-summarisation"></a>
 </h3>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"examples/third-party-testing.txt"</span>, package <span class="op">=</span> <span class="st">"ellmer"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># url &lt;- "https://www.anthropic.com/news/third-party-testing"</span></span>
 <span><span class="co"># html &lt;- rvest::read_html(url)</span></span>
@@ -227,23 +256,25 @@ you can use structured data extraction.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_openai.html">chat_openai</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
-<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_summary</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4.1"</span>.</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_summary</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">summary</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The article emphasizes the importance of establishing a robust third-party testing regime for AI systems, especially large-scale and generative AI models. These testing frameworks should address gaps left by current sector-specific frameworks, ensuring AI systems do not contribute to electoral interference, discrimination, or national security risks. Proactive development of testing protocols, in collaboration with industry, government, and academia, is vital to prevent societal harm while allowing technological benefits. The article highlights Anthropic's commitment to responsible scaling through third-party evaluation as a way to enhance public trust and mitigate the risks associated with advanced AI systems.</span></span>
+<span><span class="co">#&gt; Anthropic argues that effective third-party testing is essential for ensuring the safety and responsible deployment of frontier AI systems. The article identifies the potential for both accidental and deliberate societal harms as AI becomes more capable and widespread, and highlights the shortcomings of relying solely on self-governance by AI companies. Instead, Anthropic advocates for a robust, narrowly scoped regime of third-party testing and oversight—similar to what exists for product safety in industries like food, medicine, and aerospace—that would validate the safety of the most powerful AI models, without creating undue burdens for smaller players.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; The article explores what a third-party testing regime would look like, emphasizing collaboration between industry, government, and academia, and calling for public investment in research infrastructure and safety standards. Anthropic also discusses the need for nuanced approaches to open-source models and warns against regulatory capture that could favor large companies. The company outlines its own efforts to prototype testing regimes and support the development of fair and effective policy interventions. Overall, Anthropic positions third-party testing as a pillar of responsible AI governance, necessary to prevent both catastrophic accidents and counterproductive regulation.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 5</span></span>
-<span><span class="co">#&gt;  $ author    : chr "AI Policy Team at Anthropic"</span></span>
-<span><span class="co">#&gt;  $ topics    : chr [1:6] "AI policy" "third-party testing" "AI safety" "regulatory frameworks" ...</span></span>
-<span><span class="co">#&gt;  $ summary   : chr "The article emphasizes the importance of establishing a robust third-party testing regime for AI systems, espec"| __truncated__</span></span>
-<span><span class="co">#&gt;  $ coherence : int 90</span></span>
-<span><span class="co">#&gt;  $ persuasion: num 0.9</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ author    : chr "Anthropic (team post, individual author not specified)"</span></span>
+<span><span class="co">#&gt;  $ topics    : chr [1:9] "AI policy" "technology regulation" "AI safety" "third-party validation" ...</span></span>
+<span><span class="co">#&gt;  $ summary   : chr "Anthropic argues that effective third-party testing is essential for ensuring the safety and responsible deploy"| __truncated__</span></span>
+<span><span class="co">#&gt;  $ coherence : int 94</span></span>
+<span><span class="co">#&gt;  $ persuasion: num 0.88</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-2-named-entity-recognition">Example 2: Named entity recognition<a class="anchor" aria-label="anchor" href="#example-2-named-entity-recognition"></a>
 </h3>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">text</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
 <span><span class="st">  John works at Google in New York. He met with Sarah, the CEO of</span></span>
 <span><span class="st">  Acme Inc., last week in San Francisco.</span></span>
@@ -257,8 +288,8 @@ you can use structured data extraction.</p>
 <span><span class="va">type_named_entities</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="va">type_named_entity</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_openai.html">chat_openai</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
-<span><span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_named_entities</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4.1"</span>.</span></span>
+<span><span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_named_entities</span><span class="op">)</span></span>
 <span><span class="co">#&gt;            name         type</span></span>
 <span><span class="co">#&gt; 1          John       person</span></span>
 <span><span class="co">#&gt; 2        Google organization</span></span>
@@ -266,18 +297,18 @@ you can use structured data extraction.</p>
 <span><span class="co">#&gt; 4         Sarah       person</span></span>
 <span><span class="co">#&gt; 5     Acme Inc. organization</span></span>
 <span><span class="co">#&gt; 6 San Francisco     location</span></span>
-<span><span class="co">#&gt;                                                                context</span></span>
-<span><span class="co">#&gt; 1                                    John works at Google in New York.</span></span>
-<span><span class="co">#&gt; 2                                    John works at Google in New York.</span></span>
-<span><span class="co">#&gt; 3                                    John works at Google in New York.</span></span>
-<span><span class="co">#&gt; 4 He met with Sarah, the CEO of Acme Inc., last week in San Francisco.</span></span>
-<span><span class="co">#&gt; 5                                        Sarah is the CEO of Acme Inc.</span></span>
-<span><span class="co">#&gt; 6                       Sarah and John met last week in San Francisco.</span></span></code></pre></div>
+<span><span class="co">#&gt;                                           context</span></span>
+<span><span class="co">#&gt; 1               John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 2               John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 3               John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 4         He met with Sarah, the CEO of Acme Inc.</span></span>
+<span><span class="co">#&gt; 5                   Sarah is the CEO of Acme Inc.</span></span>
+<span><span class="co">#&gt; 6 John met with Sarah last week in San Francisco.</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-3-sentiment-analysis">Example 3: Sentiment analysis<a class="anchor" aria-label="anchor" href="#example-3-sentiment-analysis"></a>
 </h3>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">text</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
 <span><span class="st">  The product was okay, but the customer service was terrible. I probably</span></span>
 <span><span class="st">  won't buy from them again.</span></span>
@@ -291,20 +322,20 @@ you can use structured data extraction.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_openai.html">chat_openai</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_sentiment</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4.1"</span>.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_sentiment</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 3</span></span>
-<span><span class="co">#&gt;  $ positive_score: num 0.1</span></span>
-<span><span class="co">#&gt;  $ negative_score: num 0.7</span></span>
+<span><span class="co">#&gt;  $ positive_score: num 0</span></span>
+<span><span class="co">#&gt;  $ negative_score: num 0.8</span></span>
 <span><span class="co">#&gt;  $ neutral_score : num 0.2</span></span></code></pre></div>
-<p>Note that we’ve asked nicely for the scores to sum 1, and they do in
-this example (at least when I ran the code), but it’s not
+<p>Note that while we’ve asked nicely for the scores to sum 1, which
+they do in this example (at least when I ran the code), this is not
 guaranteed.</p>
 </div>
 <div class="section level3">
 <h3 id="example-4-text-classification">Example 4: Text classification<a class="anchor" aria-label="anchor" href="#example-4-text-classification"></a>
 </h3>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">text</span> <span class="op">&lt;-</span> <span class="st">"The new quantum computing breakthrough could revolutionize the tech industry."</span></span>
 <span></span>
 <span><span class="va">type_classification</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span></span>
@@ -328,18 +359,21 @@ guaranteed.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_openai.html">chat_openai</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
-<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_classification</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4.1"</span>.</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_classification</span><span class="op">)</span></span>
 <span><span class="va">data</span></span>
-<span><span class="co">#&gt;         name score</span></span>
-<span><span class="co">#&gt; 1 Technology  0.85</span></span>
-<span><span class="co">#&gt; 2   Business  0.10</span></span>
-<span><span class="co">#&gt; 3      Other  0.05</span></span></code></pre></div>
+<span><span class="co">#&gt;            name score</span></span>
+<span><span class="co">#&gt; 1    Technology  0.95</span></span>
+<span><span class="co">#&gt; 2      Business  0.05</span></span>
+<span><span class="co">#&gt; 3      Politics  0.00</span></span>
+<span><span class="co">#&gt; 4        Sports  0.00</span></span>
+<span><span class="co">#&gt; 5 Entertainment  0.00</span></span>
+<span><span class="co">#&gt; 6         Other  0.00</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-5-working-with-unknown-keys">Example 5: Working with unknown keys<a class="anchor" aria-label="anchor" href="#example-5-working-with-unknown-keys"></a>
 </h3>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_characteristics</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
 <span>  <span class="st">"All characteristics"</span>,</span>
 <span>  .additional_properties <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -353,24 +387,25 @@ guaranteed.</p>
 <span><span class="st">  &lt;/description&gt;</span></span>
 <span><span class="st">"</span></span>
 <span></span>
-<span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_claude.html">chat_claude</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">prompt</span>, type <span class="op">=</span> <span class="va">type_characteristics</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_anthropic.html">chat_anthropic</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"claude-3-7-sonnet-latest"</span>.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">prompt</span>, type <span class="op">=</span> <span class="va">type_characteristics</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  list()</span></span></code></pre></div>
-<p>This examples only works with Claude, not GPT or Gemini, because only
-Claude supports adding arbitrary additional properties.</p>
+<p>This example only works with Claude, not GPT or Gemini, because only
+Claude supports adding additional, arbitrary properties.</p>
 </div>
 <div class="section level3">
 <h3 id="example-6-extracting-data-from-an-image">Example 6: Extracting data from an image<a class="anchor" aria-label="anchor" href="#example-6-extracting-data-from-an-image"></a>
 </h3>
-<p>This example comes from <a href="https://gist.github.com/dannguyen/faaa56cebf30ad51108a9fe4f8db36d8" class="external-link">Dan
-Nguyen</a> and you can see other interesting applications at that link.
+<p>The final example comes from <a href="https://gist.github.com/dannguyen/faaa56cebf30ad51108a9fe4f8db36d8" class="external-link">Dan
+Nguyen</a> (you can see other interesting applications at that link).
 The goal is to extract structured data from this screenshot:</p>
 <div class="float">
-<img src="congressional-assets.png" alt="A screenshot of schedule A: a table showing assets and “unearned” income"><div class="figcaption">A screenshot of schedule A: a table showing
-assets and “unearned” income</div>
+<img src="congressional-assets.png" alt="Screenshot of schedule A: a table showing assets and “unearned” income"><div class="figcaption">Screenshot of schedule A: a table showing assets
+and “unearned” income</div>
 </div>
 <p>Even without any descriptions, ChatGPT does pretty well:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_asset</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
 <span>  assert_name <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  owner <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -385,18 +420,18 @@ assets and “unearned” income</div>
 <span><span class="va">type_assets</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="va">type_asset</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_openai.html">chat_openai</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
+<span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4.1"</span>.</span></span>
 <span><span class="va">image</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/content_image_url.html">content_image_file</a></span><span class="op">(</span><span class="st">"congressional-assets.png"</span><span class="op">)</span></span>
-<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">image</span>, type <span class="op">=</span> <span class="va">type_assets</span><span class="op">)</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">image</span>, type <span class="op">=</span> <span class="va">type_assets</span><span class="op">)</span></span>
 <span><span class="va">data</span></span>
-<span><span class="co">#&gt;                                 assert_name owner</span></span>
-<span><span class="co">#&gt; 1  11 Zinfandel Lane - Home &amp; Vineyard [RP]    JT</span></span>
-<span><span class="co">#&gt; 2 25 Point Lobos - Commercial Property [RP]    SP</span></span>
+<span><span class="co">#&gt;                            assert_name owner</span></span>
+<span><span class="co">#&gt; 1  11 Zinfandel Lane - Home &amp; Vineyard    JT</span></span>
+<span><span class="co">#&gt; 2 25 Point Lobos - Commercial Property    SP</span></span>
 <span><span class="co">#&gt;                              location asset_value_low asset_value_high</span></span>
 <span><span class="co">#&gt; 1             St. Helena/Napa, CA, US         5000001         25000000</span></span>
 <span><span class="co">#&gt; 2 San Francisco/San Francisco, CA, US         5000001         25000000</span></span>
 <span><span class="co">#&gt;   income_type income_low income_high tx_gt_1000</span></span>
-<span><span class="co">#&gt; 1 Grape Sales     100001     1000000       TRUE</span></span>
+<span><span class="co">#&gt; 1 Grape Sales     100001     1000000      FALSE</span></span>
 <span><span class="co">#&gt; 2        Rent     100001     1000000      FALSE</span></span></code></pre></div>
 </div>
 </div>
@@ -414,7 +449,7 @@ idea if you don’t think your text will always contain the required
 fields as LLMs may hallucinate data in order to fulfill your spec.</p>
 <p>For example, here the LLM hallucinates a date even though there isn’t
 one in the text:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_article</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
 <span>  <span class="st">"Information about an article written in markdown"</span>,</span>
 <span>  title <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="st">"Article title"</span><span class="op">)</span>,</span>
@@ -434,8 +469,8 @@ one in the text:</p>
 <span><span class="st">"</span></span>
 <span></span>
 <span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_openai.html">chat_openai</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4o"</span>.</span></span>
-<span><span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">prompt</span>, type <span class="op">=</span> <span class="va">type_article</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4.1"</span>.</span></span>
+<span><span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">prompt</span>, type <span class="op">=</span> <span class="va">type_article</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $title</span></span>
 <span><span class="co">#&gt; [1] "Structured Data"</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -443,10 +478,10 @@ one in the text:</p>
 <span><span class="co">#&gt; [1] "Hadley Wickham"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $date</span></span>
-<span><span class="co">#&gt; [1] "2023-10-13"</span></span>
+<span><span class="co">#&gt; [1] ""</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'data.frame':    2 obs. of  9 variables:</span></span>
-<span><span class="co">#&gt;  $ assert_name     : chr  "11 Zinfandel Lane - Home &amp; Vineyard [RP]" "25 Point Lobos - Commercial Property [RP]"</span></span>
+<span><span class="co">#&gt;  $ assert_name     : chr  "11 Zinfandel Lane - Home &amp; Vineyard" "25 Point Lobos - Commercial Property"</span></span>
 <span><span class="co">#&gt;  $ owner           : chr  "JT" "SP"</span></span>
 <span><span class="co">#&gt;  $ location        : chr  "St. Helena/Napa, CA, US" "San Francisco/San Francisco, CA, US"</span></span>
 <span><span class="co">#&gt;  $ asset_value_low : int  5000001 5000001</span></span>
@@ -454,20 +489,20 @@ one in the text:</p>
 <span><span class="co">#&gt;  $ income_type     : chr  "Grape Sales" "Rent"</span></span>
 <span><span class="co">#&gt;  $ income_low      : int  100001 100001</span></span>
 <span><span class="co">#&gt;  $ income_high     : int  1000000 1000000</span></span>
-<span><span class="co">#&gt;  $ tx_gt_1000      : logi  TRUE FALSE</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ tx_gt_1000      : logi  FALSE FALSE</span></span></code></pre></div>
 <p>Note that I’ve used more of an explict prompt here. For this example,
-I found that this generated better results, and it’s a useful place to
-put additional instructions.</p>
-<p>If let the LLM know that the fields are all optional, it’ll instead
-return <code>NULL</code> for the missing fields:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+I found that this generated better results and that it’s a useful place
+to put additional instructions.</p>
+<p>If I let the LLM know that the fields are all optional, it’ll return
+<code>NULL</code> for the missing fields:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_article</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
 <span>  <span class="st">"Information about an article written in markdown"</span>,</span>
 <span>  title <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="st">"Article title"</span>, required <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
 <span>  author <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="st">"Name of the author"</span>, required <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
 <span>  date <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="st">"Date written in YYYY-MM-DD format."</span>, required <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">chat</span><span class="op">$</span><span class="fu">extract_data</span><span class="op">(</span><span class="va">prompt</span>, type <span class="op">=</span> <span class="va">type_article</span><span class="op">)</span></span>
+<span><span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">prompt</span>, type <span class="op">=</span> <span class="va">type_article</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $title</span></span>
 <span><span class="co">#&gt; [1] "Structured Data"</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -481,20 +516,19 @@ return <code>NULL</code> for the missing fields:</p>
 <h3 id="data-frames">Data frames<a class="anchor" aria-label="anchor" href="#data-frames"></a>
 </h3>
 <p>If you want to define a data frame like object, you might be tempted
-to create a definition similar to what R uses: an object (i.e. a named
-list) containing multiple vectors (i.e. arrays):</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+to create a definition similar to what R uses: an object (i.e., a named
+list) containing multiple vectors (i.e., an array):</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_my_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  age <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_integer</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  height <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  weight <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span>items <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>This however, is not quite right becuase there’s no way to specify
-that each array should have the same length. Instead you need to turn
-the data structure “inside out”, and instead create an array of
-objects:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<p>This, however, is not quite right becuase there’s no way to specify
+that each array should have the same length. Instead, you’ll need to
+turn the data structure “inside out” and create an array of objects:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_my_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span></span>
 <span>  items <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
 <span>    name <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -503,10 +537,10 @@ objects:</p>
 <span>    weight <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_number</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>If you’re familiar with the terms between row-oriented and
-column-oriented data frames, this is the same idea. Since most language
-don’t possess vectorisation like R, row-oriented structures tend to be
-much more common in the wild.</p>
+<p>If you’re familiar with the terms row-oriented and column-oriented
+data frames, this is the same idea. Since most languages don’t possess
+vectorisation like R, row-oriented structures tend to be much more
+common in the wild.</p>
 </div>
 </div>
 <div class="section level2">
@@ -514,20 +548,26 @@ much more common in the wild.</p>
 </h2>
 <table class="table">
 <thead><tr class="header">
-<th align="left">name</th>
+<th align="left">provider</th>
+<th align="left">model</th>
 <th align="right">input</th>
 <th align="right">output</th>
+<th align="right">price</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">OpenAI-api.openai.com/v1</td>
-<td align="right">6009</td>
-<td align="right">594</td>
+<td align="left">OpenAI</td>
+<td align="left">gpt-4.1</td>
+<td align="right">8186</td>
+<td align="right">805</td>
+<td align="right">$0.02</td>
 </tr>
 <tr class="even">
-<td align="left">Claude</td>
+<td align="left">Anthropic</td>
+<td align="left">claude-3-7-sonnet</td>
 <td align="right">480</td>
-<td align="right">155</td>
+<td align="right">97</td>
+<td align="right">$0.00</td>
 </tr>
 </tbody>
 </table>
@@ -541,11 +581,11 @@ much more common in the wild.</p>
    </div>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, Joe Cheng, Aaron Jacobs, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" width="62" style="margin-bottom: 3px;"></a>.</p>
+  <p>Developed by <a href="https://hadley.nz" class="external-link">Hadley Wickham</a>, Joe Cheng, Aaron Jacobs, <a href="https://garrickadenbuie.com" class="external-link">Garrick Aden-Buie</a>, <a href="https://www.posit.co" class="external-link"><img src="https://www.tidyverse.org/posit-logo.svg" alt="Posit" height="16" width="62" style="margin-bottom: 3px;"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
   </div></footer>
