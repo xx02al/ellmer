@@ -42,7 +42,14 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ellmer-development-version">ellmer (development version)<a class="anchor" aria-label="anchor" href="#ellmer-development-version"></a></h2>
-</div>
+<ul><li>You can now use pre-existing JSON schemas in structured chats using <code><a href="../reference/type_boolean.html">type_from_schema()</a></code> (<a href="https://github.com/tidyverse/ellmer/issues/133" class="external-link">#133</a>, <a href="https://github.com/hafen" class="external-link">@hafen</a>)</li>
+<li>
+<code><a href="../reference/chat_databricks.html">chat_databricks()</a></code> now picks up on Databricks workspace URLs set in the configuration file, which should improve compatibility with the Databricks CLI (<a href="https://github.com/tidyverse/ellmer/issues/521" class="external-link">#521</a>, <a href="https://github.com/atheriel" class="external-link">@atheriel</a>).</li>
+<li>
+<code><a href="../reference/chat_snowflake.html">chat_snowflake()</a></code> no longer streams answers that include a mysterious <code>list(type = "text", text = "")</code> trailer (<a href="https://github.com/tidyverse/ellmer/issues/533" class="external-link">#533</a>, <a href="https://github.com/atheriel" class="external-link">@atheriel</a>).</li>
+<li>
+<code><a href="../reference/chat_snowflake.html">chat_snowflake()</a></code> now defaults to Claude Sonnet 3.7, the same default as <code><a href="../reference/chat_anthropic.html">chat_anthropic()</a></code> (<a href="https://github.com/tidyverse/ellmer/issues/539" class="external-link">#539</a>, <a href="https://github.com/atheriel" class="external-link">@atheriel</a>).</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.0" id="ellmer-020">ellmer 0.2.0<a class="anchor" aria-label="anchor" href="#ellmer-020"></a></h2><p class="text-muted">CRAN release: 2025-05-17</p>
 <div class="section level3">
@@ -189,7 +196,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
   </div></footer></body></html>
