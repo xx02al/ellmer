@@ -260,22 +260,22 @@ calling to give the LLM the ability to access real randomness:</p>
 <span><span class="co">#&gt; <span style="color: #00BB00;">●</span> #&gt; <span style="font-style: italic;">5</span></span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB;">◯</span> [<span style="color: #0000BB;">tool call</span>] tool_001()</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">●</span> #&gt; <span style="font-style: italic;">4</span></span></span>
-<span><span class="co">#&gt; The total is 9.</span></span>
+<span><span class="co">#&gt; The total of the two dice is 9.</span></span>
 <span></span>
 <span><span class="va">chat</span></span>
-<span><span class="co">#&gt; &lt;Chat OpenAI/gpt-4.1-nano turns=5 tokens=151/48 $0.00&gt;</span></span>
+<span><span class="co">#&gt; &lt;Chat OpenAI/gpt-4.1-nano turns=5 tokens=151/52 $0.00&gt;</span></span>
 <span><span class="co">#&gt; ── <span style="color: #FFFFFF;">system</span> [0] ─────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Be terse</span></span>
 <span><span class="co">#&gt; ── <span style="color: #0000BB;">user</span> [47] ──────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Roll two dice and tell me the total</span></span>
 <span><span class="co">#&gt; ── <span style="color: #00BB00;">assistant</span> [41] ─────────────────────────────────────────────────────</span></span>
-<span><span class="co">#&gt; [<span style="font-weight: bold;">tool request</span> (call_HpKLiuFB87IsOW9R7Plpd3Bh)]: tool_001()</span></span>
-<span><span class="co">#&gt; [<span style="font-weight: bold;">tool request</span> (call_9cM3nR4C5GOgUYQW02po4l8U)]: tool_001()</span></span>
+<span><span class="co">#&gt; [<span style="font-weight: bold;">tool request</span> (call_xxACYOGEubRq6zq75cwtDnlK)]: tool_001()</span></span>
+<span><span class="co">#&gt; [<span style="font-weight: bold;">tool request</span> (call_hO8yySMgPlpixtzcyrTuMCP1)]: tool_001()</span></span>
 <span><span class="co">#&gt; ── <span style="color: #0000BB;">user</span> [16] ──────────────────────────────────────────────────────────</span></span>
-<span><span class="co">#&gt; [<span style="font-weight: bold;">tool result</span>  (call_HpKLiuFB87IsOW9R7Plpd3Bh)]: 5</span></span>
-<span><span class="co">#&gt; [<span style="font-weight: bold;">tool result</span>  (call_9cM3nR4C5GOgUYQW02po4l8U)]: 4</span></span>
-<span><span class="co">#&gt; ── <span style="color: #00BB00;">assistant</span> [7] ──────────────────────────────────────────────────────</span></span>
-<span><span class="co">#&gt; The total is 9.</span></span></code></pre></div>
+<span><span class="co">#&gt; [<span style="font-weight: bold;">tool result</span>  (call_xxACYOGEubRq6zq75cwtDnlK)]: 5</span></span>
+<span><span class="co">#&gt; [<span style="font-weight: bold;">tool result</span>  (call_hO8yySMgPlpixtzcyrTuMCP1)]: 4</span></span>
+<span><span class="co">#&gt; ── <span style="color: #00BB00;">assistant</span> [11] ─────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; The total of the two dice is 9.</span></span></code></pre></div>
 <p>You can get access to the underlying conversational turns with
 <code>get_turns()</code>:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -287,17 +287,17 @@ calling to give the LLM the ability to access real randomness:</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[2]]</span></span>
 <span><span class="co">#&gt; &lt;Turn: <span style="color: #00BB00;">assistant</span>&gt;</span></span>
-<span><span class="co">#&gt; [<span style="font-weight: bold;">tool request</span> (call_HpKLiuFB87IsOW9R7Plpd3Bh)]: tool_001()</span></span>
-<span><span class="co">#&gt; [<span style="font-weight: bold;">tool request</span> (call_9cM3nR4C5GOgUYQW02po4l8U)]: tool_001()</span></span>
+<span><span class="co">#&gt; [<span style="font-weight: bold;">tool request</span> (call_xxACYOGEubRq6zq75cwtDnlK)]: tool_001()</span></span>
+<span><span class="co">#&gt; [<span style="font-weight: bold;">tool request</span> (call_hO8yySMgPlpixtzcyrTuMCP1)]: tool_001()</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[3]]</span></span>
 <span><span class="co">#&gt; &lt;Turn: <span style="color: #0000BB;">user</span>&gt;</span></span>
-<span><span class="co">#&gt; [<span style="font-weight: bold;">tool result</span>  (call_HpKLiuFB87IsOW9R7Plpd3Bh)]: 5</span></span>
-<span><span class="co">#&gt; [<span style="font-weight: bold;">tool result</span>  (call_9cM3nR4C5GOgUYQW02po4l8U)]: 4</span></span>
+<span><span class="co">#&gt; [<span style="font-weight: bold;">tool result</span>  (call_xxACYOGEubRq6zq75cwtDnlK)]: 5</span></span>
+<span><span class="co">#&gt; [<span style="font-weight: bold;">tool result</span>  (call_hO8yySMgPlpixtzcyrTuMCP1)]: 4</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[4]]</span></span>
 <span><span class="co">#&gt; &lt;Turn: <span style="color: #00BB00;">assistant</span>&gt;</span></span>
-<span><span class="co">#&gt; The total is 9.</span></span></code></pre></div>
+<span><span class="co">#&gt; The total of the two dice is 9.</span></span></code></pre></div>
 <p>If you look at one of the assistant turns in detail, you’ll see that
 it includes ellmer’s representation of content of the message, as well
 as the exact json that the provider returned:</p>
@@ -307,7 +307,7 @@ as the exact json that the provider returned:</p>
 <span><span class="co">#&gt;  @ role    : chr "assistant"</span></span>
 <span><span class="co">#&gt;  @ contents:List of 2</span></span>
 <span><span class="co">#&gt;  .. $ : &lt;ellmer::ContentToolRequest&gt;</span></span>
-<span><span class="co">#&gt;  ..  ..@ id       : chr "call_HpKLiuFB87IsOW9R7Plpd3Bh"</span></span>
+<span><span class="co">#&gt;  ..  ..@ id       : chr "call_xxACYOGEubRq6zq75cwtDnlK"</span></span>
 <span><span class="co">#&gt;  ..  ..@ name     : chr "tool_001"</span></span>
 <span><span class="co">#&gt;  ..  ..@ arguments: Named list()</span></span>
 <span><span class="co">#&gt;  ..  ..@ tool     : &lt;ellmer::ToolDef&gt;</span></span>
@@ -322,7 +322,7 @@ as the exact json that the provider returned:</p>
 <span><span class="co">#&gt;  .. .. .. @ convert    : logi TRUE</span></span>
 <span><span class="co">#&gt;  .. .. .. @ annotations: list()</span></span>
 <span><span class="co">#&gt;  .. $ : &lt;ellmer::ContentToolRequest&gt;</span></span>
-<span><span class="co">#&gt;  ..  ..@ id       : chr "call_9cM3nR4C5GOgUYQW02po4l8U"</span></span>
+<span><span class="co">#&gt;  ..  ..@ id       : chr "call_hO8yySMgPlpixtzcyrTuMCP1"</span></span>
 <span><span class="co">#&gt;  ..  ..@ name     : chr "tool_001"</span></span>
 <span><span class="co">#&gt;  ..  ..@ arguments: Named list()</span></span>
 <span><span class="co">#&gt;  ..  ..@ tool     : &lt;ellmer::ToolDef&gt;</span></span>
@@ -337,9 +337,9 @@ as the exact json that the provider returned:</p>
 <span><span class="co">#&gt;  .. .. .. @ convert    : logi TRUE</span></span>
 <span><span class="co">#&gt;  .. .. .. @ annotations: list()</span></span>
 <span><span class="co">#&gt;  @ json    :List of 8</span></span>
-<span><span class="co">#&gt;  .. $ id                : chr "chatcmpl-BcecA1HLfDjVRTy5A9J1PUOAXAari"</span></span>
+<span><span class="co">#&gt;  .. $ id                : chr "chatcmpl-BcfKbDYMZKznY32YiOXx9vvU8belV"</span></span>
 <span><span class="co">#&gt;  .. $ object            : chr "chat.completion.chunk"</span></span>
-<span><span class="co">#&gt;  .. $ created           : int 1748552286</span></span>
+<span><span class="co">#&gt;  .. $ created           : int 1748555041</span></span>
 <span><span class="co">#&gt;  .. $ model             : chr "gpt-4.1-nano-2025-04-14"</span></span>
 <span><span class="co">#&gt;  .. $ service_tier      : chr "default"</span></span>
 <span><span class="co">#&gt;  .. $ system_fingerprint: chr "fp_38343a2f8f"</span></span>
@@ -364,14 +364,14 @@ as the exact json that the provider returned:</p>
 <span><span class="co">#&gt;  ..  .. .. ..$ tool_calls:List of 2</span></span>
 <span><span class="co">#&gt;  ..  .. .. .. ..$ :List of 4</span></span>
 <span><span class="co">#&gt;  ..  .. .. .. .. ..$ index   : int 0</span></span>
-<span><span class="co">#&gt;  ..  .. .. .. .. ..$ id      : chr "call_HpKLiuFB87IsOW9R7Plpd3Bh"</span></span>
+<span><span class="co">#&gt;  ..  .. .. .. .. ..$ id      : chr "call_xxACYOGEubRq6zq75cwtDnlK"</span></span>
 <span><span class="co">#&gt;  ..  .. .. .. .. ..$ type    : chr "function"</span></span>
 <span><span class="co">#&gt;  ..  .. .. .. .. ..$ function:List of 2</span></span>
 <span><span class="co">#&gt;  ..  .. .. .. .. .. ..$ name     : chr "tool_001"</span></span>
 <span><span class="co">#&gt;  ..  .. .. .. .. .. ..$ arguments: chr "{}"</span></span>
 <span><span class="co">#&gt;  ..  .. .. .. ..$ :List of 4</span></span>
 <span><span class="co">#&gt;  ..  .. .. .. .. ..$ index   : int 1</span></span>
-<span><span class="co">#&gt;  ..  .. .. .. .. ..$ id      : chr "call_9cM3nR4C5GOgUYQW02po4l8U"</span></span>
+<span><span class="co">#&gt;  ..  .. .. .. .. ..$ id      : chr "call_hO8yySMgPlpixtzcyrTuMCP1"</span></span>
 <span><span class="co">#&gt;  ..  .. .. .. .. ..$ type    : chr "function"</span></span>
 <span><span class="co">#&gt;  ..  .. .. .. .. ..$ function:List of 2</span></span>
 <span><span class="co">#&gt;  ..  .. .. .. .. .. ..$ name     : chr "tool_001"</span></span>
