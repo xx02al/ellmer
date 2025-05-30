@@ -123,10 +123,10 @@ specific values from a string:</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; $primary_shape</span></span>
-<span><span class="co">#&gt; [1] "capital letter 'R' with an oval loop behind it"</span></span>
+<span><span class="co">#&gt; [1] "letter with oval"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $primary_colour</span></span>
-<span><span class="co">#&gt; [1] "blue and grey"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "blue and gray"</span></span></code></pre></div>
 <p>If you need to extract data from multiple prompts, you can use the
 same techniques with <code><a href="../reference/parallel_chat.html">parallel_chat_structured()</a></code>. It takes
 the same arguments as <code>$chat_structured()</code> with two
@@ -150,7 +150,6 @@ function, not a method, and it can take a vector of prompts.</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; [working] (0 + 0) -&gt; 5 -&gt; 1 | <span style="color: #00BB00;">■■■■■■                          </span>  17%</span></span>
-<span><span class="co">#&gt; [working] (0 + 0) -&gt; 2 -&gt; 4 | <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■           </span>  67%</span></span>
 <span><span class="co">#&gt; [working] (0 + 0) -&gt; 0 -&gt; 6 | <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ </span> 100%</span></span>
 <span><span class="co">#&gt;     name age</span></span>
 <span><span class="co">#&gt; 1   Alex  42</span></span>
@@ -261,17 +260,17 @@ can use structured data extraction.</p>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4.1"</span>.</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_summary</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">summary</span><span class="op">)</span></span>
-<span><span class="co">#&gt; This article argues that a third-party testing regime is essential for ensuring the safety of 'frontier' AI systems such as large generative models. The authors discuss the limitations of self-regulation and advocate for independent, trusted testing processes involving industry, government, and academia. The text outlines a structure for such regimes, focusing on scope (targeting only large, computationally intensive systems), practical administration, and the avoidance of undue burden on small companies. It emphasizes learning through experimentation with testing prototypes to develop appropriate standards.</span></span>
+<span><span class="co">#&gt; This article argues for the establishment of an effective third-party testing regime as a core element of AI policy, specifically targeting frontier AI systems—such as large-scale generative models—that can have wide-ranging effects and pose both societal and national security risks. It emphasizes that industry self-governance, while necessary, is insufficient for ensuring safety and public trust. Instead, a trusted, multi-stakeholder testing framework involving government, industry, and academia is needed to assess and mitigate risks like election interference, harmful discrimination, or capabilities that could be misused for cyberattacks or bioweapons. </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; The article also deals with broader AI policy implications, such as the tension between open dissemination of AI models and potential misuse, the risk of regulatory capture by large players, and the need for public sector infrastructure and funding for AI evaluation. The authors promote a 'minimal viable policy' approach: advocating practical, carefully scoped regulation that grows iteratively based on evidence. Ultimately, the piece underscores third-party testing as central to responsible AI deployment and societal oversight, aiming to avoid harmful incidents or overreaching regulation.</span></span>
+<span><span class="co">#&gt; The article provides practical guidance on what such a regime should entail: robust, trusted test protocols, clearly scoped application (focusing on the most powerful AI systems), and a diverse ecosystem of third-party testers spanning private contractors, academic institutions, and government agencies. It warns against regulatory capture and excessive administrative burdens that could limit competition, particularly for smaller firms. Other key points include the need for funding public sector AI evaluation infrastructure, handling open-source model dissemination responsibly, developing national security-oriented tests, and ensuring gradual, evidence-driven policy evolution. The overarching goal is a minimal, feasible regulatory environment that prioritizes real-world safety and competition in the AI sector.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 5</span></span>
-<span><span class="co">#&gt;  $ author    : chr "Anthropic Policy Team (inferred, as no explicit author listed)"</span></span>
-<span><span class="co">#&gt;  $ topics    : chr [1:11] "AI policy" "third-party testing" "AI safety" "regulatory capture" ...</span></span>
-<span><span class="co">#&gt;  $ summary   : chr "This article argues that a third-party testing regime is essential for ensuring the safety of 'frontier' AI sys"| __truncated__</span></span>
-<span><span class="co">#&gt;  $ coherence : int 93</span></span>
-<span><span class="co">#&gt;  $ persuasion: num 0.87</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ author    : chr "Anthropic Policy Team"</span></span>
+<span><span class="co">#&gt;  $ topics    : chr [1:9] "AI policy" "third-party testing" "AI safety" "regulation" ...</span></span>
+<span><span class="co">#&gt;  $ summary   : chr "This article argues for the establishment of an effective third-party testing regime as a core element of AI po"| __truncated__</span></span>
+<span><span class="co">#&gt;  $ coherence : int 94</span></span>
+<span><span class="co">#&gt;  $ persuasion: num 0.88</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-2-named-entity-recognition">Example 2: Named entity recognition<a class="anchor" aria-label="anchor" href="#example-2-named-entity-recognition"></a>
@@ -299,13 +298,13 @@ can use structured data extraction.</p>
 <span><span class="co">#&gt; 4         Sarah       person</span></span>
 <span><span class="co">#&gt; 5     Acme Inc. organization</span></span>
 <span><span class="co">#&gt; 6 San Francisco     location</span></span>
-<span><span class="co">#&gt;                                      context</span></span>
-<span><span class="co">#&gt; 1               Works at Google in New York.</span></span>
-<span><span class="co">#&gt; 2                      John works at Google.</span></span>
-<span><span class="co">#&gt; 3       Location where John works at Google.</span></span>
-<span><span class="co">#&gt; 4 Met with John. She is the CEO of Acme Inc.</span></span>
-<span><span class="co">#&gt; 5       Organization where Sarah is the CEO.</span></span>
-<span><span class="co">#&gt; 6         Location where John and Sarah met.</span></span></code></pre></div>
+<span><span class="co">#&gt;                                                                context</span></span>
+<span><span class="co">#&gt; 1                                    John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 2                                    John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 3                                    John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 4 He met with Sarah, the CEO of Acme Inc., last week in San Francisco.</span></span>
+<span><span class="co">#&gt; 5                                        Sarah is the CEO of Acme Inc.</span></span>
+<span><span class="co">#&gt; 6                        He met with Sarah last week in San Francisco.</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-3-sentiment-analysis">Example 3: Sentiment analysis<a class="anchor" aria-label="anchor" href="#example-3-sentiment-analysis"></a>
@@ -327,8 +326,8 @@ can use structured data extraction.</p>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4.1"</span>.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_sentiment</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 3</span></span>
-<span><span class="co">#&gt;  $ positive_score: num 0.05</span></span>
-<span><span class="co">#&gt;  $ negative_score: num 0.75</span></span>
+<span><span class="co">#&gt;  $ positive_score: num 0</span></span>
+<span><span class="co">#&gt;  $ negative_score: num 0.8</span></span>
 <span><span class="co">#&gt;  $ neutral_score : num 0.2</span></span></code></pre></div>
 <p>Note that while we’ve asked nicely for the scores to sum 1, which
 they do in this example (at least when I ran the code), this is not
@@ -366,8 +365,7 @@ guaranteed.</p>
 <span><span class="va">data</span></span>
 <span><span class="co">#&gt;         name score</span></span>
 <span><span class="co">#&gt; 1 Technology  0.95</span></span>
-<span><span class="co">#&gt; 2   Business  0.03</span></span>
-<span><span class="co">#&gt; 3      Other  0.02</span></span></code></pre></div>
+<span><span class="co">#&gt; 2   Business  0.05</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-5-working-with-unknown-keys">Example 5: Working with unknown keys<a class="anchor" aria-label="anchor" href="#example-5-working-with-unknown-keys"></a>
@@ -558,7 +556,7 @@ common in the wild.</p>
 <td align="left">OpenAI</td>
 <td align="left">gpt-4.1</td>
 <td align="right">8186</td>
-<td align="right">757</td>
+<td align="right">782</td>
 <td align="right">$0.02</td>
 </tr>
 <tr class="even">

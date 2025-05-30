@@ -243,28 +243,29 @@ different languages or different styles of R code:</p>
 <span><span class="co">#&gt; proc means data=your_dataset mean median;</span></span>
 <span><span class="co">#&gt;     class age sex;</span></span>
 <span><span class="co">#&gt;     var a--z;  /* Variables from a to z */</span></span>
-<span><span class="co">#&gt; run;</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; /* Or using PROC SUMMARY */</span></span>
-<span><span class="co">#&gt; proc summary data=your_dataset;</span></span>
-<span><span class="co">#&gt;     class age sex;</span></span>
-<span><span class="co">#&gt;     var a--z;</span></span>
-<span><span class="co">#&gt;     output out=results mean= median= / autoname;</span></span>
+<span><span class="co">#&gt;     output out=summary_stats mean= median= / autoname;</span></span>
 <span><span class="co">#&gt; run;</span></span>
 <span><span class="co">#&gt; ```</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ## Key considerations:</span></span>
+<span><span class="co">#&gt; ## SPSS Syntax</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; 1. **Missing values**: Most examples include `na.rm = TRUE` or </span></span>
-<span><span class="co">#&gt; equivalent to handle missing data</span></span>
-<span><span class="co">#&gt; 2. **Variable selection**: Make sure variables a-z actually exist in </span></span>
-<span><span class="co">#&gt; your dataset</span></span>
-<span><span class="co">#&gt; 3. **Data types**: Ensure the variables are numeric</span></span>
-<span><span class="co">#&gt; 4. **Output format**: The result will typically be a multi-level </span></span>
-<span><span class="co">#&gt; structure with age/sex combinations and their corresponding statistics</span></span>
+<span><span class="co">#&gt; ```spss</span></span>
+<span><span class="co">#&gt; AGGREGATE</span></span>
+<span><span class="co">#&gt;   /OUTFILE=* MODE=ADDVARIABLES</span></span>
+<span><span class="co">#&gt;   /BREAK=age sex</span></span>
+<span><span class="co">#&gt;   /a_mean=MEAN(a)</span></span>
+<span><span class="co">#&gt;   /a_median=MEDIAN(a)</span></span>
+<span><span class="co">#&gt;   /b_mean=MEAN(b)</span></span>
+<span><span class="co">#&gt;   /b_median=MEDIAN(b)</span></span>
+<span><span class="co">#&gt;   /* Continue for all variables through z */</span></span>
+<span><span class="co">#&gt;   /z_mean=MEAN(z)</span></span>
+<span><span class="co">#&gt;   /z_median=MEDIAN(z).</span></span>
+<span><span class="co">#&gt; ```</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Which tool are you using? I can provide more specific guidance based </span></span>
-<span><span class="co">#&gt; on your environment.</span></span></code></pre>
+<span><span class="co">#&gt; The **pandas** and **R dplyr** approaches are probably the most </span></span>
+<span><span class="co">#&gt; efficient since they can handle multiple variables at once without </span></span>
+<span><span class="co">#&gt; having to specify each one individually. Choose the method that </span></span>
+<span><span class="co">#&gt; matches your preferred tool and data structure.</span></span></code></pre>
 <p>I can ensure that I always get R code in a specific style by
 providing a system prompt:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -568,50 +569,67 @@ page.</p>
 <span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="va">ingredients</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [</span></span>
 <span><span class="co">#&gt;   {</span></span>
-<span><span class="co">#&gt;     "name": "dark brown sugar",</span></span>
-<span><span class="co">#&gt;     "amount": "3/4 cup",</span></span>
-<span><span class="co">#&gt;     "amount_grams": 150</span></span>
+<span><span class="co">#&gt;     "ingredient": "dark brown sugar",</span></span>
+<span><span class="co">#&gt;     "quantity": 0.75,</span></span>
+<span><span class="co">#&gt;     "unit": "cup",</span></span>
+<span><span class="co">#&gt;     "metric_quantity": 150,</span></span>
+<span><span class="co">#&gt;     "metric_unit": "g"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
-<span><span class="co">#&gt;     "name": "eggs",</span></span>
-<span><span class="co">#&gt;     "amount": "2 large"</span></span>
+<span><span class="co">#&gt;     "ingredient": "eggs",</span></span>
+<span><span class="co">#&gt;     "quantity": 2,</span></span>
+<span><span class="co">#&gt;     "unit": "large",</span></span>
+<span><span class="co">#&gt;     "metric_quantity": 2,</span></span>
+<span><span class="co">#&gt;     "metric_unit": "large"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
-<span><span class="co">#&gt;     "name": "sour cream",</span></span>
-<span><span class="co">#&gt;     "amount": "3/4 cup",</span></span>
-<span><span class="co">#&gt;     "amount_grams": 165</span></span>
+<span><span class="co">#&gt;     "ingredient": "sour cream",</span></span>
+<span><span class="co">#&gt;     "quantity": 0.75,</span></span>
+<span><span class="co">#&gt;     "unit": "cup",</span></span>
+<span><span class="co">#&gt;     "metric_quantity": 165,</span></span>
+<span><span class="co">#&gt;     "metric_unit": "g"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
-<span><span class="co">#&gt;     "name": "unsalted butter",</span></span>
-<span><span class="co">#&gt;     "amount": "1/2 cup",</span></span>
-<span><span class="co">#&gt;     "amount_grams": 113,</span></span>
-<span><span class="co">#&gt;     "preparation": "melted"</span></span>
+<span><span class="co">#&gt;     "ingredient": "unsalted butter",</span></span>
+<span><span class="co">#&gt;     "quantity": 0.5,</span></span>
+<span><span class="co">#&gt;     "unit": "cup",</span></span>
+<span><span class="co">#&gt;     "metric_quantity": 113,</span></span>
+<span><span class="co">#&gt;     "metric_unit": "g",</span></span>
+<span><span class="co">#&gt;     "note": "melted"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
-<span><span class="co">#&gt;     "name": "vanilla extract",</span></span>
-<span><span class="co">#&gt;     "amount": "1 teaspoon"</span></span>
+<span><span class="co">#&gt;     "ingredient": "vanilla extract",</span></span>
+<span><span class="co">#&gt;     "quantity": 1,</span></span>
+<span><span class="co">#&gt;     "unit": "teaspoon"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
-<span><span class="co">#&gt;     "name": "kosher salt",</span></span>
-<span><span class="co">#&gt;     "amount": "3/4 teaspoon"</span></span>
+<span><span class="co">#&gt;     "ingredient": "kosher salt",</span></span>
+<span><span class="co">#&gt;     "quantity": 0.75,</span></span>
+<span><span class="co">#&gt;     "unit": "teaspoon"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
-<span><span class="co">#&gt;     "name": "neutral oil",</span></span>
-<span><span class="co">#&gt;     "amount": "1/3 cup",</span></span>
-<span><span class="co">#&gt;     "amount_milliliters": 80</span></span>
+<span><span class="co">#&gt;     "ingredient": "neutral oil",</span></span>
+<span><span class="co">#&gt;     "quantity": 0.33,</span></span>
+<span><span class="co">#&gt;     "unit": "cup",</span></span>
+<span><span class="co">#&gt;     "metric_quantity": 80,</span></span>
+<span><span class="co">#&gt;     "metric_unit": "ml"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
-<span><span class="co">#&gt;     "name": "all-purpose flour",</span></span>
-<span><span class="co">#&gt;     "amount": "1 1/2 cups",</span></span>
-<span><span class="co">#&gt;     "amount_grams": 190</span></span>
+<span><span class="co">#&gt;     "ingredient": "all-purpose flour",</span></span>
+<span><span class="co">#&gt;     "quantity": 1.5,</span></span>
+<span><span class="co">#&gt;     "unit": "cup",</span></span>
+<span><span class="co">#&gt;     "metric_quantity": 190,</span></span>
+<span><span class="co">#&gt;     "metric_unit": "g"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
-<span><span class="co">#&gt;     "name": "sugar",</span></span>
-<span><span class="co">#&gt;     "amount_grams": 150</span></span>
+<span><span class="co">#&gt;     "ingredient": "sugar",</span></span>
+<span><span class="co">#&gt;     "quantity": 150,</span></span>
+<span><span class="co">#&gt;     "unit": "g"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
-<span><span class="co">#&gt;     "name": "sugar",</span></span>
-<span><span class="co">#&gt;     "amount": "1 1/2 teaspoons"</span></span>
+<span><span class="co">#&gt;     "ingredient": "sugar",</span></span>
+<span><span class="co">#&gt;     "quantity": 1.5,</span></span>
+<span><span class="co">#&gt;     "unit": "teaspoon"</span></span>
 <span><span class="co">#&gt;   }</span></span>
 <span><span class="co">#&gt; ]</span></span></code></pre></div>
 <p>(I don’t know if the additional colour, “You’re an expert baker who
@@ -743,7 +761,7 @@ and that ellmer will convert it into an R data structure.</p>
 <span><span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">ingredients</span>, type <span class="op">=</span> <span class="va">type_ingredients</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                       name quantity     unit</span></span>
 <span><span class="co">#&gt; 1         dark brown sugar   150.00        g</span></span>
-<span><span class="co">#&gt; 2               large eggs     2.00    piece</span></span>
+<span><span class="co">#&gt; 2               large eggs     2.00     each</span></span>
 <span><span class="co">#&gt; 3               sour cream   165.00        g</span></span>
 <span><span class="co">#&gt; 4  unsalted butter, melted   113.00        g</span></span>
 <span><span class="co">#&gt; 5          vanilla extract     1.00 teaspoon</span></span>
@@ -833,14 +851,14 @@ my examples.</p>
 <td align="left">Anthropic</td>
 <td align="left">claude-sonnet-4</td>
 <td align="right">802</td>
-<td align="right">1886</td>
+<td align="right">1918</td>
 <td align="right">$0.03</td>
 </tr>
 <tr class="even">
 <td align="left">OpenAI</td>
 <td align="left">gpt-4.1</td>
 <td align="right">1128</td>
-<td align="right">858</td>
+<td align="right">967</td>
 <td align="right">$0.01</td>
 </tr>
 </tbody>
