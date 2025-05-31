@@ -243,29 +243,28 @@ different languages or different styles of R code:</p>
 <span><span class="co">#&gt; proc means data=your_dataset mean median;</span></span>
 <span><span class="co">#&gt;     class age sex;</span></span>
 <span><span class="co">#&gt;     var a--z;  /* Variables from a to z */</span></span>
-<span><span class="co">#&gt;     output out=summary_stats mean= median= / autoname;</span></span>
+<span><span class="co">#&gt; run;</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; /* Or using PROC SUMMARY */</span></span>
+<span><span class="co">#&gt; proc summary data=your_dataset;</span></span>
+<span><span class="co">#&gt;     class age sex;</span></span>
+<span><span class="co">#&gt;     var a--z;</span></span>
+<span><span class="co">#&gt;     output out=results mean= median= / autoname;</span></span>
 <span><span class="co">#&gt; run;</span></span>
 <span><span class="co">#&gt; ```</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ## SPSS Syntax</span></span>
+<span><span class="co">#&gt; ## Key considerations:</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; ```spss</span></span>
-<span><span class="co">#&gt; AGGREGATE</span></span>
-<span><span class="co">#&gt;   /OUTFILE=* MODE=ADDVARIABLES</span></span>
-<span><span class="co">#&gt;   /BREAK=age sex</span></span>
-<span><span class="co">#&gt;   /a_mean=MEAN(a)</span></span>
-<span><span class="co">#&gt;   /a_median=MEDIAN(a)</span></span>
-<span><span class="co">#&gt;   /b_mean=MEAN(b)</span></span>
-<span><span class="co">#&gt;   /b_median=MEDIAN(b)</span></span>
-<span><span class="co">#&gt;   /* Continue for all variables through z */</span></span>
-<span><span class="co">#&gt;   /z_mean=MEAN(z)</span></span>
-<span><span class="co">#&gt;   /z_median=MEDIAN(z).</span></span>
-<span><span class="co">#&gt; ```</span></span>
+<span><span class="co">#&gt; 1. **Missing values**: Most examples include `na.rm = TRUE` or </span></span>
+<span><span class="co">#&gt; equivalent to handle missing data</span></span>
+<span><span class="co">#&gt; 2. **Variable selection**: Make sure variables a-z actually exist in </span></span>
+<span><span class="co">#&gt; your dataset</span></span>
+<span><span class="co">#&gt; 3. **Data types**: Ensure the variables are numeric</span></span>
+<span><span class="co">#&gt; 4. **Output format**: The result will typically be a multi-level </span></span>
+<span><span class="co">#&gt; structure with age/sex combinations and their corresponding statistics</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; The **pandas** and **R dplyr** approaches are probably the most </span></span>
-<span><span class="co">#&gt; efficient since they can handle multiple variables at once without </span></span>
-<span><span class="co">#&gt; having to specify each one individually. Choose the method that </span></span>
-<span><span class="co">#&gt; matches your preferred tool and data structure.</span></span></code></pre>
+<span><span class="co">#&gt; Which tool are you using? I can provide more specific guidance based </span></span>
+<span><span class="co">#&gt; on your environment.</span></span></code></pre>
 <p>I can ensure that I always get R code in a specific style by
 providing a system prompt:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -338,9 +337,9 @@ providing a system prompt:</p>
 <span><span class="co">#&gt;   )</span></span>
 <span><span class="co">#&gt; ```</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; The first method is usually the most practical as it gives you all </span></span>
-<span><span class="co">#&gt; statistics in one wide table with clear column names like `a_mean`, </span></span>
-<span><span class="co">#&gt; `a_median`, `b_mean`, `b_median`, etc.</span></span></code></pre>
+<span><span class="co">#&gt; The first method is usually the most practical as it gives you both </span></span>
+<span><span class="co">#&gt; statistics in a single, wide-format table with clear column names like</span></span>
+<span><span class="co">#&gt; `a_mean`, `a_median`, `b_mean`, `b_median`, etc.</span></span></code></pre>
 <p>Note that I’m using both a system prompt (which defines the general
 behaviour) and a user prompt (which asks the specific question). You
 could put all this content in the user prompt and get similar results,
@@ -570,66 +569,46 @@ page.</p>
 <span><span class="co">#&gt; [</span></span>
 <span><span class="co">#&gt;   {</span></span>
 <span><span class="co">#&gt;     "ingredient": "dark brown sugar",</span></span>
-<span><span class="co">#&gt;     "quantity": 0.75,</span></span>
-<span><span class="co">#&gt;     "unit": "cup",</span></span>
-<span><span class="co">#&gt;     "metric_quantity": 150,</span></span>
-<span><span class="co">#&gt;     "metric_unit": "g"</span></span>
+<span><span class="co">#&gt;     "amount": "¾ cup",</span></span>
+<span><span class="co">#&gt;     "weight": "150g"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
 <span><span class="co">#&gt;     "ingredient": "eggs",</span></span>
-<span><span class="co">#&gt;     "quantity": 2,</span></span>
-<span><span class="co">#&gt;     "unit": "large",</span></span>
-<span><span class="co">#&gt;     "metric_quantity": 2,</span></span>
-<span><span class="co">#&gt;     "metric_unit": "large"</span></span>
+<span><span class="co">#&gt;     "amount": "2",</span></span>
+<span><span class="co">#&gt;     "unit": "large"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
 <span><span class="co">#&gt;     "ingredient": "sour cream",</span></span>
-<span><span class="co">#&gt;     "quantity": 0.75,</span></span>
-<span><span class="co">#&gt;     "unit": "cup",</span></span>
-<span><span class="co">#&gt;     "metric_quantity": 165,</span></span>
-<span><span class="co">#&gt;     "metric_unit": "g"</span></span>
+<span><span class="co">#&gt;     "amount": "¾ cup",</span></span>
+<span><span class="co">#&gt;     "weight": "165g"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
 <span><span class="co">#&gt;     "ingredient": "unsalted butter",</span></span>
-<span><span class="co">#&gt;     "quantity": 0.5,</span></span>
-<span><span class="co">#&gt;     "unit": "cup",</span></span>
-<span><span class="co">#&gt;     "metric_quantity": 113,</span></span>
-<span><span class="co">#&gt;     "metric_unit": "g",</span></span>
-<span><span class="co">#&gt;     "note": "melted"</span></span>
+<span><span class="co">#&gt;     "amount": "½ cup",</span></span>
+<span><span class="co">#&gt;     "weight": "113g",</span></span>
+<span><span class="co">#&gt;     "preparation": "melted"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
 <span><span class="co">#&gt;     "ingredient": "vanilla extract",</span></span>
-<span><span class="co">#&gt;     "quantity": 1,</span></span>
-<span><span class="co">#&gt;     "unit": "teaspoon"</span></span>
+<span><span class="co">#&gt;     "amount": "1 teaspoon"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
 <span><span class="co">#&gt;     "ingredient": "kosher salt",</span></span>
-<span><span class="co">#&gt;     "quantity": 0.75,</span></span>
-<span><span class="co">#&gt;     "unit": "teaspoon"</span></span>
+<span><span class="co">#&gt;     "amount": "¾ teaspoon"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
 <span><span class="co">#&gt;     "ingredient": "neutral oil",</span></span>
-<span><span class="co">#&gt;     "quantity": 0.33,</span></span>
-<span><span class="co">#&gt;     "unit": "cup",</span></span>
-<span><span class="co">#&gt;     "metric_quantity": 80,</span></span>
-<span><span class="co">#&gt;     "metric_unit": "ml"</span></span>
+<span><span class="co">#&gt;     "amount": "⅓ cup",</span></span>
+<span><span class="co">#&gt;     "volume": "80ml"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
 <span><span class="co">#&gt;     "ingredient": "all-purpose flour",</span></span>
-<span><span class="co">#&gt;     "quantity": 1.5,</span></span>
-<span><span class="co">#&gt;     "unit": "cup",</span></span>
-<span><span class="co">#&gt;     "metric_quantity": 190,</span></span>
-<span><span class="co">#&gt;     "metric_unit": "g"</span></span>
+<span><span class="co">#&gt;     "amount": "1½ cups",</span></span>
+<span><span class="co">#&gt;     "weight": "190g"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
 <span><span class="co">#&gt;     "ingredient": "sugar",</span></span>
-<span><span class="co">#&gt;     "quantity": 150,</span></span>
-<span><span class="co">#&gt;     "unit": "g"</span></span>
-<span><span class="co">#&gt;   },</span></span>
-<span><span class="co">#&gt;   {</span></span>
-<span><span class="co">#&gt;     "ingredient": "sugar",</span></span>
-<span><span class="co">#&gt;     "quantity": 1.5,</span></span>
-<span><span class="co">#&gt;     "unit": "teaspoon"</span></span>
+<span><span class="co">#&gt;     "amount": "150g plus 1½ teaspoons"</span></span>
 <span><span class="co">#&gt;   }</span></span>
 <span><span class="co">#&gt; ]</span></span></code></pre></div>
 <p>(I don’t know if the additional colour, “You’re an expert baker who
@@ -662,7 +641,7 @@ provide the input and output examples in such a loose format.</p>
 <span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="va">ingredients</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [</span></span>
 <span><span class="co">#&gt;   {"name": "dark brown sugar", "quantity": 150, "unit": "g"},</span></span>
-<span><span class="co">#&gt;   {"name": "large eggs", "quantity": 2, "unit": "count"},</span></span>
+<span><span class="co">#&gt;   {"name": "large eggs", "quantity": 2, "unit": "piece"},</span></span>
 <span><span class="co">#&gt;   {"name": "sour cream", "quantity": 165, "unit": "g"},</span></span>
 <span><span class="co">#&gt;   {"name": "unsalted butter", "quantity": 113, "unit": "g", "note": </span></span>
 <span><span class="co">#&gt; "melted"},</span></span>
@@ -821,7 +800,7 @@ doing a good job:</p>
 <span><span class="co">#&gt; "one cup of softened unsalted butter"},</span></span>
 <span><span class="co">#&gt;   {"name": "white sugar", "quantity": 0.25, "unit": "cup", "input": "a</span></span>
 <span><span class="co">#&gt; quarter cup of white sugar"},</span></span>
-<span><span class="co">#&gt;   {"name": "egg", "quantity": 1, "unit": "item", "input": "an egg"},</span></span>
+<span><span class="co">#&gt;   {"name": "egg", "quantity": 1, "unit": "egg", "input": "an egg"},</span></span>
 <span><span class="co">#&gt;   {"name": "vanilla extract", "quantity": 1, "unit": "teaspoon", </span></span>
 <span><span class="co">#&gt; "input": "1 teaspoon of vanilla extract"},</span></span>
 <span><span class="co">#&gt;   {"name": "all-purpose flour", "quantity": 2, "unit": "cup", "input":</span></span>
@@ -851,14 +830,14 @@ my examples.</p>
 <td align="left">Anthropic</td>
 <td align="left">claude-sonnet-4</td>
 <td align="right">802</td>
-<td align="right">1918</td>
+<td align="right">1890</td>
 <td align="right">$0.03</td>
 </tr>
 <tr class="even">
 <td align="left">OpenAI</td>
 <td align="left">gpt-4.1</td>
 <td align="right">1128</td>
-<td align="right">967</td>
+<td align="right">825</td>
 <td align="right">$0.01</td>
 </tr>
 </tbody>
