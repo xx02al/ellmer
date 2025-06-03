@@ -1,4 +1,4 @@
-# ellmer (development version)
+# ellmer 0.2.1
 
 * When you save a `Chat` object to disk, API keys are automatically redacted. 
   This means that you can no longer easily resume a chat you've saved on disk 
