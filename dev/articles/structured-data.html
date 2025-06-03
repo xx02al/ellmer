@@ -123,10 +123,10 @@ specific values from a string:</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; $primary_shape</span></span>
-<span><span class="co">#&gt; [1] "oval and letter"</span></span>
+<span><span class="co">#&gt; [1] "letter R and oval (ellipse)"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $primary_colour</span></span>
-<span><span class="co">#&gt; [1] "grey and blue"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "blue and gray"</span></span></code></pre></div>
 <p>If you need to extract data from multiple prompts, you can use the
 same techniques with <code><a href="../reference/parallel_chat.html">parallel_chat_structured()</a></code>. It takes
 the same arguments as <code>$chat_structured()</code> with two
@@ -261,17 +261,17 @@ can use structured data extraction.</p>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4.1"</span>.</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_summary</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">summary</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The article argues that third-party testing is essential for the safe and effective deployment of frontier AI systems. As AI models become more powerful and broadly applicable, relying on self-governance from industry alone is deemed insufficient to address risks such as misuse, accidents, discrimination, threats to election integrity, and national security. The authors advocate for the development of a robust, third-party oversight and testing regime that can validate AI safety, provide public trust, and help coordinate policy internationally. They emphasize that this testing should be targeted at the largest and most capable models to prevent overburdening small developers and avoid stifling innovation.</span></span>
+<span><span class="co">#&gt; The article argues that implementing a robust, third-party testing regime is essential for the safe and responsible deployment of advanced AI systems such as large language models. Anthropic, drawing on its experience with generative AI like Claude, outlines the limitations of self-governance and the need for independent oversight to assess and mitigate risks related to misuse, accidents, discrimination, election integrity, and national security. The proposed regime would involve trusted third-parties from government, academia, and industry administering tests, with careful scoping to ensure regulatory burdens don't stifle innovation or favor only large companies. The testing ecosystem would need to evolve iteratively, with practice runs and collaboration to define standards and effective procedures. </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; The article further explores the structure of such a regime, recommending a mix of automated and human-led expert evaluations, pilot implementations, and careful government funding for testing infrastructure. The authors recognize challenges like regulatory capture and the nuances of openness in AI research, advocating for widely accepted standards and transparency in the development of both closed and open-source AI models. They position third-party testing as not only a safeguard against harm but also as a means to democratize oversight and create a healthier, more competitive AI ecosystem.</span></span>
+<span><span class="co">#&gt; Anthropic highlights its own Responsible Scaling Policy as a prototype, but stresses sector-wide, enforceable standards are needed. The article also discusses issues such as the tension between open dissemination of AI models and safety, regulatory capture risks, and the importance of diverse, well-funded oversight bodies. Anthropic advocates for minimal, targeted regulation that is practical, effective, and minimizes administrative burdens, framing third-party testing as a foundation for trustworthy AI governance and ecosystem resilience.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 5</span></span>
 <span><span class="co">#&gt;  $ author    : chr "Anthropic Policy Team"</span></span>
-<span><span class="co">#&gt;  $ topics    : chr [1:8] "AI policy" "third-party testing" "AI safety" "regulation" ...</span></span>
-<span><span class="co">#&gt;  $ summary   : chr "The article argues that third-party testing is essential for the safe and effective deployment of frontier AI s"| __truncated__</span></span>
+<span><span class="co">#&gt;  $ topics    : chr [1:9] "AI policy" "AI safety" "third-party testing" "regulation" ...</span></span>
+<span><span class="co">#&gt;  $ summary   : chr "The article argues that implementing a robust, third-party testing regime is essential for the safe and respons"| __truncated__</span></span>
 <span><span class="co">#&gt;  $ coherence : int 93</span></span>
-<span><span class="co">#&gt;  $ persuasion: num 0.9</span></span></code></pre></div>
+<span><span class="co">#&gt;  $ persuasion: num 0.86</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-2-named-entity-recognition">Example 2: Named entity recognition<a class="anchor" aria-label="anchor" href="#example-2-named-entity-recognition"></a>
@@ -292,20 +292,13 @@ can use structured data extraction.</p>
 <span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_openai.html">chat_openai</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4.1"</span>.</span></span>
 <span><span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">text</span>, type <span class="op">=</span> <span class="va">type_named_entities</span><span class="op">)</span></span>
-<span><span class="co">#&gt;            name         type</span></span>
-<span><span class="co">#&gt; 1          John       person</span></span>
-<span><span class="co">#&gt; 2        Google organization</span></span>
-<span><span class="co">#&gt; 3      New York     location</span></span>
-<span><span class="co">#&gt; 4         Sarah       person</span></span>
-<span><span class="co">#&gt; 5     Acme Inc. organization</span></span>
-<span><span class="co">#&gt; 6 San Francisco     location</span></span>
-<span><span class="co">#&gt;                                                               context</span></span>
-<span><span class="co">#&gt; 1                   John is a person who works at Google in New York.</span></span>
-<span><span class="co">#&gt; 2                               Google is a company where John works.</span></span>
-<span><span class="co">#&gt; 3 New York is the place where Google is located and where John works.</span></span>
-<span><span class="co">#&gt; 4                  Sarah is the CEO of Acme Inc., whom John met with.</span></span>
-<span><span class="co">#&gt; 5             Acme Inc. is an organization of which Sarah is the CEO.</span></span>
-<span><span class="co">#&gt; 6                    San Francisco is where John met Sarah last week.</span></span></code></pre></div>
+<span><span class="co">#&gt;            name         type                                 context</span></span>
+<span><span class="co">#&gt; 1          John       person       John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 2        Google organization       John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 3      New York     location       John works at Google in New York.</span></span>
+<span><span class="co">#&gt; 4         Sarah       person He met with Sarah, the CEO of Acme Inc.</span></span>
+<span><span class="co">#&gt; 5     Acme Inc. organization             Sarah, the CEO of Acme Inc.</span></span>
+<span><span class="co">#&gt; 6 San Francisco     location             last week in San Francisco.</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-3-sentiment-analysis">Example 3: Sentiment analysis<a class="anchor" aria-label="anchor" href="#example-3-sentiment-analysis"></a>
@@ -556,14 +549,14 @@ common in the wild.</p>
 <td align="left">OpenAI</td>
 <td align="left">gpt-4.1</td>
 <td align="right">8186</td>
-<td align="right">749</td>
+<td align="right">741</td>
 <td align="right">$0.02</td>
 </tr>
 <tr class="even">
 <td align="left">Anthropic</td>
 <td align="left">claude-sonnet-4</td>
 <td align="right">481</td>
-<td align="right">95</td>
+<td align="right">93</td>
 <td align="right">$0.00</td>
 </tr>
 </tbody>
