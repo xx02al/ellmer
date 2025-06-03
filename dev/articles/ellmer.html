@@ -50,7 +50,16 @@
     <li><a class="dropdown-item" href="../articles/tool-calling.html">Tool/function calling</a></li>
   </ul>
 </li>
-<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-news" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">News</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-news">
+<li><h6 class="dropdown-header" data-toc-skip>Releases</h6></li>
+    <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2025/05/ellmer-0-2-0/">Version 0.2.0</a></li>
+    <li><a class="external-link dropdown-item" href="https://posit.co/blog/announcing-ellmer/">Version 0.1.0</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="../news/index.html">Changelog</a></li>
+  </ul>
+</li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -160,21 +169,15 @@ printing it, and you can see total usage for a session with
 <code class="sourceCode R"><span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_openai.html">chat_openai</a></span><span class="op">(</span>model <span class="op">=</span> <span class="st">"gpt-4.1"</span><span class="op">)</span></span>
 <span><span class="va">.</span> <span class="op">&lt;-</span> <span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"Who created R?"</span>, echo <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">chat</span></span>
-<span><span class="co">#&gt; &lt;Chat OpenAI/gpt-4.1 turns=2 tokens=11/102 $0.00&gt;</span></span>
+<span><span class="co">#&gt; &lt;Chat OpenAI/gpt-4.1 turns=2 tokens=11/76 $0.00&gt;</span></span>
 <span><span class="co">#&gt; ── <span style="color: #0000BB;">user</span> [11] ──────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Who created R?</span></span>
-<span><span class="co">#&gt; ── <span style="color: #00BB00;">assistant</span> [102] ────────────────────────────────────────────────────</span></span>
-<span><span class="co">#&gt; **R** was created by **Ross Ihaka** and **Robert Gentleman** at the **University of Auckland**, New Zealand, in the early 1990s. They began developing R as a free and open-source implementation influenced by the S programming language, which was developed at Bell Labs. </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; So, the main creators of R are:</span></span>
-<span><span class="co">#&gt; - **Ross Ihaka**</span></span>
-<span><span class="co">#&gt; - **Robert Gentleman**</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Their work later led to the formation of the broader R Core Team, which continues to maintain and develop R.</span></span>
+<span><span class="co">#&gt; ── <span style="color: #00BB00;">assistant</span> [76] ─────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; **R** was created by **Ross Ihaka** and **Robert Gentleman** in the early 1990s at the **University of Auckland** in New Zealand. They began the project as a free and open-source implementation influenced by the S programming language. Over time, many other contributors joined the development of R, but Ihaka and Gentleman are regarded as the original creators.</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/token_usage.html">token_usage</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   provider   model input output price</span></span>
-<span><span class="co">#&gt; 1   OpenAI gpt-4.1    11    102 $0.00</span></span></code></pre></div>
+<span><span class="co">#&gt; 1   OpenAI gpt-4.1    11     76 $0.00</span></span></code></pre></div>
 <p>If you want to learn more about tokens and tokenizers, I’d recommend
 watching the first 20-30 minutes of <a href="https://www.youtube.com/watch?v=zduSFxRajkE" class="external-link">Let’s build the GPT
 Tokenizer</a> by Andrej Karpathy. You certainly don’t need to learn how
