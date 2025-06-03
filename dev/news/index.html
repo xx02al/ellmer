@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ellmer</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.1.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,6 +42,9 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ellmer-development-version">ellmer (development version)<a class="anchor" aria-label="anchor" href="#ellmer-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.1" id="ellmer-021">ellmer 0.2.1<a class="anchor" aria-label="anchor" href="#ellmer-021"></a></h2>
 <ul><li><p>When you save a <code>Chat</code> object to disk, API keys are automatically redacted. This means that you can no longer easily resume a chat you’ve saved on disk (we’ll figure this out in a future release) but ensures that you never accidentally save your secret key in an RDS file (<a href="https://github.com/tidyverse/ellmer/issues/534" class="external-link">#534</a>).</p></li>
 <li><p><code><a href="../reference/chat_anthropic.html">chat_anthropic()</a></code> now defaults to Claude Sonnet 4, and I’ve added pricing information for the latest generation of Claude models.</p></li>
 <li><p><code><a href="../reference/chat_databricks.html">chat_databricks()</a></code> now picks up on Databricks workspace URLs set in the configuration file, which should improve compatibility with the Databricks CLI (<a href="https://github.com/tidyverse/ellmer/issues/521" class="external-link">#521</a>, <a href="https://github.com/atheriel" class="external-link">@atheriel</a>).</p></li>
