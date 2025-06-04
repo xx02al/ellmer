@@ -568,6 +568,9 @@ default_google_credentials <- function(
   gemini = FALSE
 ) {
   gemini_scope <- "https://www.googleapis.com/auth/generative-language.retriever"
+  if (!gemini) {
+    gemini_scope <- "https://www.googleapis.com/auth/cloud-vertex-ai.firstparty.predict"
+  }
 
   check_string(api_key, allow_null = TRUE, call = error_call)
   api_key <- api_key %||% Sys.getenv("GOOGLE_API_KEY")
