@@ -123,26 +123,23 @@ the <code>chat()</code>, <code>stream()</code>, <code>chat_async()</code>, or <c
 <span class="r-in"><span>  <span class="fu">content_image_url</span><span class="op">(</span><span class="st">"https://www.r-project.org/Rlogo.png"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="fu">content_image_file</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"httr2.png"</span>, package <span class="op">=</span> <span class="st">"ellmer"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Here’s what I see in each image:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Here’s what I see in the images:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1. **First Image:**  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    - This is the logo of the **R programming language**. The logo </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> features a large, stylized letter "R" in blue, with a gray, swooping </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> oval partially around it. R is widely used for statistical computing, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> data analysis, and graphical representation.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> features a large, stylized "R" in blue with a gray oval around it. R </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> is widely used for statistical computing and graphics.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2. **Second Image:**  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    - This image is a hex-sticker style logo, commonly used for R </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> packages. It features the text "**httr2**" styled in white, with a </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> silhouette of a baseball player (in red) swinging a bat. The sticker </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> has a dark blue background and a small www icon (with a globe and </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> dots), which suggests something web-related.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    - **httr2** is an R package that provides tools to work with HTTP, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> typically used for making web requests or working with web APIs.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    - This is the hex sticker for the **httr2 R package**. The sticker </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> shows a baseball player swinging a bat, with the text "httr2" in a </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> script style above. It also includes a small icon of a globe with </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "WWW" on it, referencing the web. **httr2** is an R package used for </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> working with HTTP, making calls to web APIs, and handling web </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> requests.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Both images are related to **R programming**—the first to the language</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> itself, and the second to a specific package for web communication in </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> R.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Both images are related to R and its ecosystem, with the second image </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> specifically highlighting a package used for HTTP requests in R.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">waiting</span> <span class="op">~</span> <span class="va">eruptions</span>, data <span class="op">=</span> <span class="va">faithful</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="content_image_url-1.png" alt="" width="700" height="433"></span>
@@ -154,15 +151,16 @@ the <code>chat()</code>, <code>stream()</code>, <code>chat_async()</code>, or <c
 <span class="r-in"><span><span class="st">   2-5 major visual patterns."</span>,</span></span>
 <span class="r-in"><span>   <span class="fu">content_image_plot</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> This is a scatter plot with a logarithmic scale on both the x-axis and</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> the y-axis. The data points are distributed along a straight diagonal </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> line extending from the lower left to the upper right, suggesting a </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> strong positive linear relationship between the variables on a log-log</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> scale. The axes are labeled with increasing values, but the specific </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> variables or units are not shown. The points are evenly spaced, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> reflecting a power-law or exponential relationship between the x and y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> values. There is no apparent outlier or clustering; the primary trend </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> is the linear alignment of points.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> This is a line plot with Cartesian axes labeled "x" (horizontal) and </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "y" (vertical). The plot shows five lines, each representing a </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> different function: sin(x), cos(x), -sin(x), -cos(x), and y = x/2, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> over the range -π to π on the x-axis. The sine and cosine curves </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> oscillate between -1 and 1, crossing the y-axis at different points; </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> the positive and negative versions of the sine and cosine functions </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> are mirror images across the x- or y-axes. The line y = x/2 is linear,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> passing through the origin with a constant slope. Major visual </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> patterns include the periodic peaks and troughs of the trigonometric </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> functions, their symmetry, and the straight, diagonal line of y = x/2.</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
