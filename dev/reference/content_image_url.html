@@ -123,21 +123,23 @@ the <code>chat()</code>, <code>stream()</code>, <code>chat_async()</code>, or <c
 <span class="r-in"><span>  <span class="fu">content_image_url</span><span class="op">(</span><span class="st">"https://www.r-project.org/Rlogo.png"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="fu">content_image_file</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"httr2.png"</span>, package <span class="op">=</span> <span class="st">"ellmer"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Here’s what I see in the images:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Here’s what I see in these images:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1. **First Image:**  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    - This is the logo for the **R programming language**. It consists </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> of a grey, oval-shaped ring with a large blue letter "R" inside. R is </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> commonly used for statistical computing and graphics.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    - This is the logo for the **R programming language**. It features </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a large, stylized blue "R" with a grey, elliptical ring around it. R </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> is a popular language for statistical computing and graphics.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2. **Second Image:**  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    - This is the hex sticker for the R package **httr2**. The sticker </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> features a baseball player in red swinging a bat, with the text </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "httr2" written above. The sticker design is in the style used by many</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> R package hex stickers and reflects the sports-themed branding of the </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> package. "httr2" is an R package used for working with HTTP in R.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    - This is the hexagon sticker for the **httr2** package in R. The </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sticker features a stylized illustration of a baseball player swinging</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a bat, with the package name "httr2" written in a script font above. </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> The package is used for working with HTTP in R, making it easier to </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> work with web APIs.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Both images are associated with the **R programming ecosystem**.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Both images are associated with the R programming ecosystem, with the </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> second one specifically highlighting an R package (httr2) related to </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> web requests.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">waiting</span> <span class="op">~</span> <span class="va">eruptions</span>, data <span class="op">=</span> <span class="va">faithful</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="content_image_url-1.png" alt="" width="700" height="433"></span>
@@ -149,13 +151,16 @@ the <code>chat()</code>, <code>stream()</code>, <code>chat_async()</code>, or <c
 <span class="r-in"><span><span class="st">   2-5 major visual patterns."</span>,</span></span>
 <span class="r-in"><span>   <span class="fu">content_image_plot</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> This plot is a line graph with the x-axis labeled "Time" and the </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y-axis labeled "Concentration." The plot features three curves labeled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A, B, and C. Curve A starts high and decreases rapidly, curve B </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> initially rises as A falls and then falls away, and curve C increases </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> slowly, peaking much later than the others. The major visual patterns </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> are that A falls as B rises, B forms a hump-shaped peak, and C rises </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> slowly, lagging behind the others.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> This is a scatter plot with the x-axis labeled "Sepal length (cm)" and</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> the y-axis labeled "Sepal width (cm)". The data points are grouped </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> into three distinct clusters, each represented by a different marker </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> style: circles, triangles, and squares. The first cluster (circles) is</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> located toward the lower right, with larger sepal length and lower </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sepal width; the second cluster (triangles) is toward the upper </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> center, with a moderate sepal length and higher sepal width; and the </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> third cluster (squares) is toward the lower left, with smaller sepal </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> length and moderate sepal width. The clusters are visually separated, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> indicating clear groupings in the data.</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
