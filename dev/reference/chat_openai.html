@@ -161,57 +161,63 @@ when running at the console).</p></li>
 <span class="r-in"><span><span class="st">  What is the difference between a tibble and a data frame?</span></span></span>
 <span class="r-in"><span><span class="st">  Answer with a bulleted list</span></span></span>
 <span class="r-in"><span><span class="st">"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Printing behavior**:  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - Data frame prints the entire dataset or the first few rows.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - Tibble prints only the first 10 rows and as many columns as fit on</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> the screen.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Class:**  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - A tibble is a modern reimagining of the data frame, provided by </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> the `tibble` package (part of the tidyverse), while a data frame is </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> the standard R data structure for tabular data.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Column naming**:  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - Data frame allows non-syntactic names (may cause issues).</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - Tibble allows non-syntactic names (enclosed in backticks if </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> necessary).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Printing:**  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Tibbles print only the first 10 rows and as many columns as fit on</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> the screen, and give the data type of each column; data frames print </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> all rows and columns, which can be overwhelming for large datasets.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Subsetting**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - Data frame: `df[, "x"]` returns a vector if possible, not always a</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> data frame.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - Tibble: `tbl[, "x"]` always returns a tibble.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Subsetting:**  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Tibbles always return a tibble when you subset with `[`; data </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> frames may sometimes return a vector instead of a data frame when </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> subsetting a single column.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Type consistency**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - Data frame can convert strings to factors automatically unless </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> `stringsAsFactors = FALSE`.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - Tibble never changes input types; strings remain as characters.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Type Coercion:**  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Tibbles are stricter: they never automatically convert strings to </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> factors, unlike data frames (which convert strings to factors by </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> default unless `stringsAsFactors=FALSE`).</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Recycling rules**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - Data frame can recycle shorter vectors to match row count (may </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> cause silent errors).</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - Tibble is strict; will not recycle and errors if input lengths </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> don't match.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Column Names:**  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Tibbles can have non-syntactic names (names that are not valid R </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> variable names and may include spaces or special characters); data </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> frames require syntactic names, though this changed somewhat in recent</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> R versions.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Default appearance**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - Data frame uses classic R formatting.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - Tibble provides a modern, more readable format.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Recycling and Partial Matching:**  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Tibbles do **not** perform partial matching of column names and </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> are stricter about name matching; data frames sometimes do partial </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> matching.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Part of package**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - Data frame is base R.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - Tibble is part of the **tibble** or **tidyverse** packages.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Package Dependency:**  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Tibbles require the `tibble` package; data frames are built-in </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (base R).</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - **Row names**:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - Data frame uses explicit row names.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - Tibble does not use or support row names (prefers a column for </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> IDs).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Row Names:**  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Tibbles do not support row names; data frames do.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - **Error Reporting:**  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - Tibbles provide clearer error messages than data frames.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="st">"Tell me three funny jokes about statisticians"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sure! Here are three funny jokes about statisticians:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1. Why did the statistician drown while crossing the river?  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Because it was **three feet deep on average**!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1.  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Why did the statistician drown while crossing a river?  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Because it was **three feet deep on average**!</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2. How do statisticians cheer up their friends?  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    They say, “Don’t worry, **it’s just within the margin of error**!”</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3. A statistician can have their head in an oven and feet in ice water</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2.  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A statistician can have their head in an oven and their feet in ice, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> and say,  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    “**On average, I feel fine.**”</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> **“On average, I feel just fine.”**</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3.  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> How does a statistician organize a party?  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> They **sample** everyone in the neighborhood to see who wants to </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> **mean**der over!</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -604,7 +604,7 @@ page.</p>
 <span><span class="co">#&gt;     "unit": "cup",</span></span>
 <span><span class="co">#&gt;     "weight": 113,</span></span>
 <span><span class="co">#&gt;     "weight_unit": "g",</span></span>
-<span><span class="co">#&gt;     "notes": "melted"</span></span>
+<span><span class="co">#&gt;     "note": "melted"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
 <span><span class="co">#&gt;     "ingredient": "vanilla extract",</span></span>
@@ -620,8 +620,8 @@ page.</p>
 <span><span class="co">#&gt;     "ingredient": "neutral oil",</span></span>
 <span><span class="co">#&gt;     "quantity": 0.33,</span></span>
 <span><span class="co">#&gt;     "unit": "cup",</span></span>
-<span><span class="co">#&gt;     "volume": 80,</span></span>
-<span><span class="co">#&gt;     "volume_unit": "ml"</span></span>
+<span><span class="co">#&gt;     "volumetric": 80,</span></span>
+<span><span class="co">#&gt;     "volumetric_unit": "ml"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
 <span><span class="co">#&gt;     "ingredient": "all-purpose flour",</span></span>
@@ -633,11 +633,12 @@ page.</p>
 <span><span class="co">#&gt;   {</span></span>
 <span><span class="co">#&gt;     "ingredient": "sugar",</span></span>
 <span><span class="co">#&gt;     "quantity": 150,</span></span>
-<span><span class="co">#&gt;     "unit": "g",</span></span>
-<span><span class="co">#&gt;     "additional": {</span></span>
-<span><span class="co">#&gt;       "quantity": 1.5,</span></span>
-<span><span class="co">#&gt;       "unit": "teaspoon"</span></span>
-<span><span class="co">#&gt;     }</span></span>
+<span><span class="co">#&gt;     "unit": "g"</span></span>
+<span><span class="co">#&gt;   },</span></span>
+<span><span class="co">#&gt;   {</span></span>
+<span><span class="co">#&gt;     "ingredient": "sugar",</span></span>
+<span><span class="co">#&gt;     "quantity": 1.5,</span></span>
+<span><span class="co">#&gt;     "unit": "teaspoon"</span></span>
 <span><span class="co">#&gt;   }</span></span>
 <span><span class="co">#&gt; ]</span></span></code></pre></div>
 <p>(I don’t know if the additional colour, “You’re an expert baker who
@@ -670,7 +671,7 @@ provide the input and output examples in such a loose format.</p>
 <span><span class="va">chat</span><span class="op">$</span><span class="fu">chat</span><span class="op">(</span><span class="va">ingredients</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [</span></span>
 <span><span class="co">#&gt;   {"name": "dark brown sugar", "quantity": 150, "unit": "g"},</span></span>
-<span><span class="co">#&gt;   {"name": "large eggs", "quantity": 2, "unit": "piece"},</span></span>
+<span><span class="co">#&gt;   {"name": "large eggs", "quantity": 2, "unit": "count"},</span></span>
 <span><span class="co">#&gt;   {"name": "sour cream", "quantity": 165, "unit": "g"},</span></span>
 <span><span class="co">#&gt;   {"name": "unsalted butter", "quantity": 113, "unit": "g", "note": </span></span>
 <span><span class="co">#&gt; "melted"},</span></span>
@@ -866,7 +867,7 @@ my examples.</p>
 <td align="left">OpenAI</td>
 <td align="left">gpt-4.1</td>
 <td align="right">1128</td>
-<td align="right">939</td>
+<td align="right">948</td>
 <td align="right">$0.01</td>
 </tr>
 </tbody>
