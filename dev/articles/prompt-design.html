@@ -259,23 +259,24 @@ different languages or different styles of R code:</p>
 <span><span class="co">#&gt; AGGREGATE</span></span>
 <span><span class="co">#&gt;   /OUTFILE=* MODE=ADDVARIABLES</span></span>
 <span><span class="co">#&gt;   /BREAK=age sex</span></span>
-<span><span class="co">#&gt;   /a_mean a_median = MEAN MEDIAN(a)</span></span>
-<span><span class="co">#&gt;   /b_mean b_median = MEAN MEDIAN(b)</span></span>
+<span><span class="co">#&gt;   /a_mean=MEAN(a)</span></span>
+<span><span class="co">#&gt;   /a_median=MEDIAN(a)</span></span>
+<span><span class="co">#&gt;   /b_mean=MEAN(b)</span></span>
+<span><span class="co">#&gt;   /b_median=MEDIAN(b)</span></span>
 <span><span class="co">#&gt;   /* Continue for all variables through z */</span></span>
-<span><span class="co">#&gt;   /z_mean z_median = MEAN MEDIAN(z).</span></span>
+<span><span class="co">#&gt;   /z_mean=MEAN(z)</span></span>
+<span><span class="co">#&gt;   /z_median=MEDIAN(z).</span></span>
 <span><span class="co">#&gt; ```</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; The **pandas approach** is probably the most flexible and commonly </span></span>
+<span><span class="co">#&gt; The **pandas solution** is probably the most flexible and commonly </span></span>
 <span><span class="co">#&gt; used. The key points are:</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; 1. **Group by** your categorical variables (age, sex)</span></span>
 <span><span class="co">#&gt; 2. **Select** the variables you want to summarize (a through z)</span></span>
 <span><span class="co">#&gt; 3. **Apply** the aggregation functions (mean, median)</span></span>
-<span><span class="co">#&gt; 4. Handle **missing values** appropriately (na.rm=TRUE in R, </span></span>
-<span><span class="co">#&gt; skipna=True in pandas)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Which tool are you planning to use? I can provide more specific </span></span>
-<span><span class="co">#&gt; guidance based on your preferred platform.</span></span></code></pre>
+<span><span class="co">#&gt; guidance based on your preferred software.</span></span></code></pre>
 <p>I can ensure that I always get R code in a specific style by
 providing a system prompt:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -580,46 +581,63 @@ page.</p>
 <span><span class="co">#&gt; [</span></span>
 <span><span class="co">#&gt;   {</span></span>
 <span><span class="co">#&gt;     "ingredient": "dark brown sugar",</span></span>
-<span><span class="co">#&gt;     "amount": "¾ cup",</span></span>
-<span><span class="co">#&gt;     "weight": "150g"</span></span>
+<span><span class="co">#&gt;     "quantity": 0.75,</span></span>
+<span><span class="co">#&gt;     "unit": "cup",</span></span>
+<span><span class="co">#&gt;     "weight": 150,</span></span>
+<span><span class="co">#&gt;     "weight_unit": "g"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
 <span><span class="co">#&gt;     "ingredient": "eggs",</span></span>
-<span><span class="co">#&gt;     "amount": "2",</span></span>
+<span><span class="co">#&gt;     "quantity": 2,</span></span>
 <span><span class="co">#&gt;     "unit": "large"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
 <span><span class="co">#&gt;     "ingredient": "sour cream",</span></span>
-<span><span class="co">#&gt;     "amount": "¾ cup",</span></span>
-<span><span class="co">#&gt;     "weight": "165g"</span></span>
+<span><span class="co">#&gt;     "quantity": 0.75,</span></span>
+<span><span class="co">#&gt;     "unit": "cup",</span></span>
+<span><span class="co">#&gt;     "weight": 165,</span></span>
+<span><span class="co">#&gt;     "weight_unit": "g"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
 <span><span class="co">#&gt;     "ingredient": "unsalted butter",</span></span>
-<span><span class="co">#&gt;     "amount": "½ cup",</span></span>
-<span><span class="co">#&gt;     "weight": "113g",</span></span>
-<span><span class="co">#&gt;     "note": "melted"</span></span>
+<span><span class="co">#&gt;     "quantity": 0.5,</span></span>
+<span><span class="co">#&gt;     "unit": "cup",</span></span>
+<span><span class="co">#&gt;     "weight": 113,</span></span>
+<span><span class="co">#&gt;     "weight_unit": "g",</span></span>
+<span><span class="co">#&gt;     "notes": "melted"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
 <span><span class="co">#&gt;     "ingredient": "vanilla extract",</span></span>
-<span><span class="co">#&gt;     "amount": "1 teaspoon"</span></span>
+<span><span class="co">#&gt;     "quantity": 1,</span></span>
+<span><span class="co">#&gt;     "unit": "teaspoon"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
 <span><span class="co">#&gt;     "ingredient": "kosher salt",</span></span>
-<span><span class="co">#&gt;     "amount": "¾ teaspoon"</span></span>
+<span><span class="co">#&gt;     "quantity": 0.75,</span></span>
+<span><span class="co">#&gt;     "unit": "teaspoon"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
 <span><span class="co">#&gt;     "ingredient": "neutral oil",</span></span>
-<span><span class="co">#&gt;     "amount": "⅓ cup",</span></span>
-<span><span class="co">#&gt;     "volume": "80ml"</span></span>
+<span><span class="co">#&gt;     "quantity": 0.33,</span></span>
+<span><span class="co">#&gt;     "unit": "cup",</span></span>
+<span><span class="co">#&gt;     "volume": 80,</span></span>
+<span><span class="co">#&gt;     "volume_unit": "ml"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
 <span><span class="co">#&gt;     "ingredient": "all-purpose flour",</span></span>
-<span><span class="co">#&gt;     "amount": "1½ cups",</span></span>
-<span><span class="co">#&gt;     "weight": "190g"</span></span>
+<span><span class="co">#&gt;     "quantity": 1.5,</span></span>
+<span><span class="co">#&gt;     "unit": "cup",</span></span>
+<span><span class="co">#&gt;     "weight": 190,</span></span>
+<span><span class="co">#&gt;     "weight_unit": "g"</span></span>
 <span><span class="co">#&gt;   },</span></span>
 <span><span class="co">#&gt;   {</span></span>
 <span><span class="co">#&gt;     "ingredient": "sugar",</span></span>
-<span><span class="co">#&gt;     "amount": "150g plus 1½ teaspoons"</span></span>
+<span><span class="co">#&gt;     "quantity": 150,</span></span>
+<span><span class="co">#&gt;     "unit": "g",</span></span>
+<span><span class="co">#&gt;     "additional": {</span></span>
+<span><span class="co">#&gt;       "quantity": 1.5,</span></span>
+<span><span class="co">#&gt;       "unit": "teaspoon"</span></span>
+<span><span class="co">#&gt;     }</span></span>
 <span><span class="co">#&gt;   }</span></span>
 <span><span class="co">#&gt; ]</span></span></code></pre></div>
 <p>(I don’t know if the additional colour, “You’re an expert baker who
@@ -749,17 +767,17 @@ and that ellmer will convert it into an R data structure.</p>
 <span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_openai.html">chat_openai</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">instruct_json</span>, <span class="va">instruct_weight</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4.1"</span>.</span></span>
 <span><span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span><span class="va">ingredients</span>, type <span class="op">=</span> <span class="va">type_ingredients</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                       name quantity     unit</span></span>
-<span><span class="co">#&gt; 1         dark brown sugar   150.00        g</span></span>
-<span><span class="co">#&gt; 2               large eggs     2.00     each</span></span>
-<span><span class="co">#&gt; 3               sour cream   165.00        g</span></span>
-<span><span class="co">#&gt; 4  unsalted butter, melted   113.00        g</span></span>
-<span><span class="co">#&gt; 5          vanilla extract     1.00 teaspoon</span></span>
-<span><span class="co">#&gt; 6              kosher salt     0.75 teaspoon</span></span>
-<span><span class="co">#&gt; 7              neutral oil    80.00       ml</span></span>
-<span><span class="co">#&gt; 8        all-purpose flour   190.00        g</span></span>
-<span><span class="co">#&gt; 9                    sugar   150.00        g</span></span>
-<span><span class="co">#&gt; 10                   sugar     1.50 teaspoon</span></span></code></pre></div>
+<span><span class="co">#&gt;                 name quantity     unit</span></span>
+<span><span class="co">#&gt; 1   dark brown sugar   150.00        g</span></span>
+<span><span class="co">#&gt; 2               eggs     2.00    large</span></span>
+<span><span class="co">#&gt; 3         sour cream   165.00        g</span></span>
+<span><span class="co">#&gt; 4    unsalted butter   113.00        g</span></span>
+<span><span class="co">#&gt; 5    vanilla extract     1.00 teaspoon</span></span>
+<span><span class="co">#&gt; 6        kosher salt     0.75 teaspoon</span></span>
+<span><span class="co">#&gt; 7        neutral oil    80.00       ml</span></span>
+<span><span class="co">#&gt; 8  all-purpose flour   190.00        g</span></span>
+<span><span class="co">#&gt; 9              sugar   150.00        g</span></span>
+<span><span class="co">#&gt; 10             sugar     1.50 teaspoon</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="capturing-raw-input">Capturing raw input<a class="anchor" aria-label="anchor" href="#capturing-raw-input"></a>
@@ -811,7 +829,7 @@ doing a good job:</p>
 <span><span class="co">#&gt; "one cup of softened unsalted butter"},</span></span>
 <span><span class="co">#&gt;   {"name": "white sugar", "quantity": 0.25, "unit": "cup", "input": "a</span></span>
 <span><span class="co">#&gt; quarter cup of white sugar"},</span></span>
-<span><span class="co">#&gt;   {"name": "egg", "quantity": 1, "unit": "unit", "input": "an egg"},</span></span>
+<span><span class="co">#&gt;   {"name": "egg", "quantity": 1, "unit": "item", "input": "an egg"},</span></span>
 <span><span class="co">#&gt;   {"name": "vanilla extract", "quantity": 1, "unit": "teaspoon", </span></span>
 <span><span class="co">#&gt; "input": "1 teaspoon of vanilla extract"},</span></span>
 <span><span class="co">#&gt;   {"name": "all-purpose flour", "quantity": 2, "unit": "cup", "input":</span></span>
@@ -841,14 +859,14 @@ my examples.</p>
 <td align="left">Anthropic</td>
 <td align="left">claude-sonnet-4</td>
 <td align="right">802</td>
-<td align="right">1933</td>
+<td align="right">1928</td>
 <td align="right">$0.03</td>
 </tr>
 <tr class="even">
 <td align="left">OpenAI</td>
 <td align="left">gpt-4.1</td>
 <td align="right">1128</td>
-<td align="right">824</td>
+<td align="right">939</td>
 <td align="right">$0.01</td>
 </tr>
 </tbody>
