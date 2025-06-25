@@ -74,7 +74,10 @@ test_that("can use pdfs", {
 test_that("continues to work after whitespace only outputs (#376)", {
   chat <- chat_aws_bedrock()
   chat$chat("Respond with only two blank lines")
-  expect_equal(chat$chat("What's 1+1? Just give me the number"), "2")
+  expect_equal(
+    chat$chat("What's 1+1? Just give me the number"),
+    ellmer_output("2")
+  )
 })
 
 # Auth --------------------------------------------------------------------
