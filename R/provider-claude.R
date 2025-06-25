@@ -66,12 +66,13 @@ chat_anthropic <- function(
 chat_anthropic_test <- function(
   ...,
   model = "claude-3-5-sonnet-latest",
-  params = NULL
+  params = NULL,
+  echo = "none"
 ) {
   params <- params %||% params()
   params$temperature <- params$temperature %||% 0
 
-  chat_anthropic(model = model, params = params, ...)
+  chat_anthropic(model = model, params = params, ..., echo = echo)
 }
 
 ProviderAnthropic <- new_class(

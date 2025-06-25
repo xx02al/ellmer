@@ -48,11 +48,16 @@ chat_portkey <- function(
   Chat$new(provider = provider, system_prompt = system_prompt, echo = echo)
 }
 
-chat_portkey_test <- function(..., model = "gpt-4o-mini", params = NULL) {
+chat_portkey_test <- function(
+  ...,
+  model = "gpt-4o-mini",
+  params = NULL,
+  echo = "none"
+) {
   params <- params %||% params()
   params$temperature <- params$temperature %||% 0
 
-  chat_portkey(model = model, params = params, ...)
+  chat_portkey(model = model, params = params, ..., echo = echo)
 }
 
 ProviderPortkeyAI <- new_class(
