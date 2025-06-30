@@ -58,7 +58,7 @@ NULL
 #' # results are send back in a tool result.
 #'
 #' @family tool calling helpers
-#' @aliase ToolDef
+#' @aliases ToolDef
 #' @export
 tool <- function(
   .fun,
