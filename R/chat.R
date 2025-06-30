@@ -29,7 +29,8 @@ Chat <- R6::R6Class(
     #'     when running at the console).
     #'   * `all`: echo all input and output.
     #'
-    #'  Note this only affects the `chat()` method.
+    #'  Note this only affects the `chat()` method. You can override the default
+    #'  by setting the `ellmer_echo` option.
     initialize = function(provider, system_prompt = NULL, echo = "none") {
       private$provider <- provider
       private$echo <- echo

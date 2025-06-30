@@ -76,7 +76,8 @@ when running at the console).
 \item \code{all}: echo all input and output.
 }
 
-Note this only affects the \code{chat()} method.}
+Note this only affects the \code{chat()} method. You can override the default
+by setting the \code{ellmer_echo} option.}
 }
 \if{html}{\out{</div>}}
 }
