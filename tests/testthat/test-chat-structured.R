@@ -39,8 +39,16 @@ test_that("can convert arrays of basic types to simple vectors", {
     c(FALSE, TRUE)
   )
   expect_identical(
+    convert_from_type(list(1L, 2L), type_array(type_integer())),
+    c(1L, 2L)
+  )
+  expect_identical(
     convert_from_type(list(1, 2), type_array(type_integer())),
     c(1L, 2L)
+  )
+  expect_identical(
+    convert_from_type(list(1L, 2L), type_array(type_number())),
+    c(1, 2)
   )
   expect_equal(
     convert_from_type(list(1.2, 2.5), type_array(type_number())),
@@ -49,6 +57,20 @@ test_that("can convert arrays of basic types to simple vectors", {
   expect_equal(
     convert_from_type(list("x", "y"), type_array(type_string())),
     c("x", "y")
+  )
+})
+
+test_that("values of wrong type are silently converted to NA", {
+  expect_equal(
+    convert_from_type(list(1.2, "x"), type_array(type_number())),
+    c(1.2, NA)
+  )
+})
+
+test_that("values of incorrect length silently truncated", {
+  expect_equal(
+    convert_from_type(list(c(1, 2), c()), type_array(type_number())),
+    c(1, NA)
   )
 })
 
@@ -74,6 +96,7 @@ test_that("scalar enums are converted to strings", {
   type <- type_enum(c("A", "B", "C"))
   expect_equal(convert_from_type("A", type), "A")
 })
+
 
 test_that("completely missing optional components become NULL", {
   type <- type_integer(required = FALSE)
