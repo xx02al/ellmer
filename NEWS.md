@@ -1,5 +1,6 @@
 # ellmer (development version)
 
+* Tool requests now show converted arguments when printed (#517).
 * Type conversion does a better job with `type_object(.additional_properties = TRUE)` (#519).
 * `chat_cortex_analyst()` is now deprecated; please use `chat_snowflake()` instead (#640).
 * `chat_openai()`, `chat_google_gemini()`, and `chat_anthropic()` now capture the number of cached input tokens. This is primarily useful for OpenAI and Gemini since both offer automatic caching yielding improved cost estimates (#466).
