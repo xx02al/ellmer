@@ -25,11 +25,11 @@ When making a chat request to the chat model, the caller advertises one or more 
 
 *Note that the chat model does not directly execute any external tools!* It only makes requests for the caller to execute them. It's easy to think that tool calling might work like this:
 
-![Diagram showing showing the wrong mental model of tool calls: a user initiates a request that flows to the assistant, which then runs the code, and returns the result back to the user."](tool-calling-wrong.svg)
+![Diagram showing the wrong mental model of tool calls: a user initiates a request that flows to the assistant, which then runs the code, and returns the result back to the user."](tool-calling-wrong.svg)
 
 But in fact it works like this:
 
-![Diagram showing the correct mental model for tool calls: a user sends a request that needs a tool call, the assistant request that the user's runs that tool, returns the result to the assistant, which uses it to generate the final answer.](tool-calling-right.svg)
+![Diagram showing the correct mental model for tool calls: a user sends a request that needs a tool call, the assistant requests that the user runs that tool, returns the result to the assistant, which uses it to generate the final answer.](tool-calling-right.svg)
 
 The value that the chat model brings is not in helping with execution, but with knowing when it makes sense to call a tool, what values to pass as arguments, and how to use the results in formulating its response.
 
