@@ -56,6 +56,7 @@ chat_aws_bedrock <- function(
   model = NULL,
   profile = NULL,
   api_args = list(),
+  api_headers = character(),
   echo = NULL
 ) {
   check_installed("paws.common", "AWS authentication")
@@ -68,7 +69,8 @@ chat_aws_bedrock <- function(
     base_url = base_url,
     model = model,
     profile = profile,
-    extra_args = api_args
+    extra_args = api_args,
+    extra_headers = api_headers
   )
   Chat$new(provider = provider, system_prompt = system_prompt, echo = echo)
 }
@@ -105,7 +107,8 @@ provider_aws_bedrock <- function(
   base_url,
   model = "",
   profile = NULL,
-  extra_args = list()
+  extra_args = list(),
+  extra_headers = character()
 ) {
   cache <- aws_creds_cache(profile)
   credentials <- paws_credentials(profile, cache = cache)
@@ -123,7 +126,8 @@ provider_aws_bedrock <- function(
     profile = profile,
     region = credentials$region,
     cache = cache,
-    extra_args = extra_args
+    extra_args = extra_args,
+    extra_headers = extra_headers
   )
 }
 
@@ -213,6 +217,7 @@ method(chat_request, ProviderAWSBedrock) <- function(
   )
   body <- modify_list(body, provider@extra_args)
   req <- req_body_json(req, body)
+  req <- req_headers(req, !!!provider@extra_headers)
 
   req
 }
