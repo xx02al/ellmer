@@ -1,38 +1,42 @@
 # ellmer (development version)
 
-* `Chat$chat_structured()` and friends no longer unnecessarily wrap `type_object()` for `chat_openai()` (#671)
-* `Chat$chat_structured()` now suppresses tool use. If you need to use tools and structured data together, first `$chat()` to use any tools needed, and then `$chat_structured()` to extract the data you need.
-* Now use prices data aggregated by LiteLLM. This considerably expands the number of providers and models that include cost information (#659).
-* `chat_aws_bedrock()` now allows you to set the `base_url()` (#441).
-* `tool()` now checks that the `name` is valid (#625)
-* `Chat$register_tool()` now messages when you replace an existing tool (#625).
-* `content_pdf_*()` now works with `chat_openai()` (#650).
-* Added `contents_record()` and `contents_replay()` to record and replay `Turn` related information from a `Chat` instance (#502). For example, these methods can be used for bookmarking within {shinychat}.
+## New features
+
 * New `chat()` allows you to chat with any provider using a string like `chat("anthropic")` or `chat("openai/gpt-4.1-nano")` (#361).
+
+* `tool()` has a simpler specification: you now specify the `name`, `description`, and `arguments`. I have done my best to deprecate old usage and give clear errors, but I have likely missed a few edge cases. I apologize for any pain that this causes, but I'm convinced that it is going to make tool usage easier and clearer in the long run. If you have many calls to convert, `?tool` contains a prompt that will help you use an LLM to convert them (#603). It also now returns a function so that you can call it (and/or export it from your package) (#602).
+
+* `type_array()` and `type_enum()` now have the description as the second argument and `items`/`values` as the first. This makes them easier to use in the common case where the description isn't necessary (#610).
+
+* ellmer now retries requests up to 3 times, controllable with `option(ellmer_max_tries)`, and will retry if the connection fails (rather than just if the request itself returns a transient error). The default timeout, controlled by `option(ellmer_timeout_s)`, now applies to the initial connection phase. Together, these changes should make it much more likely for ellmer requests to succeed.
+
 * New `parallel_chat_text()` and `batch_chat_text()` make it easier to just get the text response from multiple prompts (#510).
-* Tool requests now show converted arguments when printed (#517).
-* Type conversion does a better job with `type_object(.additional_properties = TRUE)` (#519).
-* `chat_cortex_analyst()` is now deprecated; please use `chat_snowflake()` instead (#640).
-* `chat_openai()`, `chat_google_gemini()`, and `chat_anthropic()` now capture the number of cached input tokens. This is primarily useful for OpenAI and Gemini since both offer automatic caching yielding improved cost estimates (#466).
-* `chat_aws_bedrock()`, `chat_google_gemini()`, `chat_ollama()`, and `chat_vllm()` now use a more robust method for generate model URLs from the `base_url` (#593, @benyake).
+
+* ellmer's cost estimates are considerably improved. `chat_openai()`, `chat_google_gemini()`, and `chat_anthropic()` capture the number of cached input tokens. This is primarily useful for OpenAI and Gemini since both offer automatic caching, yielding improved cost estimates (#466). We also have a better source of pricing data, LiteLLM. This considerably expands the number of providers and models that include cost information (#659).
+
+## Bug fixes and minor improvements
+
+* The new `ellmer_echo` option controls the default value for `echo`.
+* `batch_chat_structured()` provides clear messaging when prompts/path/provider don't match (#599).
+* `chat_aws_bedrock()` allows you to set the `base_url()` (#441).
+* `chat_aws_bedrock()`, `chat_google_gemini()`, `chat_ollama()`, and `chat_vllm()` use a more robust method to generate model URLs from the `base_url` (#593, @benyake).
+* `chat_cortex_analyst()` is deprecated; please use `chat_snowflake()` instead (#640).
+* `chat_github()` (and other OpenAI extensions) no longer warn about `seed` (#574).
+* `chat_google_gemini()` and `chat_google_vertex()` default to Gemini 2.5 flash (#576).
+* `chat_huggingface()` works much better.
+* `chat_openai()` supports `content_pdf_()` (#650).
+* `chat_portkey()` works once again, and reads the virtual API key from the `PORTKEY_VIRTUAL_KEY` env var (#588).
+* `chat_snowflake()` works with tool calling (#557, @atheriel).
+* `Chat$chat_structured()` and friends no longer unnecessarily wrap `type_object()` for `chat_openai()` (#671).
+* `Chat$chat_structured()` suppresses tool use. If you need to use tools and structured data together, first use `$chat()` for any needed tools, then `$chat_structured()` to extract the data you need.
 * `Chat$chat_structured()` no longer requires a prompt (since it may be obvious from the context) (#570).
-* `models_ollama()` now includes a `capabilities` column with a comma-separated list of model capabilities (#623).
-* `chat_huggingface()` now works much better.
-* [BREAKING CHANGE] `type_array()` and `type_enum()` now have the description as the second argument and `items/`/`values` as the first. This makes them easier to use in the common case where the description isn't necessary (#610).
-* By default, ellmer now retries requests up to 3 times, controllable with `option(ellmer_max_tries)` and will retry if the connection fails (rather than just if the request itself returns a transient error).
-* The default timeout, controlled by `option(ellmer_timeout_s)`, now applies to the initial connection phase. 
-* [BREAKING CHANGE] `tool()` has a simpler specification: you now specify the `name`, `description`, and `arguments`. I have done my best to deprecate old usage and give clear errors, but I have likely missed a few edge cases. I apologise for the pain this causes, but I'm convinced that it is going to making tool usage easier and clearer. If you have many calls to convert, `?tool` contains a prompt that will help you use an LLM to convert them. (#603).
-* `tool()` now returns a function so you can call it (and/or export it from your package) (#602).
-* `chat_google_gemini()` and `chat_google_vertex()` now default to Gemini 2.5 flash (#576).
-* `batch_chat_structured()` now longer gives a confusing message if prompts/path/provider don't match (#599).
-* `chat_github()` (and other OpenAI extensions), no longer warn about `seed` (#574).
-* New `ellmer_echo` option controls default value for `echo`.
-* `chat_portkey()` works once again, and now will read the virtual API key 
-  from the `PORTKEY_VIRTUAL_KEY` env var (#588).
+* `Chat$register_tool()` shows a message when you replace an existing tool (#625).
+* `contents_record()` and `contents_replay()` record and replay `Turn` related information from a `Chat` instance (#502). These methods can be used for bookmarking within {shinychat}.
 * `models_github()` lists models for `chat_github()` (#561).
-* `chat_snowflake()` now works with tool calling (#557, @atheriel).
-* `parallel_chat_structured()` now accepts lists of Content objects in prompt
-  argument (#597, @thisisnic).
+* `models_ollama()` includes a `capabilities` column with a comma-separated list of model capabilities (#623).
+* `parallel_chat()` and friends accept lists of `Content` objects in the `prompt` (#597, @thisisnic).
+* Tool requests show converted arguments when printed (#517).
+* `tool()` checks that the `name` is valid (#625).
 
 # ellmer 0.2.1
 
