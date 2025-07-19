@@ -72,7 +72,7 @@ freedom, so we have a few recommendations to help you get started:
   `chat_openai()` defaults to **GPT-4.1**, but you can use
   `model = "gpt-4-1-nano"` for a cheaper, faster model, or
   `model = "o3"` for more complex reasoning. `chat_anthropic()` is also
-  good; it defaults to **Claude 3.7 Sonnet**, which we have found to be
+  good; it defaults to **Claude 4.0 Sonnet**, which we have found to be
   particularly good at writing R code.
 
 - `chat_google_gemini()` is a strong model with generous free tier (with
@@ -157,8 +157,8 @@ The second most interactive way to chat is to call the `chat()` method:
 
 ``` r
 chat$chat("What preceding languages most influenced R?")
-#> R was primarily influenced by S, itself influenced by Lisp and FORTRAN. 
-#> Additionally, elements from Python and MATLAB have also shaped its development.
+#> R was most influenced by S, and to some extent by languages like Lisp, Fortran,
+#> and Scheme.
 ```
 
 If you initialize the chat object in the global environment, the `chat`
@@ -176,25 +176,26 @@ chat$chat(
   content_image_url("https://www.r-project.org/Rlogo.png"),
   "Can you explain this logo?"
 )
-#> This logo represents the R programming language, which is widely used for 
-#> statistical computing and data analysis. The design features a stylized letter 
-#> "R" enclosed in an oval, combining elements of simplicity and modernity to 
-#> reflect its utility in the data science community.
+#> The logo features the letter "R" in blue, surrounded by a circular gray design.
+#> This design symbolizes the programming language R, which is widely used for 
+#> statistical computing and data analysis. The circular shape often represents 
+#> data or continuity, aligning with R's focus on data manipulation and analysis.
 ```
 
-### Streaming/capturing
+### Streaming vs capturing
 
-The most programmatic way to chat is to create the chat object inside a
-function. By doing so, live streaming is automatically suppressed and
-`$chat()` returns the result as a string:
+In most circumstances, ellmer will stream the output to the console. You
+can take control of this by setting the `echo` argument either when
+creating the chat object or when calling `$chat()`. Set `echo = "none"`
+to return a string instead:
 
 ``` r
 my_function <- function() {
   chat <- chat_openai("Be terse", model = "gpt-4o-mini", echo = "none")
-  chat$chat("Is R a functional programming language?")
+  chat$chat("What is 6 times 7?")
 }
 str(my_function())
-#>  'ellmer_output' chr "Yes, R supports functional programming concepts, allowing functions to be treated as first-class citizens."
+#>  'ellmer_output' chr "42."
 ```
 
 If needed, you can manually control this behaviour with the `echo`
