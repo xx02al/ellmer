@@ -8,4 +8,4 @@
 
 ## revdepcheck results
 
-This was a minor release with no significant user facing changes so I did not check revdeps.
+chattr is broken; I have submitted a patch at https://github.com/mlverse/chattr/pull/145.
