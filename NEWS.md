@@ -1,4 +1,4 @@
-# ellmer (development version)
+# ellmer 0.3.1
 
 * `chat_anthropic()` drops empty assistant turns to avoid API errors (#710).
 
