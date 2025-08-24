@@ -17,7 +17,7 @@ data extraction, and more.
 
 ellmer is one of a number of LLM-related packages created by Posit:
 
-- Looking for something similar in Python? Check out
+- Looking for something similar in python? Check out
   [chatlas](https://github.com/posit-dev/chatlas)!
 - Want to evaluate your LLMs? Try
   [vitals](https://vitals.tidyverse.org).
@@ -157,8 +157,9 @@ The second most interactive way to chat is to call the `chat()` method:
 
 ``` r
 chat$chat("What preceding languages most influenced R?")
-#> R was most influenced by S, and to some extent by languages like Lisp, Fortran,
-#> and Scheme.
+#> R was primarily influenced by S, which was developed at Bell Labs. Other 
+#> notable influences include Scheme, for its functional programming concepts, and
+#> various statistical programming languages like Fortran and Lisp.
 ```
 
 If you initialize the chat object in the global environment, the `chat`
@@ -176,10 +177,12 @@ chat$chat(
   content_image_url("https://www.r-project.org/Rlogo.png"),
   "Can you explain this logo?"
 )
-#> The logo features the letter "R" in blue, surrounded by a circular gray design.
-#> This design symbolizes the programming language R, which is widely used for 
-#> statistical computing and data analysis. The circular shape often represents 
-#> data or continuity, aligning with R's focus on data manipulation and analysis.
+#> The logo features a stylized letter "R" inside an oval shape, which represents 
+#> the R programming language. The design is modern and clean, emphasizing the 
+#> letter "R" prominently in blue, while the oval shape is often interpreted as a 
+#> symbol of data analysis and statistics, reflecting R's primary use in 
+#> statistical computing and graphics. The overall look conveys professionalism 
+#> and is recognized in the programming and data science communities.
 ```
 
 ### Streaming vs capturing
