@@ -16,7 +16,7 @@
 
 * `chat_snowflake()` now supports Privatelink accounts (#694, @robert-norberg). and works against Snowflake's latest API changes (#692, @robert-norberg).
 
-* `models_google_vertex()` was fixed, argument `project_id` is now deprecated (#704, @netique)
+* `models_google_vertex()` works once again (#704, @netique)
 
 * In the `value_turn()` method for OpenAI providers, `usage` is checked if `NULL` before logging tokens to avoid errors when streaming with some OpenAI-compatible services (#706, @stevegbrooks).
 
