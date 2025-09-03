@@ -1,4 +1,4 @@
-# ellmer (development version)
+# ellmer 0.3.2
 
 * `chat()` is now compatible with most `chat_` functions (#699).
   * `chat_aws_bedrock()`, `chat_databricks()`, `chat_deepseek()`, `chat_github()`, `chat_groq()`, `chat_ollama()`, `chat_openrouter()`, `chat_perplexity()`, and `chat_vllm()` now support a `params` argument that accepts common model parameters from `params()`.
