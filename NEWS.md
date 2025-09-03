@@ -1,3 +1,5 @@
+# ellmer (development version)
+
 # ellmer 0.3.2
 
 * `chat()` is now compatible with most `chat_` functions (#699).
