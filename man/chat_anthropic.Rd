@@ -2,10 +2,24 @@
 % Please edit documentation in R/provider-anthropic.R
 \name{chat_anthropic}
 \alias{chat_anthropic}
+\alias{chat_claude}
 \alias{models_anthropic}
 \title{Chat with an Anthropic Claude model}
 \usage{
 chat_anthropic(
+  system_prompt = NULL,
+  params = NULL,
+  max_tokens = deprecated(),
+  model = NULL,
+  api_args = list(),
+  base_url = "https://api.anthropic.com/v1",
+  beta_headers = character(),
+  api_key = anthropic_key(),
+  api_headers = character(),
+  echo = NULL
+)
+
+chat_claude(
   system_prompt = NULL,
   params = NULL,
   max_tokens = deprecated(),
