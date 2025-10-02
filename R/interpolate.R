@@ -7,7 +7,7 @@
 #'
 #' * `interpolate()` works with a string.
 #' * `interpolate_file()` works with a file.
-#' * `interpolate_package()` works with a file in the `insts/prompt`
+#' * `interpolate_package()` works with a file in the `inst/prompts`
 #'   directory of a package.
 #'
 #' Compared to glue, dynamic values should be wrapped in `{{ }}`, making it
@@ -46,10 +46,12 @@ interpolate <- function(prompt, ..., .envir = parent.frame()) {
   ellmer_prompt(out)
 }
 
-#' @param path A path to a prompt file (often a `.md`).
+#' @param path A path to a prompt file (often a `.md`). In
+#'   `interpolate_package()`, this path is relative to `inst/prompts`.
 #' @rdname interpolate
 #' @export
 interpolate_file <- function(path, ..., .envir = parent.frame()) {
+  check_string(path)
   string <- read_file(path)
   interpolate(string, ..., .envir = .envir)
 }
@@ -63,12 +65,28 @@ interpolate_package <- function(
   ...,
   .envir = parent.frame()
 ) {
-  path <- system.file("prompts", path, package = package)
-  interpolate_file(path, ..., .envir = .envir)
+  check_string(path)
+
+  path_pkg <- system.file("prompts", path, package = package)
+
+  if (!nzchar(path_pkg)) {
+    cli::cli_abort(c(
+      "{.pkg {package}} does not have {.val {path}} in its {.field prompts/} directory.",
+      "i" = 'Run {.run dir(system.file("prompts", package = "{package}"))} to see available prompts.'
+    ))
+  }
+
+  interpolate_file(path_pkg, ..., .envir = .envir)
 }
 
 read_file <- function(path) {
-  file_contents <- readChar(path, file.size(path))
+  if (!file.exists(path)) {
+    cli::cli_abort(
+      "{.arg path} {.path {path}} does not exist.",
+      call = caller_env()
+    )
+  }
+  readChar(path, file.size(path))
 }
 
 # Prompt class -----------------------------------------------------------------
