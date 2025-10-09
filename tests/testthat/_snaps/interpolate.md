@@ -40,6 +40,13 @@
           | y
       [2] | a
           | ...
+    Code
+      print(ellmer_prompt("a\nb\nc\nd\ne"), max_lines = 3)
+    Output
+      [1] | a
+          | b
+          | c
+          | ...
 
 # errors if the path does not exist
 
