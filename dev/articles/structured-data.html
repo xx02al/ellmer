@@ -125,7 +125,9 @@ specific values from a string:</p>
 <span><span class="co">#&gt; [1] 13</span></span></code></pre></div>
 <p>The same basic idea works with images too:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">chat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chat_openai.html">chat_openai</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Using <span style="color: #00BB00;">model</span> = <span style="color: #0000BB;">"gpt-4.1"</span>.</span></span>
+<span><span class="va">chat</span><span class="op">$</span><span class="fu">chat_structured</span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/content_image_url.html">content_image_url</a></span><span class="op">(</span><span class="st">"https://www.r-project.org/Rlogo.png"</span><span class="op">)</span>,</span>
 <span>  type <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
 <span>    primary_shape <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -133,10 +135,10 @@ specific values from a string:</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; $primary_shape</span></span>
-<span><span class="co">#&gt; [1] "letter and oval"</span></span>
+<span><span class="co">#&gt; [1] "letter and ellipse"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $primary_colour</span></span>
-<span><span class="co">#&gt; [1] "blue and gray"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "blue and grey"</span></span></code></pre></div>
 <p>If you need to extract data from multiple prompts, you can use
 <code><a href="../reference/parallel_chat.html">parallel_chat_structured()</a></code>. It takes the same arguments as
 <code>$chat_structured()</code> with two exceptions: it needs a
@@ -214,9 +216,9 @@ any number of scalars, arrays, and other objects. They are similar to
 named lists in R.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">type_person2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/type_boolean.html">type_object</a></span><span class="op">(</span></span>
-<span>  name <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  age <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_integer</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  hobbies <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span><span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>name <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>age <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_integer</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>hobbies <span class="op">=</span> <span class="fu"><a href="../reference/type_boolean.html">type_array</a></span><span class="op">(</span><span class="fu"><a href="../reference/type_boolean.html">type_string</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </li>
 </ul>
@@ -354,6 +356,13 @@ structure “inside out” and create an array of objects:</p>
 <p>If you’re familiar with the terms row-oriented and column-oriented
 data frames, this is the same idea. Since most languages don’t possess
 vectorisation like R, row-oriented data frames are more common.</p>
+<p>Note that you’ll generally wanted to avoid nesting objects in inside
+of objects as this will generate a data frame where each column is
+itself a data frame. This is a valid data structure in R, but you’ll
+find it easier to understand if you convert it to a tibble, since the
+tibble print method makes it more clear what’s going on. You can also
+use <code>tidyr::unpack()</code> to unpack these df-columns back into a
+regular flat data frame.</p>
 </div>
 </div>
 <div class="section level2">
@@ -586,7 +595,7 @@ and “unearned” income</div>
 <tr class="odd">
 <td align="left">OpenAI</td>
 <td align="left">gpt-4.1</td>
-<td align="right">6426</td>
+<td align="right">6404</td>
 <td align="right">776</td>
 <td align="right">0</td>
 <td align="right">$0.02</td>
