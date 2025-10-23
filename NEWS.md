@@ -1,5 +1,7 @@
 # ellmer (development version)
 
+* `batch_*()` no longer hashes properties of the provider besides the `name`, `model`, and `base_url`. This should provide some protection from accidentally reusing the same `.json` file with different providers, while still allowing you to use the same batch file across ellmer versions.
+* `batch_*()` have a new `ignore_hash` argument that allows you to opt out of the check if you're confident the difference only arises because ellmer itself has changed.
 * Turns now have a `@duration` slot. The slot is `NA` for user turns and a numeric giving the total time to complete the request for assistant turns (@simonpcouch, #798).
 * New `chat_openai_responses()` to use the new OpenAI responses API (#365).
 * `parallel_chat_structured()` now returns a tibble, since this does a better job of printing more complex data frames (#787).
