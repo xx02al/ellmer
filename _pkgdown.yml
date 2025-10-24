@@ -64,9 +64,6 @@ reference:
   - df_schema
   - params
 
-- title: Deprecated functions
-  contents:
-  - deprecated
 
 news:
   releases:
