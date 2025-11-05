@@ -1,5 +1,6 @@
 # ellmer (development version)
 
+* `batch_chat()` logs tokens once, on retrieval (#743).
 * `params()` gains new `reasoning_effort` and `reasoning_tokens` so you can control the amount of effort a model spends on thinking. Initial support is provided for `chat_claude()`, `chat_google_gemini()`, and `chat_openai()` (#720).
 * `chat_anthropic()` gains new `cache` parameter to control caching. By default it is set to "5m". This should (on average) reduce the cost of your chats.(#584)
 * `chat_openai_responses()` gains a `service_tier` argument (#712).
