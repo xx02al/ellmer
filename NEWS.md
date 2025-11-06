@@ -1,5 +1,6 @@
 # ellmer (development version)
 
+* `batch_chat()` now retrieves failed results for `chat_openai()` (#830)
 * `batch_chat()` now works correctly for `chat_anthropic()` (#835).
 * `chat_anthropic()` and `chat_aws_bedrock()` now default to Claude Sonnet 4.5 (#800).
 * `batch_chat()` logs tokens once, on retrieval (#743).
