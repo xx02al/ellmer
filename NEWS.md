@@ -19,7 +19,7 @@
 * `chat_portkey()` now requires you to supply a model (#786).
 * `chat_portkey(virtual_key)` no longer needs to be supplied; instead Portkey recommends including the virtual key/povider in the `model`.(#786).
 * `Chat$get_tokens()` gives a brief description of the turn contents to make it easier to see which turn tokens are spent on (#618).
-* `Chat$get_tokens()` now also returns the cost, and returns one row for each assistant turn, better representing the underlying data received from LLM APIs. Similarly, the `print()` method now reports costs on each assistant turn, rather than trying to parse out individual costs.
+* `Chat$get_tokens()` now also returns the cost, and returns one row for each assistant turn, better representing the underlying data received from LLM APIs. Similarly, the `print()` method now reports costs on each assistant turn, rather than trying to parse out individual costs (#824).
 * `Chat$chat_structured()` and friends now only warn if multiple JSON payloads found (instead of erroring) (@kbenoit, #732).
 * `chat_*()` functions now use a `credentials` function instead of an `api_key` (#613). This means that API keys are never stored in the chat object (which might be saved to disk), but are instead retrieved on demand as needed. You generally shouldn't need to use the `credentials` argument, but when you do, you should use it to dynamically retrieve the API key from some other source (i.e. never inline a secret directly into a function call).
 * `interpolate_package()` now provides an informative error if the requested prompt file is not found in the package's `prompts/` directory (#763).
