@@ -9,8 +9,8 @@
 * `batch_chat_*()` now works correctly when `chat_openai()` fails to process some conversations (#830).
 * `batch_*()` have a new `ignore_hash` argument that allows you to opt out of the check if you're confident the difference only arises because ellmer itself has changed.
 * `batch_*()` no longer hashes properties of the provider besides the `name`, `model`, and `base_url`. This should provide some protection from accidentally reusing the same `.json` file with different providers, while still allowing you to use the same batch file across ellmer versions.
-* `chat_anthropic()` and `chat_aws_bedrock()` now default to Claude Sonnet 4.5 (#800).
-* `chat_anthropic()` gains new `cache` parameter to control caching. By default it is set to "5m". This should (on average) reduce the cost of your chats (#584).
+* `chat_claude()` and `chat_aws_bedrock()` now default to Claude Sonnet 4.5 (#800).
+* `chat_claude()` gains new `cache` parameter to control caching. By default it is set to "5m". This should (on average) reduce the cost of your chats (#584).
 * `chat_claude()` is no longer deprecated and is an alias for `chat_anthropic()`, reflecting Anthropic's recent rebranding of developer tools under the Claude name (#758). `models_claude()` is now an alias for `models_anthropic()`.
 * `chat_databricks()` lifts many of its restrictions now that Databricks' API is more OpenAI compatible (#757).
 * `chat_google_gemini()` and `chat_openai()` support image generation (#368).
