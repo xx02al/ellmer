@@ -95,6 +95,35 @@ test_data_extraction <- function(chat_fun) {
   )
 }
 
+# Built-in tools ---------------------------------------------------------
+
+test_tool_web_fetch <- function(chat_fun, tool) {
+  chat <- chat_fun()
+  chat$register_tool(tool)
+
+  url <- "https://rvest.tidyverse.org/articles/starwars.html"
+  expect_match(
+    chat$chat(paste0("What's the first movie listed on ", url, "?")),
+    "The Phantom Menace"
+  )
+  expect_match(chat$chat("Who directed it?"), "George Lucas")
+}
+
+test_tool_web_search <- function(chat_fun, tool, hint = NULL) {
+  chat <- chat_fun()
+  chat$register_tool(tool)
+
+  result <- chat$chat(c(
+    "When was ggplot2 1.0.0 released to CRAN?",
+    "Answer in YYYY-MM-DD format.",
+    hint
+  ))
+  # for openAI
+  result <- gsub("\u2011", "-", result, fixed = TRUE)
+  expect_match(result, "2014-05-21")
+  expect_match(chat$chat("What month was that?"), "May")
+}
+
 # Images -----------------------------------------------------------------
 
 test_images_inline <- function(chat_fun, test_shape = TRUE) {
