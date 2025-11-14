@@ -59,6 +59,7 @@
 * `interpolate_package()` now provides an informative error if the requested prompt file is not found in the package's `prompts/` directory (#763) and now works with in-development packages loaded with devtools (#766).
 * `models_mistral()` lists available models (@rplsmn, #750).
 * `models_ollama()` was fixed to correctly query model capabilities from remote Ollama servers (#746).
+* `chat_ollama()` now uses `credentials` when checking if Ollama is available and `models_ollama()` now has a `credentials` argument. This is useful when accessing Ollama servers that require authentication (@AdaemmerP, #863).
 * `parallel_chat_structured()` now returns a tibble, since this does a better job of printing more complex data frames (#787).
 
 # ellmer 0.3.2
