@@ -241,16 +241,19 @@ method(chat_params, ProviderOpenAI) <- function(provider, params) {
 
 # OpenAI -> ellmer --------------------------------------------------------------
 
-method(stream_text, ProviderOpenAI) <- function(provider, event) {
+method(stream_content, ProviderOpenAI) <- function(provider, event) {
   if (event$type == "response.output_text.delta") {
     # https://platform.openai.com/docs/api-reference/responses-streaming/response/output_text/delta
-    event$delta
+    if (is.null(event$delta)) {
+      return(NULL)
+    }
+    ContentText(event$delta)
   } else if (event$type == "response.reasoning_summary_text.delta") {
     # https://platform.openai.com/docs/api-reference/responses-streaming/response/reasoning_summary_text/delta
-    event$delta
+    ContentThinking(event$delta)
   } else if (event$type == "response.reasoning_summary_text.done") {
     # https://platform.openai.com/docs/api-reference/responses-streaming/response/reasoning_summary_text/done
-    "\n\n"
+    NULL
   }
 }
 method(stream_merge_chunks, ProviderOpenAI) <- function(

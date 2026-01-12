@@ -606,14 +606,11 @@ Chat <- R6::R6Class(
       if (stream) {
         result <- NULL
         for (chunk in response) {
-          text <- stream_text(private$provider, chunk)
-          if (!is.null(text)) {
+          content <- stream_content(private$provider, chunk)
+          if (!is.null(content)) {
+            text <- content_text(content)
             emit(text)
-            if (yield_as_content) {
-              yield(ContentText(text))
-            } else {
-              yield(text)
-            }
+            yield(if (yield_as_content) content else text)
             any_text <- TRUE
           }
 
@@ -688,14 +685,11 @@ Chat <- R6::R6Class(
       if (stream) {
         result <- NULL
         for (chunk in await_each(response)) {
-          text <- stream_text(private$provider, chunk)
-          if (!is.null(text)) {
+          content <- stream_content(private$provider, chunk)
+          if (!is.null(content)) {
+            text <- content_text(content)
             emit(text)
-            if (yield_as_content) {
-              yield(ContentText(text))
-            } else {
-              yield(text)
-            }
+            yield(if (yield_as_content) content else text)
             any_text <- TRUE
           }
 
