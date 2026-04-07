@@ -2,6 +2,39 @@
 
 ## ellmer (development version)
 
+- Fixed three bugs that caused errors when streaming web search results:
+  Claude’s `citations_delta` events were mishandled, `server_tool_use`
+  input wasn’t parsed from JSON during streaming, and OpenAI’s
+  `web_search_call` failed for non-search action types like `open_page`
+  ([\#941](https://github.com/tidyverse/ellmer/issues/941)).
+- [`chat_aws_bedrock()`](https://ellmer.tidyverse.org/dev/reference/chat_aws_bedrock.md)
+  gains a `cache` parameter for prompt caching. The default, `"auto"`,
+  enables caching for models known to support it (Anthropic Claude and
+  Amazon Nova) and disables it otherwise
+  ([\#954](https://github.com/tidyverse/ellmer/issues/954)).
+- Built-in tools (e.g.,
+  [`openai_tool_web_search()`](https://ellmer.tidyverse.org/dev/reference/openai_tool_web_search.md),
+  [`claude_tool_web_search()`](https://ellmer.tidyverse.org/dev/reference/claude_tool_web_search.md))
+  now include `description` and `annotations` properties, making their
+  metadata consistent with user-defined tools created by
+  [`tool()`](https://ellmer.tidyverse.org/dev/reference/tool.md)
+  ([\#942](https://github.com/tidyverse/ellmer/issues/942)).
+- New
+  [`stream_controller()`](https://ellmer.tidyverse.org/dev/reference/stream_controller.md)
+  enables programmatic cancellation of streaming chat responses,
+  e.g. from a Shiny “Cancel” button with `chat$stream()` or
+  `chat$stream_async()`. Streaming turns are now saved incrementally so
+  that partial responses survive cancellation, interrupts (Ctrl-C), and
+  errors. Incomplete turns are recorded as `AssistantPartialTurn`
+  objects, display as interrupted in the chat history, and are included
+  in subsequent model context like complete turns
+  ([\#643](https://github.com/tidyverse/ellmer/issues/643)).
+- `default_google_credentials()` no longer skips application default
+  credentials (e.g. `GOOGLE_APPLICATION_CREDENTIALS`) in interactive
+  sessions, instead falling through to the OAuth browser flow only when
+  no gargle token is available
+  ([@stefanlinner](https://github.com/stefanlinner),
+  [\#922](https://github.com/tidyverse/ellmer/issues/922)).
 - [`chat_databricks()`](https://ellmer.tidyverse.org/dev/reference/chat_databricks.md)
   (and other
   [`chat_openai_compatible()`](https://ellmer.tidyverse.org/dev/reference/chat_openai_compatible.md)
