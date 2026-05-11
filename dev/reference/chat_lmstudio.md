@@ -1,6 +1,9 @@
-# Chat with a model hosted on Groq
+# Chat with a local LM Studio model
 
-Sign up at <https://groq.com>.
+To use `chat_lmstudio()` first download and install [LM
+Studio](https://lmstudio.ai). Then load a model using the LM Studio GUI
+and start the local server. To learn more about running LM Studio
+locally, see <https://lmstudio.ai/docs/developer/core/server>/.
 
 Built on top of
 [`chat_openai_compatible()`](https://ellmer.tidyverse.org/dev/reference/chat_openai_compatible.md).
@@ -8,17 +11,18 @@ Built on top of
 ## Usage
 
 ``` r
-chat_groq(
+chat_lmstudio(
   system_prompt = NULL,
-  base_url = "https://api.groq.com/openai/v1",
-  api_key = NULL,
-  credentials = NULL,
-  model = NULL,
+  base_url = Sys.getenv("LMSTUDIO_BASE_URL", "http://localhost:1234"),
+  model,
   params = NULL,
   api_args = list(),
   echo = NULL,
+  credentials = NULL,
   api_headers = character()
 )
+
+models_lmstudio(base_url = "http://localhost:1234", credentials = NULL)
 ```
 
 ## Arguments
@@ -31,26 +35,10 @@ chat_groq(
 
   The base URL to the API endpoint.
 
-- api_key:
-
-  **\[deprecated\]** Use `credentials` instead.
-
-- credentials:
-
-  Override the default credentials. You generally should not need this
-  argument; instead set the `GROQ_API_KEY` environment variable. The
-  best place to set this is in `.Renviron`, which you can easily edit by
-  calling `usethis::edit_r_environ()`.
-
-  If you do need additional control, this argument takes a zero-argument
-  function that returns either a string (the API key), or a named list
-  (added as additional headers to every request).
-
 - model:
 
-  The model to use for the chat (defaults to "llama-3.1-8b-instant"). We
-  regularly update the default, so we strongly recommend explicitly
-  specifying a model for anything other than casual use.
+  The model to use for the chat. Use `models_lmstudio()` to see all
+  options.
 
 - params:
 
@@ -78,6 +66,16 @@ chat_groq(
   [`chat()`](https://ellmer.tidyverse.org/dev/reference/chat-any.md)
   method.
 
+- credentials:
+
+  LM Studio doesn't require credentials for local usage and in most
+  cases you do not need to provide `credentials`.
+
+  However, if you're accessing an LM Studio instance hosted behind a
+  reverse proxy or secured endpoint that enforces bearer-token
+  authentication, you can set the `LMSTUDIO_API_KEY` environment
+  variable or provide a callback function to `credentials`.
+
 - api_headers:
 
   Named character vector of arbitrary extra headers appended to every
@@ -98,8 +96,8 @@ Other chatbots:
 [`chat_deepseek()`](https://ellmer.tidyverse.org/dev/reference/chat_deepseek.md),
 [`chat_github()`](https://ellmer.tidyverse.org/dev/reference/chat_github.md),
 [`chat_google_gemini()`](https://ellmer.tidyverse.org/dev/reference/chat_google_gemini.md),
+[`chat_groq()`](https://ellmer.tidyverse.org/dev/reference/chat_groq.md),
 [`chat_huggingface()`](https://ellmer.tidyverse.org/dev/reference/chat_huggingface.md),
-[`chat_lmstudio()`](https://ellmer.tidyverse.org/dev/reference/chat_lmstudio.md),
 [`chat_mistral()`](https://ellmer.tidyverse.org/dev/reference/chat_mistral.md),
 [`chat_ollama()`](https://ellmer.tidyverse.org/dev/reference/chat_ollama.md),
 [`chat_openai()`](https://ellmer.tidyverse.org/dev/reference/chat_openai.md),
@@ -112,7 +110,8 @@ Other chatbots:
 
 ``` r
 if (FALSE) { # \dontrun{
-chat <- chat_groq()
+# https://lmstudio.ai/models/zai-org/glm-4.7-flash
+chat <- chat_lmstudio(model = "zai-org/glm-4.7-flash")
 chat$chat("Tell me three jokes about statisticians")
 } # }
 ```

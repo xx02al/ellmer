@@ -60,7 +60,7 @@ models_aws_bedrock(profile = NULL, base_url = NULL)
 
 - base_url:
 
-  The base URL to the endpoint; the default is OpenAI's public API.
+  The base URL to the API endpoint.
 
 - model:
 
@@ -98,16 +98,20 @@ models_aws_bedrock(profile = NULL, base_url = NULL)
 - api_args:
 
   Named list of arbitrary extra arguments appended to the body of every
-  chat API call. Some useful arguments include:
+  chat API call. Use `params` for common parameters. Model-specific
+  inference parameters can be provided using the
+  `additionalModelRequestFields` field, for example to enable thinking
+  effort in Anthropic Claude models:
 
       api_args = list(
-        inferenceConfig = list(
-          maxTokens = 100,
-          temperature = 0.7,
-          topP = 0.9,
-          topK = 20
+        additionalModelRequestFields = list(
+          thinking = list(type = "enabled", budget_tokens = 4000)
         )
       )
+
+  See
+  <https://docs.aws.amazon.com/bedrock/latest/userguide/conversation-inference-call.html>
+  for more details.
 
 - api_headers:
 
@@ -145,6 +149,7 @@ Other chatbots:
 [`chat_google_gemini()`](https://ellmer.tidyverse.org/dev/reference/chat_google_gemini.md),
 [`chat_groq()`](https://ellmer.tidyverse.org/dev/reference/chat_groq.md),
 [`chat_huggingface()`](https://ellmer.tidyverse.org/dev/reference/chat_huggingface.md),
+[`chat_lmstudio()`](https://ellmer.tidyverse.org/dev/reference/chat_lmstudio.md),
 [`chat_mistral()`](https://ellmer.tidyverse.org/dev/reference/chat_mistral.md),
 [`chat_ollama()`](https://ellmer.tidyverse.org/dev/reference/chat_ollama.md),
 [`chat_openai()`](https://ellmer.tidyverse.org/dev/reference/chat_openai.md),
