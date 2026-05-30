@@ -1,5 +1,6 @@
 # ellmer (development version)
 
+* `chat_ollama()` now supports `params(reasoning_effort = ...)` to set thinking for reasoning models, and thinking content is now captured in turns (@thisisnic, #940).
 * `chat_google_gemini()` and `chat_google_vertex()` now support `params(reasoning_effort =)` (@thisisnic, #873).
 * `chat_anthropic()` now supports `params(reasoning_effort =)` for Claude's adaptive thinking mode (@thisisnic, #987).
 * `batch_chat()` now supports `chat_google_gemini()` for batch processing via the Gemini Developer API (@xmarquez, #914).
