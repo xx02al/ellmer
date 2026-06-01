@@ -1638,6 +1638,14 @@
   },
   {
     "provider": "Anthropic",
+    "model": "claude-opus-4-8",
+    "variant": "",
+    "input": 5,
+    "output": 25,
+    "cached_input": 0.5
+  },
+  {
+    "provider": "Anthropic",
     "model": "claude-sonnet-4-20250514",
     "variant": "",
     "input": 3,
