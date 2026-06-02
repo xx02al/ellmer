@@ -149,6 +149,10 @@ models_deepseek <- function(
     credentials = credentials
   )
 
+  models_list(provider)
+}
+
+method(models_list, ProviderDeepSeek) <- function(provider) {
   req <- base_request(provider)
   req <- req_url_path_append(req, "/models")
   resp <- req_perform(req)

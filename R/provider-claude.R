@@ -725,6 +725,14 @@ models_claude <- function(
     cache = "none"
   )
 
+  models_list(provider)
+}
+
+#' @export
+#' @rdname chat_anthropic
+models_anthropic <- models_claude
+
+method(models_list, ProviderAnthropic) <- function(provider) {
   req <- base_request(provider)
   req <- req_url_path_append(req, "/models")
   resp <- req_perform(req)
@@ -743,10 +751,6 @@ models_claude <- function(
   df <- cbind(df, match_prices("Anthropic", df$id))
   df[order(-xtfrm(df$created_at)), ]
 }
-
-#' @export
-#' @rdname chat_anthropic
-models_anthropic <- models_claude
 
 # Helpers ----------------------------------------------------------------
 

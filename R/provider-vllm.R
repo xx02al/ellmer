@@ -109,16 +109,23 @@ models_vllm <- function(base_url, api_key = NULL, credentials = NULL) {
     api_key = api_key
   )
 
-  req <- request(base_url)
-  req <- req_auth_bearer_token(req, credentials())
+  provider <- ProviderVllm(
+    name = "VLLM",
+    base_url = base_url,
+    model = "",
+    credentials = credentials
+  )
+
+  models_list(provider)
+}
+
+method(models_list, ProviderVllm) <- function(provider) {
+  req <- base_request(provider)
   req <- req_url_path_append(req, "/v1/models")
   resp <- req_perform(req)
   json <- resp_body_json(resp)
 
   data.frame(
     id = map_chr(json$data, "[[", "id")
-    # Not accurate?
-    # created = .POSIXct(map_dbl(json$data, "[[", "created")),
-    # owned_by = map_chr(json$data, "[[", "owned_by")
   )
 }

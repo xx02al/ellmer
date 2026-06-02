@@ -126,6 +126,10 @@ models_portkey <- function(
     credentials = function() api_key
   )
 
+  models_list(provider)
+}
+
+method(models_list, ProviderPortkeyAI) <- function(provider) {
   req <- base_request(provider)
   req <- req_url_path_append(req, "/models")
   resp <- req_perform(req)
@@ -135,9 +139,8 @@ models_portkey <- function(
   id <- map_chr(json$data, "[[", "id")
   slug <- map_chr(json$data, "[[", "slug")
 
-  df <- data.frame(
+  data.frame(
     id = id,
     slug = slug
   )
-  df
 }

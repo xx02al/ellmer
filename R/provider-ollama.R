@@ -173,8 +173,21 @@ models_ollama <- function(
     credentials = credentials
   )
 
+  provider <- ProviderOllama(
+    name = "Ollama",
+    model = "",
+    base_url = file.path(base_url, "v1"),
+    credentials = credentials
+  )
+
+  models_list(provider)
+}
+
+method(models_list, ProviderOllama) <- function(provider) {
+  base_url <- sub("/v1$", "", provider@base_url)
+
   req <- request(base_url)
-  req <- ellmer_req_credentials(req, credentials(), "Authorization")
+  req <- ellmer_req_credentials(req, provider@credentials(), "Authorization")
   req <- req_url_path_append(req, "api/tags")
   resp <- req_perform(req)
   json <- resp_body_json(resp)
@@ -189,7 +202,11 @@ models_ollama <- function(
     id = names,
     created_at = modified_at,
     size = size,
-    capabilities = ollama_model_capabilities(base_url, names, credentials)
+    capabilities = ollama_model_capabilities(
+      base_url,
+      names,
+      provider@credentials
+    )
   )
   df[order(-xtfrm(df$created_at)), ]
 }

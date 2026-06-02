@@ -147,6 +147,10 @@ models_mistral <- function(api_key = mistral_key()) {
     credentials = function() api_key
   )
 
+  models_list(provider)
+}
+
+method(models_list, ProviderMistral) <- function(provider) {
   req <- base_request(provider)
   req <- req_url_path_append(req, "/models")
   resp <- req_perform(req)
