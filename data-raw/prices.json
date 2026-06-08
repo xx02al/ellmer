@@ -1140,17 +1140,17 @@
     "provider": "AWS/Bedrock",
     "model": "us-gov-east-1/anthropic.claude-sonnet-4-5-20250929-v1:0",
     "variant": "",
-    "input": 3.3,
-    "output": 16.5,
-    "cached_input": 0.33
+    "input": 3.6,
+    "output": 18,
+    "cached_input": 0.36
   },
   {
     "provider": "AWS/Bedrock",
     "model": "us-gov-east-1/claude-sonnet-4-5-20250929-v1:0",
     "variant": "",
-    "input": 3.3,
-    "output": 16.5,
-    "cached_input": 0.33
+    "input": 3.6,
+    "output": 18,
+    "cached_input": 0.36
   },
   {
     "provider": "AWS/Bedrock",
@@ -1244,17 +1244,17 @@
     "provider": "AWS/Bedrock",
     "model": "us-gov-west-1/anthropic.claude-sonnet-4-5-20250929-v1:0",
     "variant": "",
-    "input": 3.3,
-    "output": 16.5,
-    "cached_input": 0.33
+    "input": 3.6,
+    "output": 18,
+    "cached_input": 0.36
   },
   {
     "provider": "AWS/Bedrock",
     "model": "us-gov-west-1/claude-sonnet-4-5-20250929-v1:0",
     "variant": "",
-    "input": 3.3,
-    "output": 16.5,
-    "cached_input": 0.33
+    "input": 3.6,
+    "output": 18,
+    "cached_input": 0.36
   },
   {
     "provider": "AWS/Bedrock",
@@ -4440,6 +4440,13 @@
   {
     "provider": "Mistral",
     "model": "ministral-8b-2512",
+    "variant": "",
+    "input": 0.15,
+    "output": 0.15
+  },
+  {
+    "provider": "Mistral",
+    "model": "ministral-8b-latest",
     "variant": "",
     "input": 0.15,
     "output": 0.15
