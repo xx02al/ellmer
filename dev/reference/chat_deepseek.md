@@ -1,5 +1,7 @@
 # Chat with a model hosted on DeepSeek
 
+![\[Official supported provider\]](figures/support-official.svg)
+
 Sign up at <https://platform.deepseek.com>.
 
 Built on top of
@@ -24,6 +26,12 @@ chat_deepseek(
   api_args = list(),
   echo = NULL,
   api_headers = character()
+)
+
+models_deepseek(
+  base_url = "https://api.deepseek.com",
+  api_key = NULL,
+  credentials = NULL
 )
 ```
 

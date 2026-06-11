@@ -97,8 +97,8 @@ parallel_chat_structured(chat, prompts, type = type_person)
 ```
 
 (Note that structured data extraction automatically disables tool
-calling. You can work around this limitation by doing a regular
-`$chat()` and then using `$chat_structured()`.)
+calling, see [below](#tools-and-structured-data) for details and
+workarounds.)
 
 ## Data types
 
@@ -488,11 +488,18 @@ data
 
 ### Example 5: Working with unknown keys
 
+If you don’t know the keys in advance, you can use an array of
+name-value pairs. This approach works with all providers, replacing the
+now-deprecated `.additional_properties` argument.
+
 ``` r
 
-type_characteristics <- type_object(
-  "All characteristics",
-  .additional_properties = TRUE
+type_characteristics <- type_array(
+  type_object(
+    name = type_string(),
+    value = type_string()
+  ),
+  description = "All characteristics"
 )
 
 text <- "
@@ -501,18 +508,16 @@ text <- "
 
 chat <- chat_anthropic("Extract all characteristics of supplied character")
 #> Using model = "claude-sonnet-4-5-20250929".
-str(chat$chat_structured(text, type = type_characteristics))
-#> List of 6
-#>  $ gender              : chr "male"
-#>  $ height              : chr "tall"
-#>  $ facial_hair         : chr "beard"
-#>  $ distinguishing_marks: chr "scar on left cheek"
-#>  $ voice               : chr "deep voice"
-#>  $ clothing            : chr "black leather jacket"
+chat$chat_structured(text, type = type_characteristics)
+#> # A tibble: 5 × 2
+#>   name                 value               
+#>   <chr>                <chr>               
+#> 1 height               tall                
+#> 2 facial_hair          beard               
+#> 3 distinguishing_marks scar on left cheek  
+#> 4 voice                deep                
+#> 5 clothing             black leather jacket
 ```
-
-This example only works with Claude, not GPT or Gemini, because only
-Claude supports adding additional, arbitrary properties.
 
 ### Example 6: Extracting data from an image
 
@@ -549,9 +554,19 @@ data <- chat$chat_structured(image, type = type_assets)
 data
 ```
 
+## Tools and structured data
+
+`$chat_structured()` automatically disables any registered tools. This
+is because when tools are involved, the model may need multiple round
+trips to gather information, and it has no way to know which response is
+the “last” one that should use the structured output schema. If you need
+both, call `$chat()` first to get the information you need via tools,
+then call `$chat_structured()` to extract structured data from the
+conversation.
+
 ## Token usage
 
 | provider  | model                      | input | output | cached_input |  price |
 |:----------|:---------------------------|------:|-------:|-------------:|-------:|
 | OpenAI    | gpt-4.1                    |  6250 |    991 |            0 | \$0.02 |
-| Anthropic | claude-sonnet-4-5-20250929 |   730 |     95 |            0 | \$0.00 |
+| Anthropic | claude-sonnet-4-5-20250929 |   254 |     65 |            0 | \$0.00 |
