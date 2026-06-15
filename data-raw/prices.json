@@ -1550,6 +1550,14 @@
   },
   {
     "provider": "Anthropic",
+    "model": "claude-fable-5",
+    "variant": "",
+    "input": 10,
+    "output": 50,
+    "cached_input": 1
+  },
+  {
+    "provider": "Anthropic",
     "model": "claude-haiku-4-5",
     "variant": "",
     "input": 1,
