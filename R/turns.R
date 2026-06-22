@@ -117,6 +117,11 @@ SystemTurn <- new_class(
 #'   used in this turn.
 #' @param cost The cost of the turn in dollars.
 #' @param duration The duration of the request in seconds.
+#' @param finish_reason Why the model stopped generating. Standardized
+#'   across providers to one of: `"success"`, `"max_tokens"`,
+#'   `"stop_sequence"`, `"content_filter"`, or `"context_window"`.
+#'   Unrecognized provider-specific reasons are passed through as-is.
+#'   `NA` when not available.
 #' @export
 #' @rdname Turn
 #' @return An S7 `AssistantTurn` object
@@ -139,14 +144,16 @@ AssistantTurn <- new_class(
     role = new_property(
       class = class_character,
       getter = function(self) "assistant"
-    )
+    ),
+    finish_reason = prop_string(allow_na = TRUE)
   ),
   constructor = function(
     contents = list(),
     json = list(),
     tokens = c(NA_real_, NA_real_, NA_real_),
     cost = NA_real_,
-    duration = NA_real_
+    duration = NA_real_,
+    finish_reason = NA_character_
   ) {
     if (is.character(contents)) {
       contents <- list(ContentText(paste0(contents, collapse = "\n")))
@@ -158,7 +165,8 @@ AssistantTurn <- new_class(
       json = json,
       tokens = tokens,
       cost = cost,
-      duration = duration
+      duration = duration,
+      finish_reason = finish_reason
     )
   }
 )

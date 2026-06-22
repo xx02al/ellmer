@@ -332,6 +332,28 @@ method(value_tokens, ProviderGoogleGemini) <- function(provider, json) {
   )
 }
 
+# https://ai.google.dev/api/generate-content
+method(value_finish_reason, ProviderGoogleGemini) <- function(
+  provider,
+  result
+) {
+  reason <- result$candidates[[1]]$finishReason
+  if (is.null(reason)) {
+    return(NA_character_)
+  }
+  switch(
+    reason,
+    STOP = "success",
+    MAX_TOKENS = "max_tokens",
+    SAFETY = ,
+    RECITATION = ,
+    BLOCKLIST = ,
+    PROHIBITED_CONTENT = ,
+    SPII = "content_filter",
+    I(reason)
+  )
+}
+
 method(value_turn, ProviderGoogleGemini) <- function(
   provider,
   result,
@@ -373,7 +395,14 @@ method(value_turn, ProviderGoogleGemini) <- function(
   contents <- compact(contents)
   tokens <- value_tokens(provider, result)
   cost <- get_token_cost(provider, tokens)
-  AssistantTurn(contents, json = result, tokens = unlist(tokens), cost = cost)
+
+  AssistantTurn(
+    contents,
+    json = result,
+    tokens = unlist(tokens),
+    cost = cost,
+    finish_reason = value_finish_reason(provider, result)
+  )
 }
 
 # ellmer -> Gemini --------------------------------------------------------------
