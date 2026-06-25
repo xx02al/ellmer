@@ -331,3 +331,27 @@ turn_contents_preview <- function(turn) {
   })
   paste(contents, collapse = ", ")
 }
+
+check_finish_reason <- function(finish_reason, signal = c("error", "warn")) {
+  signal <- arg_match(signal)
+  signal_fn <- switch(signal, error = cli::cli_abort, warn = cli::cli_warn)
+
+  msg <- if (inherits(finish_reason, "AsIs")) {
+    "Response may be incomplete, unexpected finish reason: {.val {finish_reason}}."
+  } else {
+    switch(
+      finish_reason,
+      max_tokens = c(
+        "Response was truncated because it hit the {.arg max_tokens} limit.",
+        "i" = "Increase {.arg max_tokens} to allow the model to generate the full response."
+      ),
+      context_window = "Response was truncated because it exceeded the model's context window.",
+      content_filter = "Response was filtered by the provider's content moderation policy.",
+      NULL
+    )
+  }
+
+  if (!is.null(msg)) {
+    signal_fn(msg, call = NULL)
+  }
+}

@@ -1,5 +1,5 @@
 # ellmer (development version)
-
+* `chat()` now raises a warning and `chat_structured()` raises an informative error when a response is truncated, filtered, or otherwise incomplete (@thisisnic, #867).
 * `AssistantTurn` gains a `finish_reason` property that reports why the model stopped generating (@thisisnic, #3).
 * `chat_google_gemini()` now defaults to the `gemini-2.5-flash` model (@thisisnic, #885).
 * `chat_portkey()` no longer errors when when using a custom Portkey gateway without the `PORTKEY_VIRTUAL_KEY` env var being set (@thisisnic, #872).
