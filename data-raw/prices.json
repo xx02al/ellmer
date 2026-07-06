@@ -981,13 +981,6 @@
   },
   {
     "provider": "AWS/Bedrock",
-    "model": "us-east-1/minimax.minimax-m2.5",
-    "variant": "",
-    "input": 0.3,
-    "output": 1.2
-  },
-  {
-    "provider": "AWS/Bedrock",
     "model": "us-east-1/mistral.mistral-7b-instruct-v0:2",
     "variant": "",
     "input": 0.15,
@@ -1322,13 +1315,6 @@
   {
     "provider": "AWS/Bedrock",
     "model": "us-west-2/minimax.minimax-m2.1",
-    "variant": "",
-    "input": 0.3,
-    "output": 1.2
-  },
-  {
-    "provider": "AWS/Bedrock",
-    "model": "us-west-2/minimax.minimax-m2.5",
     "variant": "",
     "input": 0.3,
     "output": 1.2
@@ -1714,6 +1700,14 @@
     "input": 3,
     "output": 15,
     "cached_input": 0.3
+  },
+  {
+    "provider": "Anthropic",
+    "model": "claude-sonnet-5",
+    "variant": "",
+    "input": 2,
+    "output": 10,
+    "cached_input": 0.2
   },
   {
     "provider": "Azure/OpenAI",
