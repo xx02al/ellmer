@@ -1,4 +1,4 @@
-# ellmer (development version)
+# ellmer 0.4.2
 
 * `AssistantTurn` gains a `finish_reason` property that reports why the model stopped generating (@thisisnic, #3).
 * `batch_chat()` now supports `chat_google_gemini()` and `chat_groq()` for batch processing (@xmarquez, #914, #927).
