@@ -4316,6 +4316,13 @@
   },
   {
     "provider": "Google/Gemini",
+    "model": "gemini-omni-flash-preview",
+    "variant": "",
+    "input": 1.5,
+    "output": 9
+  },
+  {
+    "provider": "Google/Gemini",
     "model": "gemini-pro-latest",
     "variant": "",
     "input": 1.25,
@@ -4715,6 +4722,13 @@
     "input": 0.3,
     "output": 2,
     "cached_input": 0.075
+  },
+  {
+    "provider": "Google/Vertex",
+    "model": "gemini-omni-flash-preview",
+    "variant": "",
+    "input": 1.5,
+    "output": 9
   },
   {
     "provider": "Google/Vertex",
