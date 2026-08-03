@@ -5,6 +5,7 @@
 * `chat_anthropic()` now correctly handles the `fallback` content block returned when a model's server-side refusal fallback (`server-side-fallback-2026-06-01`) is triggered (@simonpcouch, #1058).
 * `chat_aws_bedrock()` now supports bearer token authentication for enterprise API gateways (@thisisnic, #1002).
 * `chat_github()` and `models_github()` are now defunct because GitHub Models has been retired (@thisisnic, #1069).
+* `chat_google_gemini()` no longer errors when mixing regular tools and built-in tools like `google_tool_web_search()` (@thisisnic, #1054).
 * `chat_openrouter()` now correctly preserves provider error messages (@xmarquez, #1059).
 
 
