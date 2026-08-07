@@ -7,6 +7,7 @@
 * `chat_github()` and `models_github()` are now defunct because GitHub Models has been retired (@thisisnic, #1069).
 * `chat_google_gemini()` no longer errors when mixing regular tools and built-in tools like `google_tool_web_search()` (@thisisnic, #1054).
 * `chat_openrouter()` now correctly preserves provider error messages (@xmarquez, #1059).
+* New `models_update_prices()` downloads the latest model pricing data from GitHub and saves it to a local cache. Subsequent calls to `token_usage()` and related functions will use the updated prices (#968).
 
 
 # ellmer 0.4.2
