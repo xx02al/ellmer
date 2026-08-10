@@ -138,6 +138,78 @@ method(chat_params, ProviderDatabricks) <- function(provider, params) {
   )
 }
 
+# Some Databricks models (e.g. GPT-OSS) return message content as an array of
+# typed objects rather than a plain string (#1078). Normalize to the standard
+# OpenAI-compatible shape: text parts pasted into a string `content`, reasoning
+# summaries moved to `reasoning`.
+databricks_normalize_message <- function(message) {
+  if (!is.list(message$content)) {
+    return(message)
+  }
+
+  parts <- message$content
+  types <- map_chr(parts, function(p) p$type %||% "")
+  message$content <- paste0(
+    map_chr(parts[types == "text"], function(p) p$text),
+    collapse = ""
+  )
+  summaries <- unlist(
+    lapply(parts[types == "reasoning"], function(p) p$summary),
+    recursive = FALSE
+  )
+  if (length(summaries)) {
+    message$reasoning <- paste0(
+      map_chr(summaries, function(s) s$text),
+      collapse = ""
+    )
+  }
+  message
+}
+
+method(stream_content, ProviderDatabricks) <- function(provider, event) {
+  if (length(event$choices) > 0) {
+    event$choices[[1]]$delta <- databricks_normalize_message(
+      event$choices[[1]]$delta
+    )
+  }
+  stream_content(super(provider, ProviderOpenAICompatible), event)
+}
+
+method(stream_merge_chunks, ProviderDatabricks) <- function(
+  provider,
+  result,
+  chunk
+) {
+  # Normalize before merging so merge_dicts() only ever concatenates strings;
+  # merging a string `content` with an array `content` mangles the result
+  if (length(chunk$choices) > 0) {
+    chunk$choices[[1]]$delta <- databricks_normalize_message(
+      chunk$choices[[1]]$delta
+    )
+  }
+  stream_merge_chunks(super(provider, ProviderOpenAICompatible), result, chunk)
+}
+
+method(value_turn, ProviderDatabricks) <- function(
+  provider,
+  model,
+  result,
+  has_type = FALSE
+) {
+  choice <- result$choices[[1]]
+  if (has_name(choice, "delta")) {
+    result$choices[[1]]$delta <- databricks_normalize_message(choice$delta)
+  } else {
+    result$choices[[1]]$message <- databricks_normalize_message(choice$message)
+  }
+  value_turn(
+    super(provider, ProviderOpenAICompatible),
+    model,
+    result,
+    has_type = has_type
+  )
+}
+
 method(chat_path, ProviderDatabricks) <- function(provider) {
   # Note: this API endpoint is undocumented and seems to exist primarily for
   # compatibility with the OpenAI Python SDK. The documented endpoint is
