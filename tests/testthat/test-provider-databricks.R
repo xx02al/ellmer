@@ -265,7 +265,7 @@ test_that("stream_content() handles array content from reasoning models (#1078)"
     ))
   )
 
-  content <- stream_content(provider, event)
+  content <- stream_content(provider, event)[[1]]
   expect_s7_class(content, ContentThinking)
   expect_equal(content@thinking, "We need to respond")
 })

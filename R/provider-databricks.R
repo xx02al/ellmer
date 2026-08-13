@@ -166,13 +166,21 @@ databricks_normalize_message <- function(message) {
   message
 }
 
-method(stream_content, ProviderDatabricks) <- function(provider, event) {
+method(stream_content, ProviderDatabricks) <- function(
+  provider,
+  event,
+  completion = NULL
+) {
   if (length(event$choices) > 0) {
     event$choices[[1]]$delta <- databricks_normalize_message(
       event$choices[[1]]$delta
     )
   }
-  stream_content(super(provider, ProviderOpenAICompatible), event)
+  stream_content(
+    super(provider, ProviderOpenAICompatible),
+    event,
+    completion = completion
+  )
 }
 
 method(stream_merge_chunks, ProviderDatabricks) <- function(

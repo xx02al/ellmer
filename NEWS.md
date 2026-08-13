@@ -1,5 +1,6 @@
 # ellmer (development version)
 
+* ellmer now preserves provider citations in chat history and streamed content, and displays cited sources in console output. Enable cited web results with `chat$register_tool()`, using tools such as `openai_tool_web_search()`, `claude_tool_web_search()`, or `claude_tool_web_fetch(citations = TRUE)` (#1068).
 * `Chat` gains a `$token_count()` method that estimates the number of tokens in new input using the provider's token counting endpoint (@thisisnic, #814).
 * `chat_anthropic()`, `chat_aws_bedrock()`, and `chat_posit()` now default to `claude-sonnet-5`. `chat_openai()` and `chat_openrouter()` now default to `gpt-5.6-terra` (@thisisnic, #1066).
 * `chat_anthropic()` now correctly handles the `fallback` content block returned when a model's server-side refusal fallback (`server-side-fallback-2026-06-01`) is triggered (@simonpcouch, #1058).

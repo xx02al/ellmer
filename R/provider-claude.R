@@ -305,17 +305,56 @@ method(stream_parse, ProviderAnthropic) <- function(provider, event) {
 
   data
 }
-method(stream_content, ProviderAnthropic) <- function(provider, event) {
+method(stream_content, ProviderAnthropic) <- function(
+  provider,
+  event,
+  completion = NULL
+) {
+  stream_content_with_turns(provider, event, completion)
+}
+method(stream_content_with_turns, ProviderAnthropic) <- function(
+  provider,
+  event,
+  completion = NULL,
+  turns = list()
+) {
   if (event$type == "content_block_delta") {
     if (identical(event$delta$type, "thinking_delta")) {
-      return(ContentThinking(event$delta$thinking))
+      return(list(ContentThinking(event$delta$thinking)))
     }
     text <- event$delta$text
     if (is.null(text)) {
-      return(NULL)
+      return(list())
     }
-    ContentText(text)
+    return(list(ContentText(text)))
   }
+  if (event$type == "content_block_start") {
+    block <- event$content_block
+    if (identical(block$type, "web_search_tool_result")) {
+      return(list(anthropic_search_result(block)))
+    }
+    if (identical(block$type, "web_fetch_tool_result")) {
+      return(list(anthropic_fetch_result(block)))
+    }
+  }
+  if (event$type == "content_block_stop" && !is.null(completion)) {
+    block <- completion$content[[event$index + 1L]]
+    if (identical(block$type, "text")) {
+      return(anthropic_citations(
+        block,
+        document_sources = anthropic_document_sources(
+          provider,
+          turns,
+          completion$content
+        )
+      ))
+    }
+    if (identical(block$type, "server_tool_use")) {
+      request <- anthropic_server_tool_request(block)
+      return(if (is.null(request)) list() else list(request))
+    }
+  }
+  list()
 }
 method(stream_merge_chunks, ProviderAnthropic) <- function(
   provider,
@@ -407,54 +446,56 @@ method(value_turn, ProviderAnthropic) <- function(
   result,
   has_type = FALSE
 ) {
-  contents <- lapply(result$content, function(content) {
+  value_turn_with_turns(
+    provider,
+    model,
+    result,
+    has_type = has_type
+  )
+}
+method(value_turn_with_turns, ProviderAnthropic) <- function(
+  provider,
+  model,
+  result,
+  has_type = FALSE,
+  turns = list()
+) {
+  document_sources <- anthropic_document_sources(
+    provider,
+    turns,
+    result$content
+  )
+  contents <- list_c(lapply(result$content, function(content) {
     if (content$type == "text") {
       if (has_type && has_claude_structured_output(model@name)) {
-        ContentJson(string = content$text)
+        list(ContentJson(string = content$text))
       } else {
-        ContentText(content$text)
+        c(
+          list(ContentText(content$text)),
+          anthropic_citations(content, document_sources)
+        )
       }
     } else if (content$type == "tool_use") {
       if (has_type) {
-        ContentJson(data = content$input$data)
+        list(ContentJson(data = content$input$data))
       } else {
         if (is_string(content$input)) {
           content$input <- jsonlite::parse_json(content$input)
         }
-        ContentToolRequest(content$id, content$name, content$input)
+        list(ContentToolRequest(content$id, content$name, content$input))
       }
     } else if (content$type == "server_tool_use") {
-      if (is_string(content$input)) {
-        content$input <- jsonlite::parse_json(content$input)
-      }
-      if (content$name == "web_search") {
-        # https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool#response
-        ContentToolRequestSearch(
-          query = content$input$query,
-          json = content
-        )
-      } else if (content$name == "web_fetch") {
-        # https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-fetch-tool#response
-        ContentToolRequestFetch(
-          url = content$input$url,
-          json = content
-        )
-      } else {
-        cli::cli_abort("Unknown server tool {.str {content$name}}.")
-      }
+      request <- anthropic_server_tool_request(content)
+      if (is.null(request)) list() else list(request)
     } else if (content$type == "web_search_tool_result") {
-      urls <- map_chr(content$content, \(x) x$url)
-      ContentToolResponseSearch(
-        urls = urls,
-        json = content
-      )
+      list(anthropic_search_result(content))
     } else if (content$type == "web_fetch_tool_result") {
-      ContentToolResponseFetch(url = content$url %||% "failed", json = content)
+      list(anthropic_fetch_result(content))
     } else if (content$type == "thinking") {
-      ContentThinking(
+      list(ContentThinking(
         content$thinking,
         extra = list(signature = content$signature)
-      )
+      ))
     } else if (content$type == "fallback") {
       # https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback
       NULL
@@ -464,8 +505,7 @@ method(value_turn, ProviderAnthropic) <- function(
         .internal = TRUE
       )
     }
-  })
-  contents <- compact(contents)
+  }))
 
   tokens <- value_tokens(provider, result)
   cache_write <- result$usage$cache_creation_input_tokens %||% 0
@@ -484,6 +524,134 @@ method(value_turn, ProviderAnthropic) <- function(
     tokens = unlist(tokens),
     cost = cost,
     finish_reason = value_finish_reason(provider, result)
+  )
+}
+
+anthropic_citations <- function(block, document_sources = list()) {
+  lapply(block$citations %||% list(), function(citation) {
+    ContentCitation(
+      source = anthropic_citation_source(citation, document_sources),
+      grounded_span = block$text,
+      cited_quote = citation$cited_text,
+      extra = citation
+    )
+  })
+}
+
+anthropic_citation_source <- function(citation, document_sources) {
+  url <- citation$url
+  if (!is.null(url) && nzchar(url)) {
+    return(WebSource(url = url, title = citation$title))
+  }
+
+  document_index <- citation$document_index
+  is_valid_index <- is.numeric(document_index) &&
+    length(document_index) == 1 &&
+    !is.na(document_index) &&
+    document_index >= 0 &&
+    document_index == as.integer(document_index) &&
+    document_index < length(document_sources)
+  if (!is_valid_index) {
+    return(NULL)
+  }
+
+  source <- document_sources[[document_index + 1L]]
+  if (is.null(source)) {
+    return(NULL)
+  }
+
+  WebSource(
+    url = source@url,
+    title = citation$document_title %||% source@title
+  )
+}
+
+anthropic_server_tool_request <- function(block) {
+  input <- block$input
+  if (is_string(input)) {
+    input <- jsonlite::parse_json(input)
+  }
+  if (is.null(input)) {
+    return(NULL)
+  }
+
+  block$input <- input
+  if (identical(block$name, "web_search")) {
+    ContentToolRequestSearch(query = input$query %||% "", extra = block)
+  } else if (identical(block$name, "web_fetch")) {
+    ContentToolRequestFetch(url = input$url %||% "", extra = block)
+  }
+}
+
+anthropic_search_result <- function(block) {
+  results <- block$content
+  is_result_list <- is.list(results) &&
+    (length(results) == 0 || is.null(names(results)))
+  sources <- if (is_result_list) {
+    lapply(results, function(result) {
+      WebSource(url = result$url, title = result$title)
+    })
+  } else {
+    list()
+  }
+
+  ContentToolResponseSearch(
+    sources = sources,
+    extra = block
+  )
+}
+
+anthropic_document_sources <- function(provider, turns, contents = list()) {
+  sources <- list()
+
+  for (turn in turns) {
+    message <- as_json(provider, turn)
+    if (is.null(message)) {
+      next
+    }
+    for (block in message$content) {
+      sources <- c(sources, anthropic_document_source(block))
+    }
+  }
+
+  for (block in contents) {
+    sources <- c(sources, anthropic_document_source(block))
+  }
+
+  sources
+}
+
+anthropic_document_source <- function(block) {
+  if (identical(block$type, "document")) {
+    return(list(anthropic_web_source(block$source$url)))
+  }
+
+  if (!identical(block$type, "web_fetch_tool_result")) {
+    return(list())
+  }
+
+  result <- block$content
+  if (!identical(result$type, "web_fetch_result")) {
+    return(list())
+  }
+
+  list(anthropic_web_source(result$url))
+}
+
+anthropic_web_source <- function(url) {
+  if (!is_string(url) || !nzchar(url)) {
+    return(NULL)
+  }
+  WebSource(url = url)
+}
+
+anthropic_fetch_result <- function(block) {
+  result <- block$content
+  success <- identical(result$type, "web_fetch_result")
+  ContentToolResponseFetch(
+    url = if (success) result$url else NULL,
+    status = if (success) "success" else "error",
+    extra = block
   )
 }
 
@@ -589,6 +757,9 @@ method(as_json, list(ProviderAnthropic, Turn)) <- function(
     }
     x <- turn_contents_expand(x)
     content <- as_json(provider, x@contents, ...)
+    if (length(content) == 0) {
+      return(NULL)
+    }
 
     # Add caching to the last content block in the last turn
     # https://docs.claude.com/en/docs/build-with-claude/prompt-caching#how-automatic-prefix-checking-works
@@ -741,6 +912,21 @@ method(as_json, list(ProviderAnthropic, ContentThinking)) <- function(
     thinking = x@thinking,
     signature = x@extra$signature
   )
+}
+
+anthropic_replay_annotation <- function(content) {
+  replayable <- c(
+    "server_tool_use",
+    "web_search_tool_result",
+    "web_fetch_tool_result"
+  )
+  if (
+    !is.null(content@extra) &&
+      !is.null(content@extra$type) &&
+      content@extra$type %in% replayable
+  ) {
+    content@extra
+  }
 }
 
 # Batch chat -------------------------------------------------------------------
