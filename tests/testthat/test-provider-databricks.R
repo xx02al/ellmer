@@ -204,7 +204,15 @@ test_that("chat_databricks() serializes tools correctly", {
       type = "function",
       "function" = list(
         name = "current_date",
-        description = "Returns the current date in ISO 8601 format."
+        description = "Returns the current date in ISO 8601 format.",
+        strict = TRUE,
+        parameters = list(
+          type = "object",
+          description = "",
+          properties = set_names(list()),
+          required = list(),
+          additionalProperties = FALSE
+        )
       )
     )
   )
@@ -225,6 +233,7 @@ test_that("chat_databricks() serializes tools correctly", {
       "function" = list(
         name = "favourite_colour",
         description = "Returns a person's favourite colour.",
+        strict = TRUE,
         parameters = list(
           type = "object",
           description = "",

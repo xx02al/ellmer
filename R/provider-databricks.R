@@ -235,29 +235,6 @@ method(base_request_error, ProviderDatabricks) <- function(provider, req) {
   })
 }
 
-# See: https://docs.databricks.com/aws/en/machine-learning/foundation-model-apis/api-reference#functionobject
-method(as_json, list(ProviderDatabricks, ToolDef)) <- function(
-  provider,
-  x,
-  ...
-) {
-  # Note: It seems that Databricks doesn't support the "strict" field, despite
-  # what their documentation says. It *is* supported for structured outputs,
-  # though. I suspect a copy & paste error in their docs.
-  compact(list(
-    type = "function",
-    "function" = compact(list(
-      name = x@name,
-      description = x@description,
-      # Use the same parameter encoding as the OpenAI provider, but only if
-      # there actually are parameters.
-      parameters = if (length(x@arguments@properties) != 0) {
-        as_json(provider, x@arguments, ...)
-      }
-    ))
-  ))
-}
-
 # https://docs.databricks.com/aws/en/machine-learning/foundation-model-apis/api-reference#toolcall
 method(as_json, list(ProviderDatabricks, ContentToolRequest)) <- function(
   provider,
