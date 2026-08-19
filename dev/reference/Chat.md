@@ -28,11 +28,17 @@ A Chat object
 
 - [`Chat$set_turns()`](#method-Chat-set_turns)
 
+- [`Chat$get_rounds()`](#method-Chat-get_rounds)
+
+- [`Chat$last_round()`](#method-Chat-last_round)
+
 - [`Chat$add_turn()`](#method-Chat-add_turn)
 
 - [`Chat$get_system_prompt()`](#method-Chat-get_system_prompt)
 
 - [`Chat$get_model()`](#method-Chat-get_model)
+
+- [`Chat$get_model_object()`](#method-Chat-get_model_object)
 
 - [`Chat$set_model()`](#method-Chat-set_model)
 
@@ -80,13 +86,17 @@ A Chat object
 
 #### Usage
 
-    Chat$new(provider, system_prompt = NULL, echo = "none")
+    Chat$new(provider, model, system_prompt = NULL, echo = "none")
 
 #### Arguments
 
 - `provider`:
 
   A provider object.
+
+- `model`:
+
+  A [Model](https://ellmer.tidyverse.org/dev/reference/Model.md) object.
 
 - `system_prompt`:
 
@@ -98,10 +108,13 @@ A Chat object
 
   - `none`: don't emit any output (default when running in a function).
 
-  - `output`: echo text and tool-calling output as it streams in
+  - `output`: echo text and tool-calling output after the turn completes
     (default when running at the console).
 
   - `all`: echo all input and output.
+
+  Console display occurs after a turn completes so ellmer can add
+  citation markers and a source list to the response.
 
   Note this only affects the
   [`chat()`](https://ellmer.tidyverse.org/dev/reference/chat-any.md)
@@ -143,6 +156,44 @@ Replace existing turns with a new list.
 
 ------------------------------------------------------------------------
 
+### `Chat$get_rounds()`
+
+Retrieve the conversation grouped into
+[Round](https://ellmer.tidyverse.org/dev/reference/Round.md)s. Each
+`Round` pairs a user turn with the assistant and tool-result turns it
+produced.
+
+#### Usage
+
+    Chat$get_rounds(include_system_prompt = FALSE)
+
+#### Arguments
+
+- `include_system_prompt`:
+
+  Whether to include system turns in the rounds. When `FALSE` (the
+  default), all system turns are dropped. When `TRUE`, each system turn
+  is folded into the `input` of the round it precedes.
+
+------------------------------------------------------------------------
+
+### `Chat$last_round()`
+
+The last [Round](https://ellmer.tidyverse.org/dev/reference/Round.md) of
+conversation. Note that system prompt turns are included, equivalent to
+the last item in the list of rounds returned by
+`$get_rounds(include_system_prompt = TRUE)`.
+
+#### Usage
+
+    Chat$last_round()
+
+#### Returns
+
+Either a `Round` or `NULL`, if no rounds have occurred.
+
+------------------------------------------------------------------------
+
 ### `Chat$add_turn()`
 
 Add a pair of turns to the chat.
@@ -179,11 +230,21 @@ If set, the system prompt, it not, `NULL`.
 
 ### `Chat$get_model()`
 
-Retrieve the model name
+Retrieve the model name.
 
 #### Usage
 
     Chat$get_model()
+
+------------------------------------------------------------------------
+
+### `Chat$get_model_object()`
+
+Retrieve the Model object. For expert use only.
+
+#### Usage
+
+    Chat$get_model_object()
 
 ------------------------------------------------------------------------
 
@@ -655,9 +716,9 @@ The objects of this class are cloneable with this method.
 
 ``` r
 chat <- chat_openai()
-#> Using model = "gpt-5.4".
+#> Using model = "gpt-5.6-terra".
 chat$chat("Tell me a funny joke")
 #> Why don’t skeletons fight each other?
 #> 
-#> They don’t have the guts.
+#> Because they don’t have the guts.
 ```

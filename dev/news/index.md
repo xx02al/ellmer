@@ -2,14 +2,88 @@
 
 ## ellmer (development version)
 
+- ellmer now preserves provider citations in chat history and streamed
+  content, and displays cited sources in console output. Enable cited
+  web results with `chat$register_tool()`, using tools such as
+  [`openai_tool_web_search()`](https://ellmer.tidyverse.org/dev/reference/openai_tool_web_search.md),
+  [`claude_tool_web_search()`](https://ellmer.tidyverse.org/dev/reference/claude_tool_web_search.md),
+  or `claude_tool_web_fetch(citations = TRUE)`
+  ([\#1068](https://github.com/tidyverse/ellmer/issues/1068)).
 - `Chat` gains a `$token_count()` method that estimates the number of
   tokens in new input using the provider’s token counting endpoint
   ([@thisisnic](https://github.com/thisisnic),
   [\#814](https://github.com/tidyverse/ellmer/issues/814)).
+- [`chat_anthropic()`](https://ellmer.tidyverse.org/dev/reference/chat_anthropic.md),
+  [`chat_aws_bedrock()`](https://ellmer.tidyverse.org/dev/reference/chat_aws_bedrock.md),
+  and
+  [`chat_posit()`](https://ellmer.tidyverse.org/dev/reference/chat_posit.md)
+  now default to `claude-sonnet-5`.
+  [`chat_openai()`](https://ellmer.tidyverse.org/dev/reference/chat_openai.md)
+  and
+  [`chat_openrouter()`](https://ellmer.tidyverse.org/dev/reference/chat_openrouter.md)
+  now default to `gpt-5.6-terra`
+  ([@thisisnic](https://github.com/thisisnic),
+  [\#1066](https://github.com/tidyverse/ellmer/issues/1066)).
+- [`chat_anthropic()`](https://ellmer.tidyverse.org/dev/reference/chat_anthropic.md)
+  now correctly handles the `fallback` content block returned when a
+  model’s server-side refusal fallback
+  (`server-side-fallback-2026-06-01`) is triggered
+  ([@simonpcouch](https://github.com/simonpcouch),
+  [\#1058](https://github.com/tidyverse/ellmer/issues/1058)).
+- [`chat_aws_bedrock()`](https://ellmer.tidyverse.org/dev/reference/chat_aws_bedrock.md)
+  now supports bearer token authentication for enterprise API gateways
+  ([@thisisnic](https://github.com/thisisnic),
+  [\#1002](https://github.com/tidyverse/ellmer/issues/1002)).
+- [`chat_databricks()`](https://ellmer.tidyverse.org/dev/reference/chat_databricks.md)
+  no longer errors with models that return content as an array of typed
+  objects (e.g. `databricks-gpt-oss-120b`); reasoning parts are now
+  captured as thinking content
+  ([@thisisnic](https://github.com/thisisnic),
+  [\#1078](https://github.com/tidyverse/ellmer/issues/1078)).
+- [`chat_databricks()`](https://ellmer.tidyverse.org/dev/reference/chat_databricks.md)
+  no longer errors when a registered tool has no arguments
+  ([@thisisnic](https://github.com/thisisnic),
+  [\#1084](https://github.com/tidyverse/ellmer/issues/1084)).
+- [`chat_github()`](https://ellmer.tidyverse.org/dev/reference/chat_github.md)
+  and
+  [`models_github()`](https://ellmer.tidyverse.org/dev/reference/chat_github.md)
+  are now defunct because GitHub Models has been retired
+  ([@thisisnic](https://github.com/thisisnic),
+  [\#1069](https://github.com/tidyverse/ellmer/issues/1069)).
+- [`chat_google_gemini()`](https://ellmer.tidyverse.org/dev/reference/chat_google_gemini.md)
+  no longer errors when mixing regular tools and built-in tools like
+  [`google_tool_web_search()`](https://ellmer.tidyverse.org/dev/reference/google_tool_web_search.md)
+  ([@thisisnic](https://github.com/thisisnic),
+  [\#1054](https://github.com/tidyverse/ellmer/issues/1054)).
 - [`chat_openrouter()`](https://ellmer.tidyverse.org/dev/reference/chat_openrouter.md)
   now correctly preserves provider error messages
   ([@xmarquez](https://github.com/xmarquez),
   [\#1059](https://github.com/tidyverse/ellmer/issues/1059)).
+- New
+  [`models_update_prices()`](https://ellmer.tidyverse.org/dev/reference/models_update_prices.md)
+  downloads the latest model pricing data from GitHub and saves it to a
+  local cache. Subsequent calls to
+  [`token_usage()`](https://ellmer.tidyverse.org/dev/reference/token_usage.md)
+  and related functions will use the updated prices
+  ([\#968](https://github.com/tidyverse/ellmer/issues/968)).
+- New `Model` class separates model configuration (name, parameters,
+  extra arguments) from the `Provider` class, which now only captures
+  API endpoint details. `Chat` gains a new `$get_model_object()` method
+  to retrieve the `Model` object. This is a breaking change for anyone
+  who directly accesses `provider@model`, `provider@params`, or
+  `provider@extra_args`; use the `Model` object instead
+  ([@thisisnic](https://github.com/thisisnic),
+  [\#499](https://github.com/tidyverse/ellmer/issues/499)).
+- [`tool()`](https://ellmer.tidyverse.org/dev/reference/tool.md)
+  functions that return complex objects like data frames or lists now
+  produce a deprecation warning. Tool functions should return a
+  character vector, an atomic vector, a JSON string (from
+  [`jsonlite::toJSON()`](https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html)),
+  or a `Content` object. Use
+  [`jsonlite::toJSON()`](https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html)
+  to convert complex objects before returning
+  ([@thisisnic](https://github.com/thisisnic),
+  [\#858](https://github.com/tidyverse/ellmer/issues/858)).
 
 ## ellmer 0.4.2
 
@@ -26,6 +100,9 @@ CRAN release: 2026-07-13
   for batch processing ([@xmarquez](https://github.com/xmarquez),
   [\#914](https://github.com/tidyverse/ellmer/issues/914),
   [\#927](https://github.com/tidyverse/ellmer/issues/927)).
+- `Chat` gains `get_rounds()` and `last_round()` methods for retrieving
+  the conversation history grouped into `Round`s
+  ([\#507](https://github.com/tidyverse/ellmer/issues/507)).
 - `Chat` gains a `set_model()` method for updating the model after chat
   creation. Unlike some `chat_*()` functions, the model name is not
   validated ([\#988](https://github.com/tidyverse/ellmer/issues/988)).
@@ -113,6 +190,9 @@ CRAN release: 2026-07-13
   [`chat_groq()`](https://ellmer.tidyverse.org/dev/reference/chat_groq.md)
   ([@thisisnic](https://github.com/thisisnic),
   [\#921](https://github.com/tidyverse/ellmer/issues/921)).
+- New `Round` class groups a `Chat`’s flat turn history into rounds,
+  each containing a user turn and the assistant/tool-result turns that
+  follow it ([\#507](https://github.com/tidyverse/ellmer/issues/507)).
 - `type_object(.additional_properties)` is deprecated. No supported
   provider can return additional properties when using structured
   output. Instead, use an array of name-value pairs
@@ -1228,8 +1308,8 @@ CRAN release: 2025-01-09
 
 - The general `ToolArg()` has been replaced by the more specific
   `type_*()` functions.
-  [`ToolDef()`](https://ellmer.tidyverse.org/dev/reference/tool.md) has
-  been renamed to `tool`.
+  [`ToolDef()`](https://ellmer.tidyverse.org/dev/reference/ToolDef.md)
+  has been renamed to `tool`.
 
 - [`content_image_url()`](https://ellmer.tidyverse.org/dev/reference/content_image_url.md)
   will now create inline images when given a data url

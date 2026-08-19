@@ -10,10 +10,20 @@ API](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_Convers
 
 ### Authentication
 
-Authentication is handled through {paws.common}, so if authentication
-does not work for you automatically, you'll need to follow the advice at
-<https://www.paws-r-sdk.com/#credentials>. In particular, if your org
-uses AWS SSO, you'll need to run `aws sso login` at the terminal.
+`chat_aws_bedrock()` uses {paws.common} to resolve credentials, trying
+the following strategies in order:
+
+- A bearer token set in the `AWS_BEARER_TOKEN_BEDROCK` or
+  `AWS_BEARER_TOKEN` environment variable. This is used by enterprise
+  API gateways that issue API keys instead of IAM credentials. See the
+  [AWS
+  documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/api-keys-use.html)
+  for details.
+
+- Standard IAM credentials resolved from environment variables, AWS
+  config files, SSO, or instance metadata. See
+  <https://www.paws-r-sdk.com/#credentials> for details. If your org
+  uses AWS SSO, you'll need to run `aws sso login` at the terminal.
 
 ### Prompt caching
 
@@ -67,7 +77,7 @@ models_aws_bedrock(profile = NULL, base_url = NULL)
 - model:
 
   The model to use for the chat (defaults to
-  "us.anthropic.claude-sonnet-4-6"). We regularly update the default, so
+  "us.anthropic.claude-sonnet-5"). We regularly update the default, so
   we strongly recommend explicitly specifying a model for anything other
   than casual use. Use `models_models_aws_bedrock()` to see all options.
   .
@@ -77,7 +87,7 @@ models_aws_bedrock(profile = NULL, base_url = NULL)
   can. If you're using [cross-region
   inference](https://aws.amazon.com/blogs/machine-learning/getting-started-with-cross-region-inference-in-amazon-bedrock/),
   you'll need to use the inference profile ID, e.g.
-  `model="us.anthropic.claude-sonnet-4-6"`.
+  `model="us.anthropic.claude-sonnet-5"`.
 
 - profile:
 
