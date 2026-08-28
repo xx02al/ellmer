@@ -422,3 +422,53 @@ test_that("inference profile ARN slash is encoded in URL (#792)", {
   req <- chat_request(provider, test_model(arn), stream = FALSE, turns = list())
   expect_match(req$url, "inference-profile%2Fabc123", fixed = TRUE)
 })
+
+test_that("base_url defaults to the SDK endpoint override env vars", {
+  local_mocked_aws_credentials()
+
+  withr::local_envvar(
+    AWS_ENDPOINT_URL_BEDROCK_RUNTIME = "https://runtime.example.com",
+    AWS_ENDPOINT_URL_BEDROCK_MANTLE = "https://mantle.example.com/"
+  )
+  expect_equal(
+    provider_aws_bedrock(api = "converse")@base_url,
+    "https://runtime.example.com"
+  )
+  expect_equal(
+    provider_aws_bedrock(api = "messages")@base_url,
+    "https://mantle.example.com/anthropic/v1"
+  )
+  expect_equal(
+    provider_aws_bedrock(api = "responses")@base_url,
+    "https://mantle.example.com/openai/v1"
+  )
+})
+
+test_that("aws_bedrock_models_url() resolves the model-listing endpoint", {
+  withr::local_envvar(
+    AWS_ENDPOINT_URL_BEDROCK = NA,
+    AWS_ENDPOINT_URL_BEDROCK_RUNTIME = NA
+  )
+  expect_equal(
+    aws_bedrock_models_url(
+      "https://bedrock-runtime.us-east-1.amazonaws.com",
+      "us-east-1"
+    ),
+    "https://bedrock.us-east-1.amazonaws.com"
+  )
+
+  # The runtime override doesn't apply to model listing
+  withr::local_envvar(
+    AWS_ENDPOINT_URL_BEDROCK_RUNTIME = "https://gateway.example.com"
+  )
+  expect_equal(
+    aws_bedrock_models_url("https://gateway.example.com", "us-east-1"),
+    "https://bedrock.us-east-1.amazonaws.com"
+  )
+
+  withr::local_envvar(AWS_ENDPOINT_URL_BEDROCK = "https://bedrock.example.com")
+  expect_equal(
+    aws_bedrock_models_url("https://gateway.example.com", "us-east-1"),
+    "https://bedrock.example.com"
+  )
+})

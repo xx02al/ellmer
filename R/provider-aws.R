@@ -114,6 +114,14 @@ NULL
 #'
 #'   See <https://docs.aws.amazon.com/bedrock/latest/userguide/conversation-inference-call.html>
 #'   for more details.
+#' @param base_url The base URL to the endpoint; the default is the standard
+#'   endpoint for the selected `api` and your region, matching the official
+#'   SDKs' endpoint override environment variables:
+#'   `AWS_ENDPOINT_URL_BEDROCK_RUNTIME` for `"converse"`, and
+#'   `AWS_ENDPOINT_URL_BEDROCK_MANTLE` for `"messages"` and `"responses"`
+#'   (which append their API-specific path to the override).
+#'   `models_aws_bedrock()` talks to a different AWS service, so it honors
+#'   `AWS_ENDPOINT_URL_BEDROCK` instead.
 #' @inheritParams chat_openai
 #' @inherit chat_openai return
 #' @family chatbots
@@ -260,14 +268,9 @@ ProviderAWSBedrockResponses <- new_class(
 )
 
 method(models_list, ProviderAWSBedrock) <- function(provider) {
-  # ListFoundationModels uses the control-plane endpoint (bedrock.*) not the
-  # data-plane endpoint (bedrock-runtime.*) used for inference.
-  # https://docs.aws.amazon.com/bedrock/latest/APIReference/API_ListFoundationModels.html
-  provider@base_url <- sub(
-    "bedrock-runtime",
-    "bedrock",
+  provider@base_url <- aws_bedrock_models_url(
     provider@base_url,
-    fixed = TRUE
+    provider@region
   )
 
   req <- base_request(provider)
@@ -866,20 +869,54 @@ aws_bedrock_class <- function(api) {
   )
 }
 
+
 aws_bedrock_base_url <- function(api, region) {
+  if (api == "converse") {
+    return(aws_endpoint_url(
+      "AWS_ENDPOINT_URL_BEDROCK_RUNTIME",
+      sprintf("https://bedrock-runtime.%s.amazonaws.com", region)
+    ))
+  }
+
+  mantle <- aws_endpoint_url(
+    "AWS_ENDPOINT_URL_BEDROCK_MANTLE",
+    sprintf("https://bedrock-mantle.%s.api.aws", region)
+  )
   switch(
     api,
-    converse = sprintf("https://bedrock-runtime.%s.amazonaws.com", region),
-    messages = sprintf(
-      "https://bedrock-mantle.%s.api.aws/anthropic/v1",
-      region
-    ),
+    messages = paste0(mantle, "/anthropic/v1"),
     # Mantle has two OpenAI-compatible paths: newer models are served from
     # /openai/v1 and older open-weight models (like gpt-oss) from /v1. They are
     # disjoint, not aliases. Everything we route here is on /openai/v1, since
     # the /v1 models are all reachable through converse anyway.
-    responses = sprintf("https://bedrock-mantle.%s.api.aws/openai/v1", region)
+    responses = paste0(mantle, "/openai/v1")
   )
+}
+
+# ListFoundationModels uses the control-plane endpoint (bedrock.*) not the
+# data-plane endpoint (bedrock-runtime.*) used for inference, so it honors
+# AWS_ENDPOINT_URL_BEDROCK but, like the official SDKs, deliberately ignores
+# AWS_ENDPOINT_URL_BEDROCK_RUNTIME.
+# https://docs.aws.amazon.com/bedrock/latest/APIReference/API_ListFoundationModels.html
+aws_bedrock_models_url <- function(base_url, region) {
+  runtime_override <- aws_endpoint_url("AWS_ENDPOINT_URL_BEDROCK_RUNTIME", "")
+  aws_endpoint_url(
+    "AWS_ENDPOINT_URL_BEDROCK",
+    if (identical(base_url, runtime_override)) {
+      sprintf("https://bedrock.%s.amazonaws.com", region)
+    } else {
+      sub("bedrock-runtime", "bedrock", base_url, fixed = TRUE)
+    }
+  )
+}
+
+aws_endpoint_url <- function(var, default) {
+  url <- Sys.getenv(var)
+  if (identical(url, "")) {
+    default
+  } else {
+    sub("/+$", "", url)
+  }
 }
 
 # The Responses API caches automatically, so there's nothing for us to control.
