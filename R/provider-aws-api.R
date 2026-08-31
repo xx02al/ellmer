@@ -10,8 +10,6 @@ aws_bedrock_model_apis <- c(
   "google.gemma-4-e2b" = "responses",
   "openai.gpt-5.4" = "responses",
   "openai.gpt-5.5" = "responses",
-  "openai.gpt-5.6-luna" = "responses",
-  "openai.gpt-5.6-sol" = "responses",
-  "openai.gpt-5.6-terra" = "responses",
+  "openai.gpt-5.6-cyber" = "responses",
   "xai.grok-4.3" = "responses"
 )
