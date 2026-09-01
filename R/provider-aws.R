@@ -651,6 +651,14 @@ method(as_json, list(ProviderAWSBedrock, Turn)) <- function(
   } else if (is_user_turn(x) || is_assistant_turn(x)) {
     x <- turn_contents_expand(x)
     content <- as_json(provider, x@contents, ...)
+    if (length(content) == 0) {
+      if (!is_assistant_turn(x)) {
+        return()
+      }
+      # Dropping empty assistant turns confuses the model, so send a
+      # placeholder instead (#711, #1070)
+      content <- list(list(text = "[empty string]"))
+    }
 
     if (is_last) {
       content <- c(content, bedrock_cache_point(provider))
