@@ -40,12 +40,19 @@ Chat <- R6::R6Class(
     #'  by setting the `ellmer_echo` option.
     initialize = function(
       provider,
-      model,
+      model = NULL,
       system_prompt = NULL,
       echo = "none"
     ) {
+      # Fall back to the model set via deprecated Provider properties.
+      # Remove along with the deprecated properties (#1098).
+      model <- model %||% provider_model(provider)
+      if (is.null(model)) {
+        cli::cli_abort("{.arg model} is required.")
+      }
       private$provider <- provider
       private$model <- model
+      provider_model(private$provider) <- model
       private$echo <- echo
       private$callback_on_tool_request <- CallbackManager$new(args = "request")
       private$callback_on_tool_result <- CallbackManager$new(args = "result")
@@ -147,6 +154,7 @@ Chat <- R6::R6Class(
     set_model = function(model) {
       check_string(model)
       private$model@name <- model
+      provider_model(private$provider) <- private$model
       invisible(self)
     },
 
