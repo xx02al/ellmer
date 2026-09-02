@@ -56,6 +56,8 @@ Chat <- R6::R6Class(
       private$echo <- echo
       private$callback_on_tool_request <- CallbackManager$new(args = "request")
       private$callback_on_tool_result <- CallbackManager$new(args = "result")
+      private$callback_on_request_start <- CallbackManager$new(args = "turns")
+      private$callback_on_request_end <- CallbackManager$new(args = "turn")
       self$set_system_prompt(system_prompt)
     },
 
@@ -597,6 +599,42 @@ Chat <- R6::R6Class(
     #' @return A function that can be called to remove the callback.
     on_tool_result = function(callback) {
       private$callback_on_tool_result$add(callback)
+    },
+
+    #' @description Register a callback that fires before each model request,
+    #'   including each round of the tool loop. Use it to inspect the outgoing
+    #'   request, or to compact the conversation with `$set_turns()`.
+    #'
+    #'   `turns` includes the pending turn about to be sent, which `$set_turns()`
+    #'   re-appends automatically. So compact with
+    #'   `chat$set_turns(compact(chat$get_turns()))` rather than passing `turns`
+    #'   back to `$set_turns()`, which would duplicate the pending turn.
+    #'
+    #' @param callback A function called with a single argument `turns`, the
+    #'   list of turns about to be sent. The return value is ignored, but may be
+    #'   a promise when used with `$chat_async()` or `$stream_async()`.
+    #'
+    #' @return A function that can be called to remove the callback.
+    on_request_start = function(callback) {
+      private$callback_on_request_start$add(callback)
+    },
+
+    #' @description Register a callback that fires after each model request,
+    #'   before any tool calls in the response are executed. Use it to track
+    #'   latency or cost per request, or to observe tool requests before they
+    #'   run.
+    #'
+    #'   If the request is cancelled, `turn` is an [AssistantPartialTurn] with
+    #'   `NA` tokens and cost. If the request errors, the callback does not fire.
+    #'
+    #' @param callback A function called with a single argument `turn`, the
+    #'   assistant turn just returned by the model. The return value is ignored,
+    #'   but may be a promise when used with `$chat_async()` or
+    #'   `$stream_async()`.
+    #'
+    #' @return A function that can be called to remove the callback.
+    on_request_end = function(callback) {
+      private$callback_on_request_end$add(callback)
     }
   ),
   private = list(
@@ -609,6 +647,8 @@ Chat <- R6::R6Class(
     tools = list(),
     callback_on_tool_request = NULL,
     callback_on_tool_result = NULL,
+    callback_on_request_start = NULL,
+    callback_on_request_end = NULL,
 
     # If stream = TRUE, yields completion deltas. If stream = FALSE, yields
     # complete assistant turns.
@@ -644,6 +684,10 @@ Chat <- R6::R6Class(
       )
 
       while (!is.null(user_turn)) {
+        private$callback_on_request_start$invoke(c(
+          private$.turns,
+          list(user_turn)
+        ))
         assistant_chunks <- private$submit_turns(
           user_turn,
           stream = stream,
@@ -658,6 +702,7 @@ Chat <- R6::R6Class(
         }
 
         assistant_turn <- self$last_turn()
+        private$callback_on_request_end$invoke(assistant_turn)
         user_turn <- NULL
 
         # Don't invoke tools if the stream was cancelled
@@ -732,6 +777,10 @@ Chat <- R6::R6Class(
       )
 
       while (!is.null(user_turn)) {
+        await(private$callback_on_request_start$invoke_async(c(
+          private$.turns,
+          list(user_turn)
+        )))
         assistant_chunks <- private$submit_turns_async(
           user_turn,
           stream = stream,
@@ -746,6 +795,7 @@ Chat <- R6::R6Class(
         }
 
         assistant_turn <- self$last_turn()
+        await(private$callback_on_request_end$invoke_async(assistant_turn))
         user_turn <- NULL
 
         # Don't invoke tools if the stream was cancelled

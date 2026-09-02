@@ -68,6 +68,8 @@ its own.}
     \item \href{#method-Chat-set_tools}{\code{Chat$set_tools()}}
     \item \href{#method-Chat-on_tool_request}{\code{Chat$on_tool_request()}}
     \item \href{#method-Chat-on_tool_result}{\code{Chat$on_tool_result()}}
+    \item \href{#method-Chat-on_request_start}{\code{Chat$on_request_start()}}
+    \item \href{#method-Chat-on_request_end}{\code{Chat$on_request_end()}}
     \item \href{#method-Chat-clone}{\code{Chat$clone()}}
   }
 }
@@ -691,6 +693,68 @@ which must have \code{request} as its only argument.}
     \describe{
       \item{\code{callback}}{A function to be called when a tool result event occurs,
 which must have \code{result} as its only argument.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A function that can be called to remove the callback.
+  }
+}
+
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Chat-on_request_start"></a>}}
+\if{latex}{\out{\hypertarget{method-Chat-on_request_start}{}}}
+\subsection{\code{Chat$on_request_start()}}{
+  Register a callback that fires before each model request,
+including each round of the tool loop. Use it to inspect the outgoing
+request, or to compact the conversation with \verb{$set_turns()}.
+
+\code{turns} includes the pending turn about to be sent, which \verb{$set_turns()}
+re-appends automatically. So compact with
+\code{chat$set_turns(compact(chat$get_turns()))} rather than passing \code{turns}
+back to \verb{$set_turns()}, which would duplicate the pending turn.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Chat$on_request_start(callback)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{callback}}{A function called with a single argument \code{turns}, the
+list of turns about to be sent. The return value is ignored, but may be
+a promise when used with \verb{$chat_async()} or \verb{$stream_async()}.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A function that can be called to remove the callback.
+  }
+}
+
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Chat-on_request_end"></a>}}
+\if{latex}{\out{\hypertarget{method-Chat-on_request_end}{}}}
+\subsection{\code{Chat$on_request_end()}}{
+  Register a callback that fires after each model request,
+before any tool calls in the response are executed. Use it to track
+latency or cost per request, or to observe tool requests before they
+run.
+
+If the request is cancelled, \code{turn} is an \link{AssistantPartialTurn} with
+\code{NA} tokens and cost. If the request errors, the callback does not fire.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Chat$on_request_end(callback)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{callback}}{A function called with a single argument \code{turn}, the
+assistant turn just returned by the model. The return value is ignored,
+but may be a promise when used with \verb{$chat_async()} or
+\verb{$stream_async()}.}
     }
     \if{html}{\out{</div>}}
   }
