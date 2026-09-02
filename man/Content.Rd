@@ -12,6 +12,7 @@
 \alias{ContentUploaded}
 \alias{ContentThinking}
 \alias{ContentPDF}
+\alias{ContentDocument}
 \title{Content types received from and sent to a chatbot}
 \usage{
 Content()
@@ -53,7 +54,15 @@ ContentThinking(thinking = stop("Required"), extra = list())
 ContentPDF(
   type = stop("Required"),
   data = stop("Required"),
-  filename = stop("Required")
+  filename = stop("Required"),
+  url = NULL
+)
+
+ContentDocument(
+  mime_type = stop("Required"),
+  data = stop("Required"),
+  filename = stop("Required"),
+  url = NULL
 )
 }
 \arguments{
@@ -100,7 +109,7 @@ automatically added by \pkg{ellmer} when evaluating the tool call.}
 
 \item{uri}{The URI or provider-assigned id of the uploaded file.}
 
-\item{mime_type}{MIME type of the file.}
+\item{mime_type}{MIME type of the file or document.}
 
 \item{provider}{Lowercase name of the provider the file was uploaded to
 (e.g. \code{"openai"}, \code{"anthropic"}, \code{"google"}), or \code{""} when unknown. Used

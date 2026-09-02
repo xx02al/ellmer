@@ -13,7 +13,7 @@ NULL
 #' @inheritParams chat_google_gemini
 #' @param path Path to a file to upload.
 #' @param mime_type Optionally, specify the mime type of the file.
-#'   If not specified, will be guesses from the file extension.
+#'   If not specified, will be guessed from the file extension.
 #' @returns A `<ContentUploaded>` object that can be passed to `$chat()`.
 #' @export
 #' @examples
@@ -285,73 +285,3 @@ google_file_name <- function(id) {
   }
   id
 }
-
-# Helpers ----------------------------------------------------------------------
-
-guess_mime_type <- function(file_path, call = caller_env()) {
-  ext <- tolower(tools::file_ext(file_path))
-
-  if (has_name(mime_types, ext)) {
-    mime_types[[ext]]
-  } else {
-    cli::cli_abort(
-      c(
-        "x" = "Couldn't determine mime type for {.arg path} because it has an unknown file extension, {ext}.",
-        "i" = "Please supply the {.arg mime_type} manually."
-      )
-    )
-  }
-}
-
-mime_types <- list(
-  # Images
-  jpg = "image/jpeg",
-  jpeg = "image/jpeg",
-  png = "image/png",
-  gif = "image/gif",
-  bmp = "image/bmp",
-  svg = "image/svg+xml",
-  webp = "image/webp",
-  tiff = "image/tiff",
-  ico = "image/x-icon",
-
-  # Documents
-  pdf = "application/pdf",
-  doc = "application/msword",
-  docx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-  xls = "application/vnd.ms-excel",
-  xlsx = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-  ppt = "application/vnd.ms-powerpoint",
-  pptx = "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-  txt = "text/plain",
-  rtf = "application/rtf",
-
-  # Audio
-  mp3 = "audio/mpeg",
-  wav = "audio/wav",
-  ogg = "audio/ogg",
-  m4a = "audio/mp4",
-  flac = "audio/flac",
-  aac = "audio/aac",
-
-  # Video
-  mp4 = "video/mp4",
-  avi = "video/x-msvideo",
-  mkv = "video/x-matroska",
-  mov = "video/quicktime",
-  wmv = "video/x-ms-wmv",
-  webm = "video/webm",
-
-  # Web
-  html = "text/html",
-  htm = "text/html",
-  css = "text/css",
-  js = "application/javascript",
-  json = "application/json",
-  xml = "application/xml",
-
-  # Data
-  csv = "text/csv",
-  tsv = "text/tab-separated-values",
-  sql = "application/sql"
-)

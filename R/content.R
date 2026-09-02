@@ -436,7 +436,7 @@ method(contents_markdown, ContentJson) <- function(content) {
 #' @rdname Content
 #' @export
 #' @param uri The URI or provider-assigned id of the uploaded file.
-#' @param mime_type MIME type of the file.
+#' @param mime_type MIME type of the file or document.
 #' @param provider Lowercase name of the provider the file was uploaded to
 #'   (e.g. `"openai"`, `"anthropic"`, `"google"`), or `""` when unknown. Used
 #'   to detect a file uploaded to one provider being used with another.
@@ -530,10 +530,28 @@ ContentPDF <- new_class(
   properties = list(
     type = prop_string(),
     data = prop_string(),
-    filename = prop_string()
+    filename = prop_string(),
+    url = prop_string(allow_null = TRUE)
   )
 )
 
 method(format, ContentPDF) <- function(x, ...) {
   "<PDF document>"
+}
+
+#' @rdname Content
+#' @export
+ContentDocument <- new_class(
+  "ContentDocument",
+  parent = Content,
+  properties = list(
+    mime_type = prop_string(),
+    data = prop_string(),
+    filename = prop_string(),
+    url = prop_string(allow_null = TRUE)
+  )
+)
+
+method(format, ContentDocument) <- function(x, ...) {
+  sprintf("<document %s (%s)>", x@filename, x@mime_type)
 }

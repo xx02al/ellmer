@@ -816,12 +816,45 @@ method(as_json, list(ProviderAnthropic, ContentPDF)) <- function(
   x,
   ...
 ) {
+  if (!is.null(x@url)) {
+    source <- list(type = "url", url = x@url)
+  } else {
+    source <- list(type = "base64", media_type = x@type, data = x@data)
+  }
+  list(type = "document", source = source)
+}
+
+method(as_json, list(ProviderAnthropic, ContentDocument)) <- function(
+  provider,
+  x,
+  ...
+) {
+  # Anthropic's document block has a single text source type whose media_type
+  # must literally be "text/plain", so any text-based document is coerced to
+  # that; the title is then the only hint about what the model is looking at
+  if (!is_text_document(x@mime_type)) {
+    cli::cli_abort(c(
+      "Anthropic doesn't support {.str {x@mime_type}} documents.",
+      i = "Convert the document to plain text or PDF first."
+    ))
+  }
+
+  text <- rawToChar(jsonlite::base64_dec(x@data))
+  if (!all(validUTF8(text))) {
+    cli::cli_abort(c(
+      "Anthropic requires document content to be valid UTF-8 text.",
+      i = "Convert the document to plain text or PDF first."
+    ))
+  }
+  Encoding(text) <- "UTF-8"
+
   list(
     type = "document",
+    title = x@filename,
     source = list(
-      type = "base64",
-      media_type = x@type,
-      data = x@data
+      type = "text",
+      media_type = "text/plain",
+      data = text
     )
   )
 }

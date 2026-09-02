@@ -79,6 +79,26 @@ test_that("can use pdfs", {
   test_pdf_local(chat_fun)
 })
 
+test_that("can use documents", {
+  chat_fun <- chat_aws_bedrock_test
+
+  test_document_local(chat_fun)
+})
+
+test_that("document formats are mapped to the converse enum", {
+  provider <- test_aws_bedrock_provider()
+
+  docx <- ContentDocument(
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "YQ==",
+    "report.docx"
+  )
+  expect_equal(as_json(provider, docx)$document$format, "docx")
+
+  json_doc <- ContentDocument("application/json", "YQ==", "data.json")
+  expect_snapshot(as_json(provider, json_doc), error = TRUE)
+})
+
 # Prompt caching ----------------------------------------------------------
 
 has_cache_point <- function(content) {
@@ -135,6 +155,24 @@ test_that("cache points are inserted in last turn when cache is enabled", {
   result <- as_json(provider, UserTurn("Hello"), is_last = TRUE)
   last_block <- result$content[[length(result$content)]]
   expect_equal(last_block, list(cachePoint = list(type = "default")))
+})
+
+test_that("cache points after a document block are padded with text", {
+  provider <- test_aws_bedrock_provider(cache_point = "5m")
+
+  turn <- UserTurn(list(
+    ContentText("Hello"),
+    ContentDocument("text/csv", "YQ==", "data.csv")
+  ))
+  result <- as_json(provider, turn, is_last = TRUE)
+  expect_equal(
+    block_types(result$content),
+    c("text", "document", "text", "cachePoint")
+  )
+
+  # No padding needed when the last block is text
+  result <- as_json(provider, UserTurn("Hello"), is_last = TRUE)
+  expect_equal(block_types(result$content), c("text", "cachePoint"))
 })
 
 test_that("cache points are omitted when cache = 'none'", {
@@ -288,6 +326,47 @@ test_that("explicit api overrides the guess", {
     api = "converse"
   )
   expect_s7_class(provider, ProviderAWSBedrock)
+})
+
+test_that("mantle sends bytes rather than urls for pdfs and documents", {
+  local_mocked_aws_credentials()
+
+  pdf <- ContentPDF(
+    "application/pdf",
+    "YQ==",
+    "x.pdf",
+    url = "https://example.com/x.pdf"
+  )
+  doc <- ContentDocument(
+    "text/csv",
+    "YQ==",
+    "data.csv",
+    url = "https://example.com/data.csv"
+  )
+
+  messages <- provider_aws_bedrock(api = "messages")
+  expect_equal(
+    as_json(messages, pdf)$source,
+    list(type = "base64", media_type = "application/pdf", data = "YQ==")
+  )
+
+  responses <- provider_aws_bedrock(api = "responses")
+  expect_equal(
+    as_json(responses, pdf)$content[[1]],
+    list(
+      type = "input_file",
+      filename = "x.pdf",
+      file_data = "data:application/pdf;base64,YQ=="
+    )
+  )
+  expect_equal(
+    as_json(responses, doc)$content[[1]],
+    list(
+      type = "input_file",
+      filename = "data.csv",
+      file_data = "data:text/csv;base64,YQ=="
+    )
+  )
 })
 
 test_that("mantle requests are signed as bedrock in the right region", {
