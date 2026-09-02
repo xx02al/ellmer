@@ -691,6 +691,8 @@ method(count_tokens, ProviderAnthropic) <- function(
   tools = list(),
   type = NULL
 ) {
+  turn <- user_turn(...)
+
   req <- base_request(provider)
   req <- req_url_path_append(req, "messages/count_tokens")
 
@@ -736,7 +738,7 @@ method(count_tokens, ProviderAnthropic) <- function(
   body <- compact(list(
     model = model@name,
     system = system,
-    messages = list(as_json(provider, user_turn(...), is_last = TRUE)),
+    messages = list(as_json(provider, turn, is_last = TRUE)),
     tools = tools,
     tool_choice = tool_choice,
     output_config = output_config
@@ -826,32 +828,32 @@ method(as_json, list(ProviderAnthropic, ContentPDF)) <- function(
 
 method(as_json, list(ProviderAnthropic, ContentUploaded)) <- function(
   provider,
-  x
+  x,
+  ...
 ) {
-  # https://docs.claude.com/en/docs/build-with-claude/files#using-a-file-in-messages
-  block_type <- switch(
-    x@mime_type,
-    "application/pdf" = "document",
-    "text/plain" = "document",
-    "image/jpeg" = "image",
-    "image/png" = "image",
-    "image/gif" = "image",
-    "image/webp" = "image",
-    "text/csv" = "container_upload",
-    "application/json" = "container_upload",
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" = "container_upload",
-    "application/vnd.ms-excel" = "container_upload",
-    "text/xml" = "container_upload",
-    "application/xml" = "container_upload"
-  )
-
-  list(
-    type = block_type,
-    source = list(
-      type = "file",
-      file_id = x@uri
+  # https://platform.claude.com/docs/en/build-with-claude/files#file-types-and-content-blocks
+  block_type <- if (grepl("^image/", x@mime_type)) {
+    "image"
+  } else {
+    switch(
+      x@mime_type,
+      "text/csv" = "container_upload",
+      "application/json" = "container_upload",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" = "container_upload",
+      "application/vnd.ms-excel" = "container_upload",
+      "text/xml" = "container_upload",
+      "application/xml" = "container_upload",
+      "document"
     )
-  )
+  }
+
+  # Unlike document/image blocks, container_upload (for the code execution
+  # tool) takes file_id directly rather than a source object.
+  if (block_type == "container_upload") {
+    list(type = block_type, file_id = x@uri)
+  } else {
+    list(type = block_type, source = list(type = "file", file_id = x@uri))
+  }
 }
 
 method(as_json, list(ProviderAnthropic, ContentImageRemote)) <- function(
