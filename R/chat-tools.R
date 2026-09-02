@@ -34,8 +34,11 @@ on_load({
     on_tool_request = function(request) invisible(),
     on_tool_result = function(result) invisible(),
     yield_request = FALSE,
-    otel_span = NULL
+    otel_span = NULL,
+    tool_context = NULL
   ) {
+    tool_context <- tool_context %||% new_tool_context
+
     tool_requests <- extract_tool_requests(turn)
 
     for (request in tool_requests) {
@@ -52,7 +55,11 @@ on_load({
         next
       }
 
-      result <- invoke_tool(request, otel_span = otel_span)
+      result <- invoke_tool(
+        request,
+        otel_span = otel_span,
+        tool_context = tool_context
+      )
 
       if (promises::is.promise(result@value)) {
         cli::cli_abort(
@@ -75,13 +82,15 @@ on_load({
   # tasks should be run in parallel or sequentially.
   invoke_tools_async <- coro::generator(function(
     turn,
-    tools,
     echo = "none",
     on_tool_request = function(request) invisible(),
     on_tool_result = function(result) invisible(),
     yield_request = FALSE,
-    otel_span = NULL
+    otel_span = NULL,
+    tool_context = NULL
   ) {
+    tool_context <- tool_context %||% new_tool_context
+
     tool_requests <- extract_tool_requests(turn)
 
     invoke_tool_async_wrapper <- coro::async(function(request) {
@@ -96,7 +105,11 @@ on_load({
         return(rejected)
       }
 
-      result <- coro::await(invoke_tool_async(request, otel_span = otel_span))
+      result <- coro::await(invoke_tool_async(
+        request,
+        otel_span = otel_span,
+        tool_context = tool_context
+      ))
 
       maybe_echo_tool(result, echo = echo)
       on_tool_result(result)
@@ -182,7 +195,14 @@ normalize_tool_result <- function(result) {
 }
 
 # Also need to handle edge cases: https://platform.openai.com/docs/guides/function-calling/edge-cases
-invoke_tool <- function(request, otel_span = NULL) {
+invoke_tool <- function(
+  request,
+  otel_span = NULL,
+  tool_context = new_tool_context
+) {
+  context <- tool_context(request)
+  local_tool_context(context)
+
   if (is.null(request@tool)) {
     return(new_tool_result(request, error = "Unknown tool"))
   }
@@ -208,7 +228,13 @@ invoke_tool <- function(request, otel_span = NULL) {
 }
 
 on_load(
-  invoke_tool_async <- coro::async(function(request, otel_span = NULL) {
+  invoke_tool_async <- coro::async(function(
+    request,
+    otel_span = NULL,
+    tool_context = NULL
+  ) {
+    tool_context <- tool_context %||% new_tool_context
+
     if (is.null(request@tool)) {
       return(new_tool_result(request, error = "Unknown tool"))
     }
@@ -220,11 +246,12 @@ on_load(
     }
 
     tool_span <- local_tool_otel_span(request, parent = otel_span)
+    context <- tool_context(request)
 
     tryCatch(
       {
-        result <- await(do.call(request@tool, args))
-        new_tool_result(request, result)
+        value <- await(with_tool_context(context, do.call(request@tool, args)))
+        new_tool_result(request, value)
       },
       error = function(e) {
         record_tool_otel_span_error(tool_span, e)
