@@ -18,6 +18,18 @@ or friends instead.
 
 A Chat object
 
+## Active bindings
+
+- `conversation_id`:
+
+  Identifier for the current conversation. When set, it is recorded as
+  the `gen_ai.conversation.id` attribute on the OpenTelemetry spans
+  emitted for subsequent model calls. Assign `NULL` to clear.
+
+  Developer-facing: intended for frameworks that manage conversation
+  history (e.g., Shiny apps). ellmer never generates an identifier on
+  its own.
+
 ## Methods
 
 ### Public methods
@@ -50,6 +62,16 @@ A Chat object
 
 - [`Chat$token_count()`](#method-Chat-token_count)
 
+- [`Chat$file_upload()`](#method-Chat-file_upload)
+
+- [`Chat$file_list()`](#method-Chat-file_list)
+
+- [`Chat$file_get()`](#method-Chat-file_get)
+
+- [`Chat$file_download()`](#method-Chat-file_download)
+
+- [`Chat$file_delete()`](#method-Chat-file_delete)
+
 - [`Chat$last_turn()`](#method-Chat-last_turn)
 
 - [`Chat$chat()`](#method-Chat-chat)
@@ -78,6 +100,10 @@ A Chat object
 
 - [`Chat$on_tool_result()`](#method-Chat-on_tool_result)
 
+- [`Chat$on_request_start()`](#method-Chat-on_request_start)
+
+- [`Chat$on_request_end()`](#method-Chat-on_request_end)
+
 - [`Chat$clone()`](#method-Chat-clone)
 
 ------------------------------------------------------------------------
@@ -86,7 +112,7 @@ A Chat object
 
 #### Usage
 
-    Chat$new(provider, model, system_prompt = NULL, echo = "none")
+    Chat$new(provider, model = NULL, system_prompt = NULL, echo = "none")
 
 #### Arguments
 
@@ -355,6 +381,166 @@ The estimated number of input tokens.
 
 ------------------------------------------------------------------------
 
+### `Chat$file_upload()`
+
+**\[experimental\]**
+
+Upload a file to the chat's provider, once, so later turns can reference
+it by id instead of re-sending its contents. Prefer this over
+[`content_pdf_file()`](https://ellmer.tidyverse.org/dev/reference/content_pdf_file.md),
+[`content_image_file()`](https://ellmer.tidyverse.org/dev/reference/content_image_url.md),
+or
+[`content_document_file()`](https://ellmer.tidyverse.org/dev/reference/content_document_file.md)
+when a file is large or used across many turns. Otherwise, sending the
+file inline is simpler: it isn't limited to providers with a files API,
+and there's nothing stored on the provider's side to expire or clean up.
+
+File management is supported by
+[`chat_openai()`](https://ellmer.tidyverse.org/dev/reference/chat_openai.md),
+[`chat_anthropic()`](https://ellmer.tidyverse.org/dev/reference/chat_anthropic.md),
+and
+[`chat_google_gemini()`](https://ellmer.tidyverse.org/dev/reference/chat_google_gemini.md);
+other providers error. Provider notes:
+
+- Gemini files always expire after 48 hours (so `expires_in_h` can't be
+  changed), and uploading waits until Gemini finishes processing the
+  file (which can take a while for large video/audio), so the returned
+  reference is always ready to use. The Files API isn't available on
+  Vertex AI; there, upload the file to a Cloud Storage bucket and
+  reference it with
+  `ContentUploaded(uri = "gs://bucket/object", mime_type = ...)`.
+
+- An OpenAI upload can also be referenced from a
+  [`chat_openai_compatible()`](https://ellmer.tidyverse.org/dev/reference/chat_openai_compatible.md)
+  chat pointed at OpenAI's Chat Completions API, except for images,
+  which that API can't reference by id.
+
+#### Usage
+
+    Chat$file_upload(path, mime_type = NULL, expires_in_h = 48)
+
+#### Arguments
+
+- `path`:
+
+  Path to a file to upload.
+
+- `mime_type`:
+
+  MIME type of the file. If not supplied, it's guessed from the file
+  extension.
+
+- `expires_in_h`:
+
+  Number of hours until the provider deletes the file. Defaults to 48.
+  Anthropic accepts 1 to 2160 (90 days), OpenAI 1 to 720 (30 days), and
+  both accept `Inf` to keep the file until you delete it yourself.
+  Gemini always uses 48 and can't be changed.
+
+#### Returns
+
+A
+[ContentUploaded](https://ellmer.tidyverse.org/dev/reference/Content.md)
+that can be passed to `$chat()` and friends in place of the file itself.
+
+------------------------------------------------------------------------
+
+### `Chat$file_list()`
+
+**\[experimental\]**
+
+List files previously uploaded to the chat's provider.
+
+#### Usage
+
+    Chat$file_list()
+
+#### Returns
+
+A data frame with one row per file: normalized columns (`id`,
+`filename`, `mime_type`, `size_bytes`, `created_at`, `expires_at`)
+first, then any provider-specific columns.
+
+------------------------------------------------------------------------
+
+### `Chat$file_get()`
+
+**\[experimental\]**
+
+Get a reference to a file previously uploaded to the chat's provider,
+e.g. to reuse an upload from an earlier session. Use `$file_list()` to
+find the id.
+
+#### Usage
+
+    Chat$file_get(id)
+
+#### Arguments
+
+- `id`:
+
+  A file id string, or a
+  [ContentUploaded](https://ellmer.tidyverse.org/dev/reference/Content.md).
+
+#### Returns
+
+A
+[ContentUploaded](https://ellmer.tidyverse.org/dev/reference/Content.md)
+that can be passed to `$chat()` and friends, with file metadata
+(`filename`, `size_bytes`, `created_at`, `expires_at`, and any
+provider-specific fields) in its `extra` property. OpenAI doesn't report
+a file's MIME type, so it's guessed from the filename.
+
+------------------------------------------------------------------------
+
+### `Chat$file_download()`
+
+**\[experimental\]**
+
+Download a file from the chat's provider, writing it to `path`. Note
+that providers only serve back model-generated files (e.g. batch
+outputs); files you uploaded yourself can't be re-downloaded.
+
+#### Usage
+
+    Chat$file_download(id, path)
+
+#### Arguments
+
+- `id`:
+
+  A file id string, or a
+  [ContentUploaded](https://ellmer.tidyverse.org/dev/reference/Content.md).
+
+- `path`:
+
+  Path to write the downloaded file to.
+
+#### Returns
+
+`path`, invisibly.
+
+------------------------------------------------------------------------
+
+### `Chat$file_delete()`
+
+**\[experimental\]**
+
+Delete a file previously uploaded to the chat's provider.
+
+#### Usage
+
+    Chat$file_delete(id)
+
+#### Arguments
+
+- `id`:
+
+  A file id string, or a
+  [ContentUploaded](https://ellmer.tidyverse.org/dev/reference/Content.md).
+
+------------------------------------------------------------------------
+
 ### `Chat$last_turn()`
 
 The last turn returned by the assistant.
@@ -514,13 +700,24 @@ waiting for more content from the chatbot.
 
 #### Usage
 
-    Chat$stream(..., stream = c("text", "content"), controller = NULL)
+    Chat$stream(..., type = NULL, stream = c("text", "content"), controller = NULL)
 
 #### Arguments
 
 - `...`:
 
   The input to send to the chatbot. Can be strings or images.
+
+- `type`:
+
+  An optional `type_()` structured-data specification. When supplied,
+  registered tools are suppressed and the completed assistant turn
+  stores a `ContentJson`. The provider constrains the response to JSON.
+  With `stream = "text"` (the default), structured stream chunks are raw
+  JSON text; with `stream = "content"`, they are
+  [Content](https://ellmer.tidyverse.org/dev/reference/Content.md)
+  objects. Streaming structured output requires native provider support;
+  tool-based fallback is not supported.
 
 - `stream`:
 
@@ -548,6 +745,7 @@ yields string promises.
 
     Chat$stream_async(
       ...,
+      type = NULL,
       tool_mode = c("concurrent", "sequential"),
       stream = c("text", "content"),
       controller = NULL
@@ -558,6 +756,17 @@ yields string promises.
 - `...`:
 
   The input to send to the chatbot. Can be strings or images.
+
+- `type`:
+
+  An optional `type_()` structured-data specification. When supplied,
+  registered tools are suppressed and the completed assistant turn
+  stores a `ContentJson`. The provider constrains the response to JSON.
+  With `stream = "text"` (the default), structured stream chunks are raw
+  JSON text; with `stream = "content"`, they are
+  [Content](https://ellmer.tidyverse.org/dev/reference/Content.md)
+  objects. Streaming structured output requires native provider support;
+  tool-based fallback is not supported.
 
 - `tool_mode`:
 
@@ -691,6 +900,64 @@ Register a callback for a tool result event.
 
   A function to be called when a tool result event occurs, which must
   have `result` as its only argument.
+
+#### Returns
+
+A function that can be called to remove the callback.
+
+------------------------------------------------------------------------
+
+### `Chat$on_request_start()`
+
+Register a callback that fires before each model request, including each
+round of the tool loop. Use it to inspect the outgoing request, or to
+compact the conversation with `$set_turns()`.
+
+`turns` includes the pending turn about to be sent, which `$set_turns()`
+re-appends automatically. So compact with
+`chat$set_turns(compact(chat$get_turns()))` rather than passing `turns`
+back to `$set_turns()`, which would duplicate the pending turn.
+
+#### Usage
+
+    Chat$on_request_start(callback)
+
+#### Arguments
+
+- `callback`:
+
+  A function called with a single argument `turns`, the list of turns
+  about to be sent. The return value is ignored, but may be a promise
+  when used with `$chat_async()` or `$stream_async()`.
+
+#### Returns
+
+A function that can be called to remove the callback.
+
+------------------------------------------------------------------------
+
+### `Chat$on_request_end()`
+
+Register a callback that fires after each model request, before any tool
+calls in the response are executed. Use it to track latency or cost per
+request, or to observe tool requests before they run.
+
+If the request is cancelled, `turn` is an
+[AssistantPartialTurn](https://ellmer.tidyverse.org/dev/reference/Turn.md)
+with `NA` tokens and cost. If the request errors, the callback does not
+fire.
+
+#### Usage
+
+    Chat$on_request_end(callback)
+
+#### Arguments
+
+- `callback`:
+
+  A function called with a single argument `turn`, the assistant turn
+  just returned by the model. The return value is ignored, but may be a
+  promise when used with `$chat_async()` or `$stream_async()`.
 
 #### Returns
 

@@ -67,12 +67,27 @@ ContentToolRequest(
 
 ContentToolResult(value = NULL, error = NULL, extra = list(), request = NULL)
 
+ContentUploaded(
+  uri = stop("Required"),
+  mime_type = "",
+  provider = "",
+  extra = list()
+)
+
 ContentThinking(thinking = stop("Required"), extra = list())
 
 ContentPDF(
   type = stop("Required"),
   data = stop("Required"),
-  filename = stop("Required")
+  filename = stop("Required"),
+  url = NULL
+)
+
+ContentDocument(
+  mime_type = stop("Required"),
+  data = stop("Required"),
+  filename = stop("Required"),
+  url = NULL
 )
 ```
 
@@ -150,6 +165,20 @@ ContentPDF(
 
   The ContentToolRequest associated with the tool result, automatically
   added by ellmer when evaluating the tool call.
+
+- uri:
+
+  The URI or provider-assigned id of the uploaded file.
+
+- mime_type:
+
+  MIME type of the file or document.
+
+- provider:
+
+  Lowercase name of the provider the file was uploaded to (e.g.
+  `"openai"`, `"anthropic"`, `"google"`), or `""` when unknown. Used to
+  detect a file uploaded to one provider being used with another.
 
 - thinking:
 

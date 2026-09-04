@@ -92,13 +92,13 @@ providers are especially welcome.
 ### Provider-specific helpers
 
 - [`google_upload()`](https://ellmer.tidyverse.org/dev/reference/google_upload.md)
-  **\[experimental\]** : Upload a file to gemini
+  **\[deprecated\]** : Upload a file to gemini
 - [`claude_file_upload()`](https://ellmer.tidyverse.org/dev/reference/claude_file_upload.md)
   [`claude_file_list()`](https://ellmer.tidyverse.org/dev/reference/claude_file_upload.md)
   [`claude_file_get()`](https://ellmer.tidyverse.org/dev/reference/claude_file_upload.md)
   [`claude_file_download()`](https://ellmer.tidyverse.org/dev/reference/claude_file_upload.md)
   [`claude_file_delete()`](https://ellmer.tidyverse.org/dev/reference/claude_file_upload.md)
-  **\[experimental\]** : Upload, downloand, and manage files for Claude
+  **\[deprecated\]** : Upload, download, and manage files for Claude
 - [`claude_tool_web_search()`](https://ellmer.tidyverse.org/dev/reference/claude_tool_web_search.md)
   : Claude web search tool
 - [`claude_tool_web_fetch()`](https://ellmer.tidyverse.org/dev/reference/claude_tool_web_fetch.md)
@@ -114,6 +114,9 @@ providers are especially welcome.
 
 - [`create_tool_def()`](https://ellmer.tidyverse.org/dev/reference/create_tool_def.md)
   : Create metadata for a tool
+- [`content_document_file()`](https://ellmer.tidyverse.org/dev/reference/content_document_file.md)
+  [`content_document_url()`](https://ellmer.tidyverse.org/dev/reference/content_document_file.md)
+  : Encode documents for chat input
 - [`content_image_url()`](https://ellmer.tidyverse.org/dev/reference/content_image_url.md)
   [`content_image_file()`](https://ellmer.tidyverse.org/dev/reference/content_image_url.md)
   [`content_image_plot()`](https://ellmer.tidyverse.org/dev/reference/content_image_url.md)
@@ -149,6 +152,10 @@ providers are especially welcome.
   Define a tool
 - [`tool_annotations()`](https://ellmer.tidyverse.org/dev/reference/tool_annotations.md)
   : Tool annotations
+- [`tool_context()`](https://ellmer.tidyverse.org/dev/reference/tool_context.md)
+  [`with_tool_context()`](https://ellmer.tidyverse.org/dev/reference/tool_context.md)
+  [`local_tool_context()`](https://ellmer.tidyverse.org/dev/reference/tool_context.md)
+  : Access the current tool context
 - [`tool_reject()`](https://ellmer.tidyverse.org/dev/reference/tool_reject.md)
   : Reject a tool call
 - [`type_boolean()`](https://ellmer.tidyverse.org/dev/reference/type_boolean.md)
@@ -192,8 +199,10 @@ provider.
   [`ContentImageInline()`](https://ellmer.tidyverse.org/dev/reference/Content.md)
   [`ContentToolRequest()`](https://ellmer.tidyverse.org/dev/reference/Content.md)
   [`ContentToolResult()`](https://ellmer.tidyverse.org/dev/reference/Content.md)
+  [`ContentUploaded()`](https://ellmer.tidyverse.org/dev/reference/Content.md)
   [`ContentThinking()`](https://ellmer.tidyverse.org/dev/reference/Content.md)
   [`ContentPDF()`](https://ellmer.tidyverse.org/dev/reference/Content.md)
+  [`ContentDocument()`](https://ellmer.tidyverse.org/dev/reference/Content.md)
   : Content types received from and sent to a chatbot
 - [`Source()`](https://ellmer.tidyverse.org/dev/reference/Source.md)
   [`WebSource()`](https://ellmer.tidyverse.org/dev/reference/Source.md)
