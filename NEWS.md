@@ -1,5 +1,7 @@
 # ellmer (development version)
 
+* `live_browser()` works again with shinychat >= 0.5.0 (#1167).
+
 # ellmer 0.5.0
 
 ## Lifecycle changes
