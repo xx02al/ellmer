@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "min_ellmer_version": "0.5.0",
-  "updated_at": "2026-09-28T12:34:33Z",
+  "updated_at": "2026-10-05T13:14:32Z",
   "data": [
     {
       "provider": "AWS/Bedrock",
@@ -57,9 +57,9 @@
       "provider": "AWS/Bedrock",
       "model": "amazon.nova-2-pro-preview-20251202-v1:0",
       "variant": "",
-      "input": 2.1875,
-      "output": 17.5,
-      "cached_input": 0.546875
+      "input": 1.25,
+      "output": 10,
+      "cached_input": 0.3125
     },
     {
       "provider": "AWS/Bedrock",
@@ -403,6 +403,14 @@
     },
     {
       "provider": "AWS/Bedrock",
+      "model": "anthropic.claude-sonnet-5-5",
+      "variant": "",
+      "input": 2,
+      "output": 10,
+      "cached_input": 0.2
+    },
+    {
+      "provider": "AWS/Bedrock",
       "model": "anthropic.claude-v1",
       "variant": "",
       "input": 8,
@@ -552,8 +560,8 @@
       "provider": "AWS/Bedrock",
       "model": "ap-southeast-2/minimax.minimax-m2.5",
       "variant": "",
-      "input": 0.309,
-      "output": 1.236
+      "input": 0.31,
+      "output": 1.24
     },
     {
       "provider": "AWS/Bedrock",
@@ -609,9 +617,9 @@
       "provider": "AWS/Bedrock",
       "model": "apac.amazon.nova-2-pro-preview-20251202-v1:0",
       "variant": "",
-      "input": 2.1875,
-      "output": 17.5,
-      "cached_input": 0.546875
+      "input": 1.375,
+      "output": 11,
+      "cached_input": 0.34375
     },
     {
       "provider": "AWS/Bedrock",
@@ -734,6 +742,14 @@
     },
     {
       "provider": "AWS/Bedrock",
+      "model": "apac.anthropic.claude-sonnet-5-5",
+      "variant": "",
+      "input": 2.2,
+      "output": 11,
+      "cached_input": 0.22
+    },
+    {
+      "provider": "AWS/Bedrock",
       "model": "au.anthropic.claude-fable-5",
       "variant": "",
       "input": 11,
@@ -837,6 +853,14 @@
     {
       "provider": "AWS/Bedrock",
       "model": "au.anthropic.claude-sonnet-5",
+      "variant": "",
+      "input": 2.2,
+      "output": 11,
+      "cached_input": 0.22
+    },
+    {
+      "provider": "AWS/Bedrock",
+      "model": "au.anthropic.claude-sonnet-5-5",
       "variant": "",
       "input": 2.2,
       "output": 11,
@@ -1157,9 +1181,9 @@
       "provider": "AWS/Bedrock",
       "model": "eu.amazon.nova-2-pro-preview-20251202-v1:0",
       "variant": "",
-      "input": 2.1875,
-      "output": 17.5,
-      "cached_input": 0.546875
+      "input": 1.375,
+      "output": 11,
+      "cached_input": 0.34375
     },
     {
       "provider": "AWS/Bedrock",
@@ -1377,6 +1401,14 @@
     },
     {
       "provider": "AWS/Bedrock",
+      "model": "eu.anthropic.claude-sonnet-5-5",
+      "variant": "",
+      "input": 2.2,
+      "output": 11,
+      "cached_input": 0.22
+    },
+    {
+      "provider": "AWS/Bedrock",
       "model": "eu.deepseek.v3.2",
       "variant": "",
       "input": 0.74,
@@ -1561,6 +1593,14 @@
     },
     {
       "provider": "AWS/Bedrock",
+      "model": "global.anthropic.claude-sonnet-5-5",
+      "variant": "",
+      "input": 2,
+      "output": 10,
+      "cached_input": 0.2
+    },
+    {
+      "provider": "AWS/Bedrock",
       "model": "global.cohere.embed-v4:0",
       "variant": "",
       "input": 0.12,
@@ -1704,6 +1744,22 @@
     },
     {
       "provider": "AWS/Bedrock",
+      "model": "global.openai.gpt-6.1-sol",
+      "variant": "",
+      "input": 2,
+      "output": 10,
+      "cached_input": 0.1
+    },
+    {
+      "provider": "AWS/Bedrock",
+      "model": "global.openai.gpt-6.1-sol",
+      "variant": "above_272k_tokens",
+      "input": 4,
+      "output": 15,
+      "cached_input": 0.2
+    },
+    {
+      "provider": "AWS/Bedrock",
       "model": "global.twelvelabs.pegasus-1-2-v1:0",
       "variant": "",
       "output": 7.5
@@ -1711,6 +1767,14 @@
     {
       "provider": "AWS/Bedrock",
       "model": "global.xai.grok-4.6",
+      "variant": "",
+      "input": 2,
+      "output": 6,
+      "cached_input": 0.5
+    },
+    {
+      "provider": "AWS/Bedrock",
+      "model": "global.xai.grok-4.7",
       "variant": "",
       "input": 2,
       "output": 6,
@@ -1854,6 +1918,14 @@
     },
     {
       "provider": "AWS/Bedrock",
+      "model": "jp.anthropic.claude-sonnet-5-5",
+      "variant": "",
+      "input": 2.2,
+      "output": 11,
+      "cached_input": 0.22
+    },
+    {
+      "provider": "AWS/Bedrock",
       "model": "meta.llama2-13b-chat-v1",
       "variant": "",
       "input": 0.75,
@@ -1870,15 +1942,15 @@
       "provider": "AWS/Bedrock",
       "model": "meta.llama3-1-405b-instruct-v1:0",
       "variant": "",
-      "input": 5.32,
-      "output": 16
+      "input": 2.4,
+      "output": 2.4
     },
     {
       "provider": "AWS/Bedrock",
       "model": "meta.llama3-1-70b-instruct-v1:0",
       "variant": "",
-      "input": 0.99,
-      "output": 0.99
+      "input": 0.72,
+      "output": 0.72
     },
     {
       "provider": "AWS/Bedrock",
@@ -1891,8 +1963,8 @@
       "provider": "AWS/Bedrock",
       "model": "meta.llama3-2-11b-instruct-v1:0",
       "variant": "",
-      "input": 0.35,
-      "output": 0.35
+      "input": 0.16,
+      "output": 0.16
     },
     {
       "provider": "AWS/Bedrock",
@@ -1912,8 +1984,8 @@
       "provider": "AWS/Bedrock",
       "model": "meta.llama3-2-90b-instruct-v1:0",
       "variant": "",
-      "input": 2,
-      "output": 2
+      "input": 0.72,
+      "output": 0.72
     },
     {
       "provider": "AWS/Bedrock",
@@ -2038,8 +2110,8 @@
       "provider": "AWS/Bedrock",
       "model": "mistral.mistral-large-2407-v1:0",
       "variant": "",
-      "input": 3,
-      "output": 9
+      "input": 2,
+      "output": 6
     },
     {
       "provider": "AWS/Bedrock",
@@ -2115,9 +2187,9 @@
       "provider": "AWS/Bedrock",
       "model": "moonshotai.kimi-k3",
       "variant": "",
-      "input": 3,
-      "output": 15,
-      "cached_input": 0.3
+      "input": 3.3,
+      "output": 16.5,
+      "cached_input": 0.33
     },
     {
       "provider": "AWS/Bedrock",
@@ -2282,6 +2354,22 @@
       "input": 4,
       "output": 15,
       "cached_input": 0.4
+    },
+    {
+      "provider": "AWS/Bedrock",
+      "model": "openai.gpt-6.1-sol",
+      "variant": "",
+      "input": 2,
+      "output": 10,
+      "cached_input": 0.1
+    },
+    {
+      "provider": "AWS/Bedrock",
+      "model": "openai.gpt-6.1-sol",
+      "variant": "above_272k_tokens",
+      "input": 4,
+      "output": 15,
+      "cached_input": 0.2
     },
     {
       "provider": "AWS/Bedrock",
@@ -2756,6 +2844,14 @@
     },
     {
       "provider": "AWS/Bedrock",
+      "model": "us-gov-east-1/anthropic.claude-sonnet-5-5",
+      "variant": "",
+      "input": 2.4,
+      "output": 12,
+      "cached_input": 0.24
+    },
+    {
+      "provider": "AWS/Bedrock",
       "model": "us-gov-east-1/claude-sonnet-4-5-20250929-v1:0",
       "variant": "",
       "input": 3.6,
@@ -2965,6 +3061,14 @@
     {
       "provider": "AWS/Bedrock",
       "model": "us-gov-west-1/anthropic.claude-sonnet-5",
+      "variant": "",
+      "input": 2.4,
+      "output": 12,
+      "cached_input": 0.24
+    },
+    {
+      "provider": "AWS/Bedrock",
+      "model": "us-gov-west-1/anthropic.claude-sonnet-5-5",
       "variant": "",
       "input": 2.4,
       "output": 12,
@@ -3183,6 +3287,14 @@
     },
     {
       "provider": "AWS/Bedrock",
+      "model": "us-gov.anthropic.claude-sonnet-5-5",
+      "variant": "",
+      "input": 2.4,
+      "output": 12,
+      "cached_input": 0.24
+    },
+    {
+      "provider": "AWS/Bedrock",
       "model": "us-gov.nvidia.nemotron-nano-12b-v2",
       "variant": "",
       "input": 0.24,
@@ -3348,9 +3460,9 @@
       "provider": "AWS/Bedrock",
       "model": "us.amazon.nova-2-pro-preview-20251202-v1:0",
       "variant": "",
-      "input": 2.1875,
-      "output": 17.5,
-      "cached_input": 0.546875
+      "input": 1.375,
+      "output": 11,
+      "cached_input": 0.34375
     },
     {
       "provider": "AWS/Bedrock",
@@ -3592,6 +3704,14 @@
     },
     {
       "provider": "AWS/Bedrock",
+      "model": "us.anthropic.claude-sonnet-5-5",
+      "variant": "",
+      "input": 2.2,
+      "output": 11,
+      "cached_input": 0.22
+    },
+    {
+      "provider": "AWS/Bedrock",
       "model": "us.cohere.embed-v4:0",
       "variant": "",
       "input": 0.12,
@@ -3615,15 +3735,15 @@
       "provider": "AWS/Bedrock",
       "model": "us.meta.llama3-1-405b-instruct-v1:0",
       "variant": "",
-      "input": 5.32,
-      "output": 16
+      "input": 2.4,
+      "output": 2.4
     },
     {
       "provider": "AWS/Bedrock",
       "model": "us.meta.llama3-1-70b-instruct-v1:0",
       "variant": "",
-      "input": 0.99,
-      "output": 0.99
+      "input": 0.72,
+      "output": 0.72
     },
     {
       "provider": "AWS/Bedrock",
@@ -3636,8 +3756,8 @@
       "provider": "AWS/Bedrock",
       "model": "us.meta.llama3-2-11b-instruct-v1:0",
       "variant": "",
-      "input": 0.35,
-      "output": 0.35
+      "input": 0.16,
+      "output": 0.16
     },
     {
       "provider": "AWS/Bedrock",
@@ -3657,8 +3777,8 @@
       "provider": "AWS/Bedrock",
       "model": "us.meta.llama3-2-90b-instruct-v1:0",
       "variant": "",
-      "input": 2,
-      "output": 2
+      "input": 0.72,
+      "output": 0.72
     },
     {
       "provider": "AWS/Bedrock",
@@ -3840,6 +3960,22 @@
     },
     {
       "provider": "AWS/Bedrock",
+      "model": "us.openai.gpt-6.1-sol",
+      "variant": "",
+      "input": 2.2,
+      "output": 11,
+      "cached_input": 0.11
+    },
+    {
+      "provider": "AWS/Bedrock",
+      "model": "us.openai.gpt-6.1-sol",
+      "variant": "above_272k_tokens",
+      "input": 4.4,
+      "output": 16.5,
+      "cached_input": 0.22
+    },
+    {
+      "provider": "AWS/Bedrock",
       "model": "us.twelvelabs.pegasus-1-2-v1:0",
       "variant": "",
       "output": 7.5
@@ -3861,6 +3997,14 @@
     {
       "provider": "AWS/Bedrock",
       "model": "us.xai.grok-4.6",
+      "variant": "",
+      "input": 2.2,
+      "output": 6.6,
+      "cached_input": 0.55
+    },
+    {
+      "provider": "AWS/Bedrock",
+      "model": "us.xai.grok-4.7",
       "variant": "",
       "input": 2.2,
       "output": 6.6,
@@ -3902,6 +4046,14 @@
       "input": 2.2,
       "output": 6.6,
       "cached_input": 0.55
+    },
+    {
+      "provider": "AWS/Bedrock",
+      "model": "xai.grok-4.7",
+      "variant": "",
+      "input": 2,
+      "output": 6,
+      "cached_input": 0.5
     },
     {
       "provider": "AWS/Bedrock",
@@ -4263,6 +4415,22 @@
     {
       "provider": "Anthropic",
       "model": "claude-sonnet-5",
+      "variant": "batches",
+      "input": 1,
+      "output": 5,
+      "cached_input": 0.1
+    },
+    {
+      "provider": "Anthropic",
+      "model": "claude-sonnet-5-5",
+      "variant": "",
+      "input": 2,
+      "output": 10,
+      "cached_input": 0.2
+    },
+    {
+      "provider": "Anthropic",
+      "model": "claude-sonnet-5-5",
       "variant": "batches",
       "input": 1,
       "output": 5,
@@ -5147,17 +5315,17 @@
       "provider": "Azure/OpenAI",
       "model": "eu/gpt-6-astra",
       "variant": "",
-      "input": 11,
-      "output": 55,
-      "cached_input": 1.1
+      "input": 12,
+      "output": 60,
+      "cached_input": 1.2
     },
     {
       "provider": "Azure/OpenAI",
       "model": "eu/gpt-6-astra",
       "variant": "above_272k_tokens",
-      "input": 22,
-      "output": 82.5,
-      "cached_input": 2.2
+      "input": 24,
+      "output": 90,
+      "cached_input": 2.4
     },
     {
       "provider": "Azure/OpenAI",
@@ -7133,6 +7301,38 @@
       "input": 4,
       "output": 15,
       "cached_input": 0.4
+    },
+    {
+      "provider": "Azure/OpenAI",
+      "model": "gpt-6.1-sol",
+      "variant": "",
+      "input": 2,
+      "output": 10,
+      "cached_input": 0.1
+    },
+    {
+      "provider": "Azure/OpenAI",
+      "model": "gpt-6.1-sol",
+      "variant": "above_272k_tokens",
+      "input": 4,
+      "output": 15,
+      "cached_input": 0.2
+    },
+    {
+      "provider": "Azure/OpenAI",
+      "model": "gpt-6.1-sol-2026-09-29",
+      "variant": "",
+      "input": 2,
+      "output": 10,
+      "cached_input": 0.1
+    },
+    {
+      "provider": "Azure/OpenAI",
+      "model": "gpt-6.1-sol-2026-09-29",
+      "variant": "above_272k_tokens",
+      "input": 4,
+      "output": 15,
+      "cached_input": 0.2
     },
     {
       "provider": "Azure/OpenAI",
@@ -11714,6 +11914,13 @@
     },
     {
       "provider": "OpenAI",
+      "model": "gpt-4o-mini-tts-2025-03-20",
+      "variant": "",
+      "input": 0.6,
+      "output": 10
+    },
+    {
+      "provider": "OpenAI",
       "model": "gpt-4o-mini-tts-2025-12-15",
       "variant": "",
       "input": 0.6,
@@ -13045,6 +13252,14 @@
     {
       "provider": "OpenAI",
       "model": "gpt-6-astra",
+      "variant": "above_272k_tokens_ultrafast",
+      "input": 120,
+      "output": 450,
+      "cached_input": 12
+    },
+    {
+      "provider": "OpenAI",
+      "model": "gpt-6-astra",
       "variant": "batches",
       "input": 5,
       "output": 25,
@@ -13065,6 +13280,14 @@
       "input": 20,
       "output": 100,
       "cached_input": 2
+    },
+    {
+      "provider": "OpenAI",
+      "model": "gpt-6-astra",
+      "variant": "ultrafast",
+      "input": 60,
+      "output": 300,
+      "cached_input": 6
     },
     {
       "provider": "OpenAI",
@@ -13193,6 +13416,70 @@
       "input": 4,
       "output": 20,
       "cached_input": 0.4
+    },
+    {
+      "provider": "OpenAI",
+      "model": "gpt-6.1-sol",
+      "variant": "",
+      "input": 2,
+      "output": 10,
+      "cached_input": 0.1
+    },
+    {
+      "provider": "OpenAI",
+      "model": "gpt-6.1-sol",
+      "variant": "above_272k_tokens",
+      "input": 4,
+      "output": 15,
+      "cached_input": 0.2
+    },
+    {
+      "provider": "OpenAI",
+      "model": "gpt-6.1-sol",
+      "variant": "above_272k_tokens_batches",
+      "input": 2,
+      "output": 7.5,
+      "cached_input": 0.1
+    },
+    {
+      "provider": "OpenAI",
+      "model": "gpt-6.1-sol",
+      "variant": "above_272k_tokens_flex",
+      "input": 2,
+      "output": 7.5,
+      "cached_input": 0.1
+    },
+    {
+      "provider": "OpenAI",
+      "model": "gpt-6.1-sol",
+      "variant": "above_272k_tokens_priority",
+      "input": 8,
+      "output": 30,
+      "cached_input": 0.4
+    },
+    {
+      "provider": "OpenAI",
+      "model": "gpt-6.1-sol",
+      "variant": "batches",
+      "input": 1,
+      "output": 5,
+      "cached_input": 0.05
+    },
+    {
+      "provider": "OpenAI",
+      "model": "gpt-6.1-sol",
+      "variant": "flex",
+      "input": 1,
+      "output": 5,
+      "cached_input": 0.05
+    },
+    {
+      "provider": "OpenAI",
+      "model": "gpt-6.1-sol",
+      "variant": "priority",
+      "input": 4,
+      "output": 20,
+      "cached_input": 0.2
     },
     {
       "provider": "OpenAI",
@@ -13351,6 +13638,13 @@
     },
     {
       "provider": "OpenAI",
+      "model": "gpt-image-2.5-flare",
+      "variant": "batches",
+      "input": 2.5,
+      "cached_input": 0.625
+    },
+    {
+      "provider": "OpenAI",
       "model": "gpt-image-2.5-flare-2026-09-08",
       "variant": "",
       "input": 5,
@@ -13362,6 +13656,13 @@
       "variant": "",
       "input": 5,
       "cached_input": 1.25
+    },
+    {
+      "provider": "OpenAI",
+      "model": "gpt-image-2.5-sunburst",
+      "variant": "batches",
+      "input": 2.5,
+      "cached_input": 0.625
     },
     {
       "provider": "OpenAI",
@@ -14101,6 +14402,22 @@
     },
     {
       "provider": "OpenRouter",
+      "model": "anthropic/claude-sonnet-5.5",
+      "variant": "",
+      "input": 2,
+      "output": 10,
+      "cached_input": 0.2
+    },
+    {
+      "provider": "OpenRouter",
+      "model": "anthropic/claude-sonnet-5.5:batch",
+      "variant": "",
+      "input": 1,
+      "output": 5,
+      "cached_input": 0.1
+    },
+    {
+      "provider": "OpenRouter",
       "model": "anthropic/claude-sonnet-5:batch",
       "variant": "",
       "input": 1,
@@ -14261,9 +14578,8 @@
       "provider": "OpenRouter",
       "model": "deepseek/deepseek-chat-v3-0324",
       "variant": "",
-      "input": 0.29,
-      "output": 1.14,
-      "cached_input": 0.11
+      "input": 0.25,
+      "output": 1
     },
     {
       "provider": "OpenRouter",
@@ -14354,49 +14670,49 @@
       "provider": "OpenRouter",
       "model": "deepseek/deepseek-v4-flash",
       "variant": "",
-      "input": 0.14,
-      "output": 0.28,
-      "cached_input": 0.028
+      "input": 0.0224,
+      "output": 1.28,
+      "cached_input": 0.0224
     },
     {
       "provider": "OpenRouter",
       "model": "deepseek/deepseek-v4-flash-0731",
       "variant": "",
-      "input": 0.021,
-      "output": 0.32,
-      "cached_input": 0.016
+      "input": 0.0152,
+      "output": 1.28,
+      "cached_input": 0.0152
     },
     {
       "provider": "OpenRouter",
       "model": "deepseek/deepseek-v4-flash-vision-exp",
       "variant": "",
-      "input": 0.44,
-      "output": 1.32,
-      "cached_input": 0.014
+      "input": 0.2156,
+      "output": 0.6468,
+      "cached_input": 0.00686
     },
     {
       "provider": "OpenRouter",
       "model": "deepseek/deepseek-v4-pro",
       "variant": "",
-      "input": 0.9483,
-      "output": 1.8966,
-      "cached_input": 0.079025
+      "input": 0.2088,
+      "output": 0.4176,
+      "cached_input": 0.0174
     },
     {
       "provider": "OpenRouter",
       "model": "deepseek/deepseek-v4-pro-0813",
       "variant": "",
-      "input": 0.24298,
-      "output": 3.5,
-      "cached_input": 0.172
+      "input": 0.85,
+      "output": 5,
+      "cached_input": 0.7
     },
     {
       "provider": "OpenRouter",
       "model": "deepseek/deepseek-v4.1-flash",
       "variant": "",
-      "input": 0.03483,
-      "output": 0.6,
-      "cached_input": 0.03135
+      "input": 0.003,
+      "output": 2.4,
+      "cached_input": 0.003
     },
     {
       "provider": "OpenRouter",
@@ -14838,9 +15154,9 @@
       "provider": "OpenRouter",
       "model": "inclusionai/ling-3.0-flash-fin",
       "variant": "",
-      "input": 0.06,
-      "output": 0.18,
-      "cached_input": 0.012
+      "input": 0.042,
+      "output": 0.1232,
+      "cached_input": 0.0084
     },
     {
       "provider": "OpenRouter",
@@ -14929,8 +15245,9 @@
       "provider": "OpenRouter",
       "model": "meta-llama/llama-3.3-70b-instruct",
       "variant": "",
-      "input": 0.1,
-      "output": 0.32
+      "input": 0.22,
+      "output": 0.5,
+      "cached_input": 0.11
     },
     {
       "provider": "OpenRouter",
@@ -14957,8 +15274,8 @@
       "provider": "OpenRouter",
       "model": "meta/muse-glimmer-30b",
       "variant": "",
-      "input": 0.3,
-      "output": 1.2,
+      "input": 0.35,
+      "output": 1.5,
       "cached_input": 0.04
     },
     {
@@ -15026,15 +15343,15 @@
       "provider": "OpenRouter",
       "model": "minimax/minimax-m1",
       "variant": "",
-      "input": 0.4,
+      "input": 0.55,
       "output": 2.2
     },
     {
       "provider": "OpenRouter",
       "model": "minimax/minimax-m2",
       "variant": "",
-      "input": 0.255,
-      "output": 1.02
+      "input": 0.3,
+      "output": 1.2
     },
     {
       "provider": "OpenRouter",
@@ -15064,9 +15381,9 @@
       "provider": "OpenRouter",
       "model": "minimax/minimax-m2.7",
       "variant": "",
-      "input": 0.3,
-      "output": 1.2,
-      "cached_input": 0.06
+      "input": 0.21,
+      "output": 0.84,
+      "cached_input": 0.042
     },
     {
       "provider": "OpenRouter",
@@ -15319,17 +15636,17 @@
       "provider": "OpenRouter",
       "model": "moonshotai/kimi-k2.7-code",
       "variant": "",
-      "input": 0.6562,
-      "output": 3.3,
+      "input": 0.6712,
+      "output": 3.35,
       "cached_input": 0.18
     },
     {
       "provider": "OpenRouter",
       "model": "moonshotai/kimi-k3",
       "variant": "",
-      "input": 3,
-      "output": 15,
-      "cached_input": 0.3
+      "input": 0.72,
+      "output": 14,
+      "cached_input": 0.7
     },
     {
       "provider": "OpenRouter",
@@ -15409,9 +15726,9 @@
       "provider": "OpenRouter",
       "model": "nvidia/nemotron-3-ultra-550b-a55b",
       "variant": "",
-      "input": 0.6,
-      "output": 2.4,
-      "cached_input": 0.12
+      "input": 0.5,
+      "output": 2.2,
+      "cached_input": 0.1
     },
     {
       "provider": "OpenRouter",
@@ -15424,9 +15741,9 @@
       "provider": "OpenRouter",
       "model": "nvidia/nemotron-3.5-lightning",
       "variant": "",
-      "input": 0.08,
-      "output": 0.2,
-      "cached_input": 0.04
+      "input": 0.0595,
+      "output": 0.17,
+      "cached_input": 0.02975
     },
     {
       "provider": "OpenRouter",
@@ -16026,17 +16343,17 @@
       "provider": "OpenRouter",
       "model": "openai/gpt-5.6-sol-pro",
       "variant": "",
-      "input": 2,
-      "output": 10,
-      "cached_input": 0.2
+      "input": 4,
+      "output": 20,
+      "cached_input": 0.4
     },
     {
       "provider": "OpenRouter",
       "model": "openai/gpt-5.6-sol-pro",
       "variant": "above_272k_tokens",
-      "input": 4,
-      "output": 15,
-      "cached_input": 0.4
+      "input": 8,
+      "output": 30,
+      "cached_input": 0.8
     },
     {
       "provider": "OpenRouter",
@@ -16336,6 +16653,70 @@
     },
     {
       "provider": "OpenRouter",
+      "model": "openai/gpt-6.1-sol",
+      "variant": "",
+      "input": 2,
+      "output": 10,
+      "cached_input": 0.1
+    },
+    {
+      "provider": "OpenRouter",
+      "model": "openai/gpt-6.1-sol",
+      "variant": "above_272k_tokens",
+      "input": 4,
+      "output": 15,
+      "cached_input": 0.2
+    },
+    {
+      "provider": "OpenRouter",
+      "model": "openai/gpt-6.1-sol-pro",
+      "variant": "",
+      "input": 2,
+      "output": 10,
+      "cached_input": 0.1
+    },
+    {
+      "provider": "OpenRouter",
+      "model": "openai/gpt-6.1-sol-pro",
+      "variant": "above_272k_tokens",
+      "input": 4,
+      "output": 15,
+      "cached_input": 0.2
+    },
+    {
+      "provider": "OpenRouter",
+      "model": "openai/gpt-6.1-sol-pro:batch",
+      "variant": "",
+      "input": 1,
+      "output": 5,
+      "cached_input": 0.05
+    },
+    {
+      "provider": "OpenRouter",
+      "model": "openai/gpt-6.1-sol-pro:batch",
+      "variant": "above_272k_tokens",
+      "input": 2,
+      "output": 7.5,
+      "cached_input": 0.1
+    },
+    {
+      "provider": "OpenRouter",
+      "model": "openai/gpt-6.1-sol:batch",
+      "variant": "",
+      "input": 1,
+      "output": 5,
+      "cached_input": 0.05
+    },
+    {
+      "provider": "OpenRouter",
+      "model": "openai/gpt-6.1-sol:batch",
+      "variant": "above_272k_tokens",
+      "input": 2,
+      "output": 7.5,
+      "cached_input": 0.1
+    },
+    {
+      "provider": "OpenRouter",
       "model": "openai/gpt-audio",
       "variant": "",
       "input": 2.5,
@@ -16358,11 +16739,28 @@
     },
     {
       "provider": "OpenRouter",
+      "model": "openai/gpt-image-2",
+      "variant": "",
+      "input": 5
+    },
+    {
+      "provider": "OpenRouter",
+      "model": "openai/gpt-image-2.5-flare",
+      "variant": "",
+      "input": 5
+    },
+    {
+      "provider": "OpenRouter",
+      "model": "openai/gpt-image-2.5-sunburst",
+      "variant": "",
+      "input": 5
+    },
+    {
+      "provider": "OpenRouter",
       "model": "openai/gpt-oss-120b",
       "variant": "",
-      "input": 0.15,
-      "output": 0.6,
-      "cached_input": 0.075
+      "input": 0.037,
+      "output": 0.17
     },
     {
       "provider": "OpenRouter",
@@ -16376,7 +16774,8 @@
       "model": "openai/gpt-oss-20b",
       "variant": "",
       "input": 0.018,
-      "output": 0.09
+      "output": 0.09,
+      "cached_input": 0.009
     },
     {
       "provider": "OpenRouter",
@@ -16549,7 +16948,8 @@
       "model": "prism-ml/ternary-bonsai-2-27b",
       "variant": "",
       "input": 0.075,
-      "output": 0.5
+      "output": 0.5,
+      "cached_input": 0.0375
     },
     {
       "provider": "OpenRouter",
@@ -16622,8 +17022,8 @@
       "provider": "OpenRouter",
       "model": "qwen/qwen3-14b",
       "variant": "",
-      "input": 0.2275,
-      "output": 0.91
+      "input": 0.12,
+      "output": 0.24
     },
     {
       "provider": "OpenRouter",
@@ -16651,15 +17051,15 @@
       "provider": "OpenRouter",
       "model": "qwen/qwen3-30b-a3b",
       "variant": "",
-      "input": 0.13,
-      "output": 0.52
+      "input": 0.12,
+      "output": 0.5
     },
     {
       "provider": "OpenRouter",
       "model": "qwen/qwen3-30b-a3b-instruct-2507",
       "variant": "",
-      "input": 0.1,
-      "output": 0.3
+      "input": 0.04815,
+      "output": 0.19305
     },
     {
       "provider": "OpenRouter",
@@ -16881,9 +17281,9 @@
       "provider": "OpenRouter",
       "model": "qwen/qwen3.5-35b-a3b",
       "variant": "",
-      "input": 0.1625,
-      "output": 1.3,
-      "cached_input": 0.15625
+      "input": 0.15,
+      "output": 1,
+      "cached_input": 0.05
     },
     {
       "provider": "OpenRouter",
@@ -17053,8 +17453,8 @@
       "provider": "OpenRouter",
       "model": "qwen/qwen3.8-27b",
       "variant": "",
-      "input": 0.42,
-      "output": 3,
+      "input": 0.425,
+      "output": 2.55,
       "cached_input": 0.085
     },
     {
@@ -17295,9 +17695,9 @@
       "provider": "OpenRouter",
       "model": "thinkingmachines/inkling",
       "variant": "",
-      "input": 1,
+      "input": 0.95,
       "output": 4.05,
-      "cached_input": 0.17
+      "cached_input": 0.16
     },
     {
       "provider": "OpenRouter",
@@ -17321,6 +17721,14 @@
       "input": 2.5,
       "output": 7.5,
       "cached_input": 0.25
+    },
+    {
+      "provider": "OpenRouter",
+      "model": "unbiased/pareto-26.10-preview",
+      "variant": "",
+      "input": 0.8,
+      "output": 3.2,
+      "cached_input": 0.03
     },
     {
       "provider": "OpenRouter",
@@ -17467,17 +17875,17 @@
       "provider": "OpenRouter",
       "model": "x-ai/grok-4.7",
       "variant": "",
-      "input": 1.6,
-      "output": 4.8,
-      "cached_input": 0.4
+      "input": 2,
+      "output": 6,
+      "cached_input": 0.5
     },
     {
       "provider": "OpenRouter",
       "model": "x-ai/grok-4.7",
       "variant": "above_200k_tokens",
-      "input": 3.2,
-      "output": 9.6,
-      "cached_input": 0.8
+      "input": 4,
+      "output": 12,
+      "cached_input": 1
     },
     {
       "provider": "OpenRouter",
@@ -17588,7 +17996,7 @@
       "variant": "",
       "input": 0.3,
       "output": 0.9,
-      "cached_input": 0.055
+      "cached_input": 0.05
     },
     {
       "provider": "OpenRouter",
@@ -17634,17 +18042,17 @@
       "provider": "OpenRouter",
       "model": "z-ai/glm-5.2",
       "variant": "",
-      "input": 0.6496,
-      "output": 2.0416,
-      "cached_input": 0.12064
+      "input": 0.104,
+      "output": 8,
+      "cached_input": 0.1
     },
     {
       "provider": "OpenRouter",
       "model": "z-ai/glm-5.3",
       "variant": "",
-      "input": 0.3556,
-      "output": 2.574,
-      "cached_input": 0.06604
+      "input": 1.4,
+      "output": 4.4,
+      "cached_input": 0.14
     },
     {
       "provider": "OpenRouter",
@@ -17858,17 +18266,17 @@
       "provider": "OpenRouter",
       "model": "~x-ai/grok-latest",
       "variant": "",
-      "input": 1.6,
-      "output": 4.8,
-      "cached_input": 0.4
+      "input": 2,
+      "output": 6,
+      "cached_input": 0.5
     },
     {
       "provider": "OpenRouter",
       "model": "~x-ai/grok-latest",
       "variant": "above_200k_tokens",
-      "input": 3.2,
-      "output": 9.6,
-      "cached_input": 0.8
+      "input": 4,
+      "output": 12,
+      "cached_input": 1
     },
     {
       "provider": "OpenRouter",
