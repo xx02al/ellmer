@@ -983,6 +983,8 @@ Chat <- R6::R6Class(
         conversation_id = private$.conversation_id
       )
 
+      # Measured from request issuance; chat_perform() blocks until headers arrive.
+      stream_start <- Sys.time()
       response <- chat_perform(
         provider = private$provider,
         model = private$model,
@@ -1021,6 +1023,14 @@ Chat <- R6::R6Class(
           )
           for (content in contents) {
             text <- content_text(content)
+            if (
+              !is.null(stream_start) &&
+                is_stream_text_content(content) &&
+                nzchar(text)
+            ) {
+              record_chat_otel_span_ttft_attr(chat_span, stream_start)
+              stream_start <- NULL
+            }
             if (yield_as_content) {
               yield(content)
             } else if (is_stream_text_content(content)) {
@@ -1144,6 +1154,8 @@ Chat <- R6::R6Class(
         conversation_id = private$.conversation_id
       )
 
+      # Measured from request issuance; chat_perform() blocks until headers arrive.
+      stream_start <- Sys.time()
       response <- chat_perform(
         provider = private$provider,
         model = private$model,
@@ -1182,6 +1194,14 @@ Chat <- R6::R6Class(
           )
           for (content in contents) {
             text <- content_text(content)
+            if (
+              !is.null(stream_start) &&
+                is_stream_text_content(content) &&
+                nzchar(text)
+            ) {
+              record_chat_otel_span_ttft_attr(chat_span, stream_start)
+              stream_start <- NULL
+            }
             if (yield_as_content) {
               yield(content)
             } else if (is_stream_text_content(content)) {
