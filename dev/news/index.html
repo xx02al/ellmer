@@ -59,10 +59,14 @@
 <li>
 <code>Chat$get_tokens()</code> no longer errors when the conversation ends with a user turn that has no completed assistant response yet, or with a partial (interrupted) assistant turn (<a href="https://github.com/taekop" class="external-link">@taekop</a>, <a href="https://github.com/tidyverse/ellmer/issues/1131" class="external-link">#1131</a>).</li>
 <li>
+<code><a href="../reference/chat_cloudflare.html">chat_cloudflare()</a></code> now uses its <code>account</code> argument to build the API URL. Previously it always read <code>CLOUDFLARE_ACCOUNT_ID</code>, ignoring any <code>account</code> you passed in. It also no longer errors when streaming a response that is only a number, which Cloudflare sends as a JSON number instead of a string (<a href="https://github.com/tidyverse/ellmer/issues/1164" class="external-link">#1164</a>).</li>
+<li>
 <code><a href="../reference/chat_openai.html">chat_openai()</a></code> now sends <code>type = "message"</code> on every input item to the Responses API, so OpenAI-compatible servers that require it (e.g. llama.cpp) no longer reject replayed assistant turns (<a href="https://github.com/taekop" class="external-link">@taekop</a>, <a href="https://github.com/tidyverse/ellmer/issues/1153" class="external-link">#1153</a>).</li>
 <li>
 <code><a href="../reference/live_console.html">live_browser()</a></code> works again with shinychat &gt;= 0.5.0 (<a href="https://github.com/tidyverse/ellmer/issues/1167" class="external-link">#1167</a>).</li>
 <li>Streamed responses now record the time to first token (in seconds) as the <code>gen_ai.response.time_to_first_chunk</code> attribute on the OpenTelemetry <code>chat</code> span (<a href="https://github.com/schloerke" class="external-link">@schloerke</a>, <a href="https://github.com/tidyverse/ellmer/issues/1142" class="external-link">#1142</a>).</li>
+<li>
+<code><a href="../reference/parallel_chat.html">parallel_chat_structured()</a></code> and <code><a href="../reference/batch_chat.html">batch_chat_structured()</a></code> now warn instead of silently ignoring <code>include_tokens</code> and <code>include_cost</code> when the result isn’t a data frame, e.g. because <code>type</code> is a top-level <code><a href="../reference/type_boolean.html">type_array()</a></code> or <code>convert = FALSE</code> (<a href="https://github.com/taekop" class="external-link">@taekop</a>, <a href="https://github.com/tidyverse/ellmer/issues/1129" class="external-link">#1129</a>).</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.0" id="ellmer-050">ellmer 0.5.0<a class="anchor" aria-label="anchor" href="#ellmer-050"></a></h2><p class="text-muted">CRAN release: 2026-09-04</p>
