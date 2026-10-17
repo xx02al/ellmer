@@ -399,6 +399,32 @@ test_that("tool_call_response part decodes json-class values", {
   )
 })
 
+test_that("tool_call_response part converts Content values (#1145)", {
+  image <- ContentImageInline("image/png", "abc123")
+  part <- as_otel_part(ContentToolResult(value = image))
+  expect_equal(
+    part$response,
+    list(type = "generic", class = "ContentImageInline")
+  )
+
+  part <- as_otel_part(ContentToolResult(
+    value = list(ContentText("hi"), image)
+  ))
+  expect_equal(
+    part$response,
+    list(
+      list(type = "text", content = "hi"),
+      list(type = "generic", class = "ContentImageInline")
+    )
+  )
+
+  encoded <- jsonlite::toJSON(part, auto_unbox = TRUE, null = "null")
+  expect_equal(
+    jsonlite::fromJSON(encoded, simplifyVector = FALSE)$response,
+    part$response
+  )
+})
+
 test_that("conversation id is recorded on agent and chat spans when set", {
   skip_if_not_installed("otelsdk")
   withr::local_envvar(OTEL_INSTRUMENTATION_GENAI_CAPTURE_MESSAGE_CONTENT = NA)

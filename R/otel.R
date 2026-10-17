@@ -67,10 +67,9 @@ local({
         )
       }
       if (length(turns)) {
-        # Tool result values are typed `class_any`, so tools can return objects
-        # (environments, R6, external pointers) that `jsonlite::toJSON` rejects.
-        # Skip emission rather than break the chat; the provider's tool_string
-        # path will surface a descriptive error.
+        # Tool results are normalized at invoke time, so every value should be
+        # encodable by the time it gets here. Still, telemetry must never break
+        # the chat, so skip emission rather than error.
         tryCatch(
           {
             msgs <- lapply(turns, as_otel_message)
@@ -247,6 +246,13 @@ tool_otel_response <- function(content) {
     # Parse so jsonlite re-emits the structured value rather than encoding the
     # JSON string itself as a quoted string under `auto_unbox = TRUE`.
     return(jsonlite::fromJSON(value, simplifyVector = FALSE))
+  }
+  # `Content` values (e.g. an image) aren't JSON-serializable as-is (#1145).
+  if (S7_inherits(value, Content)) {
+    return(as_otel_part(value))
+  }
+  if (is_content_list(value)) {
+    return(lapply(value, as_otel_part))
   }
   value
 }
