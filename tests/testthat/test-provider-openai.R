@@ -487,3 +487,9 @@ test_that("as_json() serializes uploaded file references", {
     )
   )
 })
+
+test_that("image detail is sent", {
+  provider <- ProviderOpenAI(name = "", base_url = "")
+  image <- content_image_url("https://example.com/image.png", detail = "low")
+  expect_equal(as_json(provider, image)$content[[1]]$detail, "low")
+})
