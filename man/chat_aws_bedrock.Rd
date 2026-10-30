@@ -70,10 +70,16 @@ to enable thinking effort in Anthropic Claude models:
 
 \if{html}{\out{<div class="sourceCode R">}}\preformatted{api_args = list(
   additionalModelRequestFields = list(
-    thinking = list(type = "enabled", budget_tokens = 4000)
+    thinking = list(type = "adaptive"),
+    output_config = list(effort = "high")
   )
 )
 }\if{html}{\out{</div>}}
+
+The example above uses adaptive thinking, which is what current Claude
+models expect. Older models (before Claude Opus 4.6 and Sonnet 4.6) don't
+support it; for those, set a fixed budget instead with
+\code{thinking = list(type = "enabled", budget_tokens = 4000)}.
 
 See \url{https://docs.aws.amazon.com/bedrock/latest/userguide/conversation-inference-call.html}
 for more details.}
