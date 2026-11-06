@@ -2,12 +2,60 @@
 
 ## ellmer (development version)
 
+- [`chat_anthropic()`](https://ellmer.tidyverse.org/dev/reference/chat_anthropic.md)
+  and the other Claude providers now default `max_tokens` to 32,000,
+  rather than 4096
+  ([\#1150](https://github.com/tidyverse/ellmer/issues/1150)).
 - New
   [`vignette("otel")`](https://ellmer.tidyverse.org/dev/articles/otel.md)
   describes how to turn on OpenTelemetry tracing and metrics, what
   ellmer records, and how ellmer’s spans join your own traces
   ([@schloerke](https://github.com/schloerke),
   [\#1187](https://github.com/tidyverse/ellmer/issues/1187)).
+- [`chat_anthropic()`](https://ellmer.tidyverse.org/dev/reference/chat_anthropic.md)
+  and
+  [`chat_aws_bedrock()`](https://ellmer.tidyverse.org/dev/reference/chat_aws_bedrock.md)
+  now report the correct input and cache token counts when a streamed
+  response uses server tools such as web search, so `$get_tokens()` and
+  `$get_cost()` match the same request without streaming
+  ([@pcbeingused333](https://github.com/pcbeingused333),
+  [\#1194](https://github.com/tidyverse/ellmer/issues/1194)).
+- [`chat_anthropic()`](https://ellmer.tidyverse.org/dev/reference/chat_anthropic.md)
+  no longer errors when Claude returns a `redacted_thinking` block
+  ([@pcbeingused333](https://github.com/pcbeingused333),
+  [\#1195](https://github.com/tidyverse/ellmer/issues/1195)).
+- [`chat_google_vertex()`](https://ellmer.tidyverse.org/dev/reference/chat_google_gemini.md)
+  and
+  [`chat_openai()`](https://ellmer.tidyverse.org/dev/reference/chat_openai.md)
+  now report `finish_reason = "tool_use"` rather than `"success"` for
+  turns that call a tool, matching the other providers.
+  [`chat_google_vertex()`](https://ellmer.tidyverse.org/dev/reference/chat_google_gemini.md)
+  also reports the `LANGUAGE`, `IMAGE_SAFETY`,
+  `IMAGE_PROHIBITED_CONTENT`, and `IMAGE_RECITATION` finish reasons as
+  `"content_filter"`
+  ([@pcbeingused333](https://github.com/pcbeingused333),
+  [\#1199](https://github.com/tidyverse/ellmer/issues/1199)).
+- Default models have been updated for a number of providers
+  ([@thisisnic](https://github.com/thisisnic),
+  [\#1176](https://github.com/tidyverse/ellmer/issues/1176)):
+  - [`chat_anthropic()`](https://ellmer.tidyverse.org/dev/reference/chat_anthropic.md)
+    now uses `claude-sonnet-5-5`.
+  - [`chat_aws_bedrock()`](https://ellmer.tidyverse.org/dev/reference/chat_aws_bedrock.md)
+    now uses `us.anthropic.claude-sonnet-5-5`.
+  - [`chat_deepseek()`](https://ellmer.tidyverse.org/dev/reference/chat_deepseek.md)
+    now uses `deepseek-flash`.
+  - [`chat_google_gemini()`](https://ellmer.tidyverse.org/dev/reference/chat_google_gemini.md)
+    and
+    [`chat_google_vertex()`](https://ellmer.tidyverse.org/dev/reference/chat_google_gemini.md)
+    now use `gemini-3.8-flash`.
+  - [`chat_openai()`](https://ellmer.tidyverse.org/dev/reference/chat_openai.md)
+    now uses `gpt-6.1-terra`.
+  - [`chat_openrouter()`](https://ellmer.tidyverse.org/dev/reference/chat_openrouter.md)
+    now uses `gpt-6.1-terra`.
+  - [`chat_posit()`](https://ellmer.tidyverse.org/dev/reference/chat_posit.md)
+    now uses `claude-sonnet-5-5`.
+  - [`chat_snowflake()`](https://ellmer.tidyverse.org/dev/reference/chat_snowflake.md)
+    now uses `claude-sonnet-5-5`.
 - The OpenTelemetry `gen_ai.input.messages` attribute is no longer
   dropped when a tool result returns a `Content` object, such as an
   image ([@taekop](https://github.com/taekop),
